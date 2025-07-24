@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bui Nguyen Anh Quan | Cloud & System Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dark-bg: #0a192f; --light-blue: #ccd6f6; --accent-color: #64ffda;
+            --slate-color: #8892b0; --card-bg: #112240;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--dark-bg); color: var(--light-blue); line-height: 1.6; overflow-x: hidden; }
+        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 25px; }
+        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 100px 0; }
+        h2.section-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 40px; color: var(--accent-color); position: relative; display: inline-block; }
+        h2.section-title::after { content: ''; display: block; width: 80px; height: 3px; background: var(--accent-color); margin-top: 8px; }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .lang-switcher { position: fixed; top: 20px; right: 25px; z-index: 100; background: var(--card-bg); border: 1px solid var(--accent-color); color: var(--accent-color); padding: 8px 12px; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
+        .lang-switcher:hover { background-color: rgba(100, 255, 218, 0.1); }
+        #intro { text-align: center; }
+        #intro h1 { font-size: 4rem; color: var(--light-blue); font-weight: 700; }
+        #intro h3 { font-size: 2rem; color: var(--accent-color); margin-top: 10px; font-weight: 600; }
+        #intro p { font-size: 1.1rem; color: var(--slate-color); max-width: 600px; margin: 20px auto 0; }
+        .scroll-down { margin-top: 50px; font-size: 0.9rem; color: var(--slate-color); animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+        .timeline-container { position: relative; padding-left: 50px; }
+        .timeline-line { position: absolute; left: 20px; top: 0; bottom: 0; width: 3px; background-color: var(--card-bg); }
+        .job { position: relative; margin-bottom: 50px; background-color: var(--card-bg); padding: 25px; border-radius: 8px; border-left: 4px solid var(--accent-color); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .job:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); }
+        .job-node { position: absolute; left: -40px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background-color: var(--dark-bg); border: 3px solid var(--accent-color); border-radius: 50%; cursor: pointer; transition: background-color 0.3s ease; }
+        .job:hover .job-node { background-color: var(--accent-color); }
+        .job h3 { color: var(--light-blue); font-size: 1.5rem; }
+        .job h3 span { color: var(--accent-color); }
+        .job-date { color: var(--slate-color); margin-bottom: 15px; font-size: 0.9rem; }
+        .job-summary { color: var(--slate-color); }
+        .job-details-btn { display: inline-block; margin-top: 15px; color: var(--accent-color); text-decoration: none; font-weight: 500; cursor: pointer; }
+        .job-details-btn:hover { text-decoration: underline; }
+        .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .skill-category { background: var(--card-bg); padding: 25px; border-radius: 8px; }
+        .skill-category h3 { color: var(--accent-color); margin-bottom: 20px; border-bottom: 1px solid var(--slate-color); padding-bottom: 10px; }
+        .skill-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-item { background-color: var(--dark-bg); color: var(--light-blue); padding: 5px 12px; border-radius: 5px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; }
+        .skill-item:hover { color: var(--dark-bg); background-color: var(--accent-color); transform: scale(1.05); }
+        .project-card { background: var(--card-bg); padding: 25px; border-radius: 8px; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; border-top: 4px solid var(--accent-color); }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7); }
+        .project-card h3 { color: var(--light-blue); font-size: 1.5rem; margin-bottom: 10px; }
+        .project-card p { color: var(--slate-color); font-size: 1rem; }
+        #contact { text-align: center; }
+        #contact p { max-width: 500px; margin: 0 auto 30px; color: var(--slate-color); }
+        .contact-links button, .contact-links a { font-family: 'Poppins', sans-serif; font-size: 1.1rem; color: var(--accent-color); background: none; text-decoration: none; margin: 0 15px; padding: 10px 20px; border: 1px solid var(--accent-color); border-radius: 5px; cursor: pointer; transition: all 0.3s ease; }
+        .contact-links button:hover, .contact-links a:hover { background-color: rgba(100, 255, 218, 0.1); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 25, 47, 0.85); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--card-bg); padding: 40px; border-radius: 8px; max-width: 600px; width: 90%; position: relative; transform: scale(0.9); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; }
+        .modal-overlay.active { display: flex; }
+        .modal-overlay.active .modal-content { transform: scale(1); opacity: 1; }
+        .close-modal { position: absolute; top: 15px; right: 15px; font-size: 2rem; color: var(--slate-color); cursor: pointer; border: none; background: none; }
+        .close-modal:hover { color: var(--accent-color); }
+        #modal-title-skill { color: var(--accent-color); }
+        .modal-body ul { list-style: none; margin-top: 20px; }
+        .modal-body ul li { padding-left: 25px; position: relative; margin-bottom: 10px; color: var(--slate-color); }
+        .modal-body ul li::before { content: '▹'; position: absolute; left: 0; color: var(--accent-color); font-weight: bold; }
+        .modal-body p { color: var(--slate-color); margin-top: 15px; }
+        .modal-body h4 { color: var(--accent-color); margin-top: 20px; margin-bottom: 5px; font-size: 1.1rem; }
+        @media (max-width: 768px) { #intro h1 { font-size: 2.5rem; } #intro h3 { font-size: 1.5rem; } .timeline-container { padding-left: 30px; } .job-node { left: -30px; } h2.section-title { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+    <button id="lang-switcher" class="lang-switcher">EN</button>
+    <div id="particles-js"></div>
+
+    <main class="container">
+        <section id="intro">
+             <h1 class="fade-in" data-en="Bui Nguyen Anh Quan" data-vi="Bui Nguyen Anh Quan">Bui Nguyen Anh Quan</h1>
+            <h3 class="fade-in" style="transition-delay: 100ms;" data-en="Cloud & System Engineer" data-vi="Kỹ Sư Hệ Thống & Đám Mây">Kỹ Sư Hệ Thống & Đám Mây</h3>
+            <p class="fade-in" style="transition-delay: 200ms;" data-en="I build, operate, and optimize cloud infrastructure, transforming complex systems into efficient, scalable, and secure solutions." data-vi="Tôi chuyên xây dựng, vận hành và tối ưu hóa hạ tầng điện toán đám mây, biến những hệ thống phức tạp trở nên hiệu quả, có khả năng mở rộng và bảo mật.">Tôi chuyên xây dựng, vận hành và tối ưu hóa hạ tầng điện toán đám mây, biến những hệ thống phức tạp trở nên hiệu quả, có khả năng mở rộng và bảo mật.</p>
+            <div class="scroll-down fade-in" style="transition-delay: 300ms;">
+                <a href="#experience" style="color: var(--slate-color); text-decoration: none;" data-en="Explore My Journey ↓" data-vi="Khám Phá Hành Trình ↓">Khám Phá Hành Trình ↓</a>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title fade-in" data-en="Professional Experience" data-vi="Kinh Nghiệm Chuyên Môn">Kinh Nghiệm Chuyên Môn</h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="job fade-in">
+                    <div class="job-node"></div>
+                    <h3>System Administrator @ <span>Bizfly Cloud</span></h3>
+                    <p class="job-date" data-en="May 2024 - Present" data-vi="Tháng 5, 2024 - Hiện tại">Tháng 5, 2024 - Hiện tại</p>
+                    <p class="job-summary" data-en="Key member operating the Bizfly Cloud CDN project and contributing to 3 other internal infrastructure projects." data-vi="Là thành viên chủ chốt vận hành dự án Bizfly Cloud CDN và tham gia 3 dự án hạ tầng nội bộ khác.">Là thành viên chủ chốt vận hành dự án Bizfly Cloud CDN và tham gia 3 dự án hạ tầng nội bộ khác.</p>
+                    <a class="job-details-btn" data-modal-target="job1" data-en="View Details →" data-vi="Xem chi tiết →">Xem chi tiết →</a>
+                </div>
+                <div class="job fade-in">
+                    <div class="job-node"></div>
+                    <h3>Fresher Cloud Engineer @ <span>FPT Software</span></h3>
+                    <p class="job-date" data-en="Dec 2023 - May 2024" data-vi="Tháng 12, 2023 - Tháng 5, 2024">Tháng 12, 2023 - Tháng 5, 2024</p>
+                    <p class="job-summary" data-en="Gained foundational knowledge and hands-on experience with Amazon Web Services (AWS) in a large-scale enterprise environment." data-vi="Tích lũy kiến thức nền tảng và kinh nghiệm thực tế với Amazon Web Services (AWS) trong môi trường doanh nghiệp quy mô lớn.">Tích lũy kiến thức nền tảng và kinh nghiệm thực tế với Amazon Web Services (AWS) trong môi trường doanh nghiệp quy mô lớn.</p>
+                    <a class="job-details-btn" data-modal-target="job2" data-en="View Details →" data-vi="Xem chi tiết →">Xem chi tiết →</a>
+                </div>
+                <div class="job fade-in">
+                    <div class="job-node"></div>
+                    <h3>Fresher System Administrator @ <span>CMC Telecom</span></h3>
+                    <p class="job-date" data-en="Feb 2023 - Aug 2023" data-vi="Tháng 2, 2023 - Tháng 8, 2023">Tháng 2, 2023 - Tháng 8, 2023</p>
+                    <p class="job-summary" data-en="Received comprehensive training on Linux server deployment, administration, and data center operations." data-vi="Được đào tạo toàn diện về triển khai, quản trị máy chủ Linux và vận hành trung tâm dữ liệu.">Được đào tạo toàn diện về triển khai, quản trị máy chủ Linux và vận hành trung tâm dữ liệu.</p>
+                    <a class="job-details-btn" data-modal-target="job3" data-en="View Details →" data-vi="Xem chi tiết →">Xem chi tiết →</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ================== PROJECT SECTION ================== -->
+        <section id="projects">
+            <h2 class="section-title fade-in" data-en="Project Spotlight" data-vi="Dự Án Tiêu Biểu">Dự Án Tiêu Biểu</h2>
+            <div class="project-card fade-in" data-modal-target="project1">
+                <h3 data-en="Bizfly Cloud CDN Optimization" data-vi="Tối Ưu Hóa Bizfly Cloud CDN">Tối Ưu Hóa Bizfly Cloud CDN</h3>
+                <p data-en="Led the initiative to optimize and enhance the core Content Delivery Network, improving performance and operational efficiency." data-vi="Dẫn dắt sáng kiến tối ưu hóa và cải tiến Mạng phân phối nội dung (CDN) cốt lõi, cải thiện hiệu suất và hiệu quả vận hành.">Dẫn dắt sáng kiến tối ưu hóa và cải tiến Mạng phân phối nội dung (CDN) cốt lõi, cải thiện hiệu suất và hiệu quả vận hành.</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title fade-in" data-en="Technical Competencies" data-vi="Năng Lực Chuyên Môn">Năng Lực Chuyên Môn</h2>
+            <div class="skills-container">
+                <div class="skill-category fade-in"><h3 data-en="☁️ Cloud & Infrastructure" data-vi="☁️ Đám Mây & Hạ Tầng">☁️ Đám Mây & Hạ Tầng</h3><div class="skill-list"><span class="skill-item" role="button" tabindex="0" data-skill-id="aws">AWS (EC2, CloudWatch)</span><span class="skill-item" role="button" tabindex="0" data-skill-id="bizfly">Bizfly Cloud</span><span class="skill-item" role="button" tabindex="0" data-skill-id="k8s_engine">Kubernetes Engine</span><span class="skill-item" role="button" tabindex="0" data-skill-id="server">Server</span><span class="skill-item" role="button" tabindex="0" data-skill-id="cdn">CDN</span></div></div>
+                <div class="skill-category fade-in" style="transition-delay:100ms"><h3 data-en="🐳 Containerization & CI/CD" data-vi="🐳 Container & CI/CD">🐳 Container & CI/CD</h3><div class="skill-list"><span class="skill-item" role="button" tabindex="0" data-skill-id="docker">Docker</span><span class="skill-item" role="button" tabindex="0" data-skill-id="kubernetes">Kubernetes</span><span class="skill-item" role="button" tabindex="0" data-skill-id="gitlab_ci">GitLab CI</span><span class="skill-item" role="button" tabindex="0" data-skill-id="ansible">Ansible</span></div></div>
+                <div class="skill-category fade-in" style="transition-delay:200ms"><h3 data-en="💻 Scripting & Programming" data-vi="💻 Scripting & Lập Trình">💻 Scripting & Lập Trình</h3><div class="skill-list"><span class="skill-item" role="button" tabindex="0" data-skill-id="python">Python</span><span class="skill-item" role="button" tabindex="0" data-skill-id="go">Go</span><span class="skill-item" role="button" tabindex="0" data-skill-id="bash">Bash</span></div></div>
+                <div class="skill-category fade-in" style="transition-delay:300ms"><h3 data-en="📊 Monitoring & Alerting" data-vi="📊 Giám Sát & Cảnh Báo">📊 Giám Sát & Cảnh Báo</h3><div class="skill-list"><span class="skill-item" role="button" tabindex="0" data-skill-id="vic_metrics">Victoria Metrics</span><span class="skill-item" role="button" tabindex="0" data-skill-id="grafana">Grafana</span><span class="skill-item" role="button" tabindex="0" data-skill-id="icinga">Icinga</span><span class="skill-item" role="button" tabindex="0" data-skill-id="splunk">Splunk</span><span class="skill-item" role="button" tabindex="0" data-skill-id="uptime_kuma">Uptime Kuma</span></div></div>
+                <div class="skill-category fade-in" style="transition-delay:400ms"><h3 data-en="⚙️ System & Services" data-vi="⚙️ Hệ Thống & Dịch Vụ">⚙️ Hệ Thống & Dịch Vụ</h3><div class="skill-list"><span class="skill-item" role="button" tabindex="0" data-skill-id="linux">Linux (Ubuntu, CentOS)</span><span class="skill-item" role="button" tabindex="0" data-skill-id="nginx">NGINX</span><span class="skill-item" role="button" tabindex="0" data-skill-id="apache">Apache</span><span class="skill-item" role="button" tabindex="0" data-skill-id="haproxy">HAProxy</span><span class="skill-item" role="button" tabindex="0" data-skill-id="mysql">MySQL</span><span class="skill-item" role="button" tabindex="0" data-skill-id="redis">Redis</span></div></div>
+                <div class="skill-category fade-in" style="transition-delay:500ms"><h3 data-en="🔗 Version Control & Others" data-vi="🔗 Quản Lý Phiên Bản & Khác">🔗 Quản Lý Phiên Bản & Khác</h3><div class="skill-list"><span class="skill-item" role="button" tabindex="0" data-skill-id="git">Git (GitLab)</span><span class="skill-item" role="button" tabindex="0" data-skill-id="rabbitmq">RabbitMQ</span><span class="skill-item" role="button" tabindex="0" data-skill-id="kafka">Kafka</span><span class="skill-item" role="button" tabindex="0" data-skill-id="ipvs">IPVS</span></div></div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-title fade-in" data-en="Contact Information" data-vi="Thông Tin Liên Hệ">Thông Tin Liên Hệ</h2>
+            <p class="fade-in" data-en="I am always open to new opportunities and interesting challenges. Feel free to connect or send me a message." data-vi="Tôi luôn sẵn sàng cho các cơ hội mới và những thử thách thú vị. Vui lòng kết nối hoặc gửi tin nhắn cho tôi.">Tôi luôn sẵn sàng cho các cơ hội mới và những thử thách thú vị. Vui lòng kết nối hoặc gửi tin nhắn cho tôi.</p>
+            <div class="contact-links fade-in">
+                <button id="email-btn" data-en="Copy Email" data-vi="Sao chép Email">Sao chép Email</button>
+                <a href="https://linkedin.com/in/quanbna" target="_blank">LinkedIn</a>
+            </div>
+        </section>
+    </main>
+    
+    <div id="main-modal" class="modal-overlay">
+        <div class="modal-content"><button class="close-modal">×</button><div class="modal-header"><h3 id="modal-title" style="color: var(--light-blue); font-size: 1.5rem;"></h3><p id="modal-date" style="color: var(--slate-color);"></p></div><div id="modal-body" class="modal-body"></div></div>
+    </div>
+    
+    <div id="modal-data-storage" style="display: none;">
+        <div id="job1-data" data-en="<ul><li>Responsible for managing CI/CD pipelines, container orchestration (Docker, Kubernetes), and infrastructure automation using Ansible, Python, and Go.</li><li>Optimized high-throughput systems and complex monitoring solutions, significantly improving performance, scalability, and operational efficiency.</li><li>Authored custom Ansible playbooks for automated provisioning and configuration management across hundreds of servers.</li><li>Developed custom monitoring exporters in Go to integrate proprietary systems with Victoria Metrics and Grafana.</li><li>Implemented robust security standards and compliance checks within the CI/CD workflow.</li></ul>" data-vi="<ul><li>Chịu trách nhiệm quản lý quy trình CI/CD, điều phối container (Docker, Kubernetes), và tự động hóa hạ tầng bằng Ansible, Python và Go.</li><li>Tối ưu hóa các hệ thống có lưu lượng truy cập cao và các giải pháp giám sát phức tạp, cải thiện đáng kể hiệu suất, khả năng mở rộng và hiệu quả vận hành.</li><li>Xây dựng các Ansible playbook tùy chỉnh để tự động hóa việc cấp phát và quản lý cấu hình trên hàng trăm máy chủ.</li><li>Phát triển các exporter giám sát tùy chỉnh bằng Go để tích hợp các hệ thống nội bộ với Victoria Metrics và Grafana.</li><li>Triển khai các tiêu chuẩn bảo mật và kiểm tra tuân thủ nghiêm ngặt trong quy trình CI/CD.</li></ul>"></div>
+        <div id="job2-data" data-en="<ul><li>Gained hands-on experience with core Amazon Web Services (AWS), including EC2, CloudWatch, S3, and IAM.</li><li>Actively participated in an outsourcing project, contributing to the operational support of an e-commerce customer's AWS infrastructure.</li><li>Configured CloudWatch alarms and dashboards for proactive monitoring and performance tracking.</li><li>Assisted in basic troubleshooting and incident response for production environments, following established ITIL processes.</li></ul>" data-vi="<ul><li>Tích lũy kinh nghiệm thực tiễn với các dịch vụ cốt lõi của Amazon Web Services (AWS), bao gồm EC2, CloudWatch, S3 và IAM.</li><li>Tham gia tích cực vào một dự án outsourcing, đóng góp vào việc hỗ trợ vận hành hạ tầng AWS cho khách hàng trong lĩnh vực thương mại điện tử.</li><li>Cấu hình cảnh báo và dashboard trên CloudWatch để chủ động giám sát và theo dõi hiệu suất.</li><li>Hỗ trợ xử lý sự cố cơ bản và ứng phó sự cố cho môi trường production, tuân thủ theo quy trình ITIL đã được thiết lập.</li></ul>"></div>
+        <div id="job3-data" data-en="<ul><li>Received comprehensive training on Linux server deployment (CentOS, Ubuntu) and system administration.</li><li>Provided technical support and contributed to server management in Tier 3 data centers, ensuring continuous operations for customers.</li><li>Performed bare-metal server provisioning, OS installation, and initial security hardening.</li><li>Assisted in managing network services such as DNS, DHCP, and web servers (Apache, NGINX).</li></ul>" data-vi="<ul><li>Được đào tạo toàn diện về triển khai máy chủ Linux (CentOS, Ubuntu) và quản trị hệ thống.</li><li>Cung cấp hỗ trợ kỹ thuật và tham gia quản lý máy chủ tại các trung tâm dữ liệu Tier 3, đảm bảo hoạt động liên tục cho khách hàng.</li><li>Thực hiện cấp phát máy chủ vật lý, cài đặt hệ điều hành và các bước tăng cường bảo mật ban đầu.</li><li>Hỗ trợ quản lý các dịch vụ mạng như DNS, DHCP và máy chủ web (Apache, NGINX).</li></ul>"></div>
+        <div id="project1-data" data-en="<h4 data-en='Problem' data-vi='Bài Toán'>Problem</h4><p>The existing CDN infrastructure faced challenges in scalability and performance during peak traffic, leading to increased latency for end-users and complex manual operational procedures.</p><h4 data-en='My Role & Solution' data-vi='Vai Trò & Giải Pháp'>My Role & Solution</h4><ul><li>Automated the deployment and configuration of caching nodes using Ansible, reducing setup time by 90%.</li><li>Containerized key components of the CDN control plane and orchestrated them with Kubernetes, enhancing system resilience and simplifying updates.</li><li>Developed a custom monitoring exporter in Go to provide deep visibility into cache performance, integrating it with the central Victoria Metrics and Grafana stack.</li><li>Refined traffic routing policies and optimized caching rules, resulting in a 30% improvement in cache hit ratio.</li></ul><h4 data-en='Technology Stack' data-vi='Công Nghệ Sử Dụng'>Technology Stack</h4><p>Kubernetes, Docker, Ansible, Python, Go, NGINX, HAProxy, Victoria Metrics, Grafana.</p>" data-vi="<h4 data-en='Problem' data-vi='Bài Toán'>Bài Toán</h4><p>Hạ tầng CDN hiện tại gặp thách thức về khả năng mở rộng và hiệu suất trong giờ cao điểm, dẫn đến độ trễ tăng cho người dùng cuối và các quy trình vận hành thủ công phức tạp.</p><h4 data-en='My Role & Solution' data-vi='Vai Trò & Giải Pháp'>Vai Trò & Giải Pháp</h4><ul><li>Tự động hóa việc triển khai và cấu hình các nút caching bằng Ansible, giảm thời gian cài đặt 90%.</li><li>Container hóa các thành phần chính của control plane CDN và điều phối chúng bằng Kubernetes, tăng cường khả năng phục hồi của hệ thống và đơn giản hóa việc cập nhật.</li><li>Phát triển một exporter giám sát tùy chỉnh bằng Go để cung cấp khả năng hiển thị sâu về hiệu suất cache, tích hợp nó với hệ thống Victoria Metrics và Grafana trung tâm.</li><li>Tinh chỉnh các chính sách định tuyến lưu lượng và tối ưu hóa quy tắc caching, giúp cải thiện 30% tỷ lệ cache hit.</li></ul><h4 data-en='Technology Stack' data-vi='Công Nghệ Sử Dụng'>Công Nghệ Sử Dụng</h4><p>Kubernetes, Docker, Ansible, Python, Go, NGINX, HAProxy, Victoria Metrics, Grafana.</p>"></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const skillDetails = {
+            aws: { vi: "<p>Kinh nghiệm thực tiễn với các dịch vụ cốt lõi của AWS như EC2 để cấp phát máy chủ ảo và CloudWatch để giám sát hiệu suất, log và thiết lập cảnh báo, đảm bảo hạ tầng luôn ổn định.</p>", en: "<p>Hands-on experience with core AWS services like EC2 for provisioning virtual servers and CloudWatch for monitoring performance, logs, and setting up alarms to ensure infrastructure stability.</p>" },
+            bizfly: { vi: "<p>Hiểu biết và vận hành trên nền tảng Bizfly Cloud, bao gồm các dịch vụ về máy chủ, Kubernetes Engine và CDN, tối ưu hóa cho thị trường trong nước.</p>", en: "<p>Knowledge and operational experience on the Bizfly Cloud platform, including its Server, Kubernetes Engine, and CDN services, optimized for the local market.</p>" },
+            k8s_engine: { vi: "<p>Sử dụng các dịch vụ Kubernetes được quản lý (Managed Kubernetes) để triển khai và mở rộng ứng dụng container hóa một cách hiệu quả mà không cần quản lý hạ tầng control plane phức tạp.</p>", en: "<p>Utilizing managed Kubernetes services to efficiently deploy and scale containerized applications without the overhead of managing the complex control plane infrastructure.</p>" },
+            server: { vi: "<p>Năng lực quản trị, cấu hình và bảo trì các máy chủ vật lý và ảo, đảm bảo hiệu suất và tính sẵn sàng cho các dịch vụ chạy trên đó.</p>", en: "<p>Competency in administering, configuring, and maintaining physical and virtual servers, ensuring performance and availability for the services they host.</p>" },
+            cdn: { vi: "<p>Triển khai và vận hành Mạng phân phối nội dung (CDN) để tăng tốc độ tải trang, giảm độ trễ và cải thiện trải nghiệm người dùng cuối trên toàn cầu.</p>", en: "<p>Deploying and operating Content Delivery Networks (CDN) to accelerate content delivery, reduce latency, and improve end-user experience globally.</p>" },
+            docker: { vi: "<p>Sử dụng Docker để đóng gói ứng dụng và các dependency của chúng vào các container độc lập, đảm bảo tính nhất quán trên mọi môi trường từ phát triển đến sản xuất.</p>", en: "<p>Using Docker to package applications and their dependencies into isolated containers, ensuring consistency across all environments from development to production.</p>" },
+            kubernetes: { vi: "<p>Điều phối các ứng dụng container với Kubernetes, tự động hóa việc triển khai, mở rộng quy mô và quản lý, xây dựng các hệ thống có khả năng phục hồi và tự chữa lành.</p>", en: "<p>Orchestrating containerized applications with Kubernetes, automating deployment, scaling, and management to build resilient, self-healing systems.</p>" },
+            gitlab_ci: { vi: "<p>Xây dựng các quy trình Tích hợp liên tục và Chuyển giao liên tục (CI/CD) với GitLab CI, tự động hóa các bước build, test và deploy để tăng tốc độ phát triển.</p>", en: "<p>Building Continuous Integration and Continuous Delivery (CI/CD) pipelines with GitLab CI, automating the build, test, and deploy stages to accelerate development velocity.</p>" },
+            ansible: { vi: "<p>Tự động hóa việc quản lý cấu hình và cấp phát hạ tầng bằng Ansible. Viết các playbook để đảm bảo hàng trăm máy chủ có cấu hình đồng nhất và tuân thủ.</p>", en: "<p>Automating configuration management and infrastructure provisioning with Ansible. Writing playbooks to ensure hundreds of servers are consistently configured and compliant.</p>" },
+            python: { vi: "<p>Sử dụng Python làm ngôn ngữ chính để viết kịch bản tự động hóa, công cụ dòng lệnh, và tích hợp API, giúp đơn giản hóa các tác vụ quản trị hệ thống phức tạp.</p>", en: "<p>Using Python as the primary language for writing automation scripts, command-line tools, and API integrations, simplifying complex system administration tasks.</p>" },
+            go: { vi: "<p>Phát triển các công cụ và dịch vụ mạng hiệu suất cao bằng Go, tận dụng khả năng xử lý đồng thời mạnh mẽ để xây dựng các exporter giám sát hoặc các microservice nhỏ gọn.</p>", en: "<p>Developing high-performance network services and tools with Go, leveraging its powerful concurrency features to build custom monitoring exporters or lightweight microservices.</p>" },
+            bash: { vi: "<p>Là công cụ thiết yếu hàng ngày, sử dụng kịch bản Bash để thực hiện nhanh các tác vụ quản trị, xử lý văn bản, và tự động hóa các quy trình lặp đi lặp lại trên Linux.</p>", en: "<p>As an essential daily tool, using Bash scripting for quick administrative tasks, text processing, and automating repetitive workflows on Linux systems.</p>" },
+            vic_metrics: { vi: "<p>Triển khai Victoria Metrics như một giải pháp Time-Series Database hiệu suất cao, có khả năng lưu trữ và truy vấn lượng lớn dữ liệu metrics từ hệ thống.</p>", en: "<p>Implementing Victoria Metrics as a high-performance, long-term Time-Series Database solution capable of storing and querying large volumes of system metrics.</p>" },
+            grafana: { vi: "<p>Xây dựng các dashboard trực quan và mạnh mẽ với Grafana, biến dữ liệu giám sát phức tạp thành các biểu đồ và cảnh báo dễ hiểu, dễ hành động.</p>", en: "<p>Building insightful and powerful dashboards with Grafana, transforming complex monitoring data into actionable, easy-to-understand visualizations and alerts.</p>" },
+            icinga: { vi: "<p>Sử dụng Icinga để giám sát trạng thái của máy chủ và dịch vụ, thiết lập các quy tắc kiểm tra và cảnh báo linh hoạt để phát hiện sự cố một cách chủ động.</p>", en: "<p>Using Icinga for host and service monitoring, setting up flexible check rules and notifications to proactively detect and report on system outages.</p>" },
+            splunk: { vi: "<p>Khai thác Splunk để tập trung, tìm kiếm và phân tích dữ liệu log từ nhiều nguồn khác nhau, phục vụ cho việc điều tra sự cố và phân tích an ninh.</p>", en: "<p>Leveraging Splunk for centralized log aggregation, searching, and analysis from various sources, facilitating incident investigation and security analysis.</p>" },
+            uptime_kuma: { vi: "<p>Triển khai Uptime Kuma như một công cụ giám sát thời gian hoạt động đơn giản nhưng hiệu quả, theo dõi tình trạng của các dịch vụ web và API từ góc nhìn người dùng cuối.</p>", en: "<p>Deploying Uptime Kuma as a simple yet effective uptime monitoring tool to track the status of web services and APIs from an end-user perspective.</p>" },
+            linux: { vi: "<p>Quản trị thành thạo các bản phân phối Linux phổ biến như Ubuntu và CentOS, từ việc cài đặt, bảo mật, quản lý gói đến tối ưu hóa hiệu năng hệ thống.</p>", en: "<p>Proficient administration of popular Linux distributions like Ubuntu and CentOS, from installation and security hardening to package management and system performance tuning.</p>" },
+            nginx: { vi: "<p>Cấu hình NGINX làm máy chủ web, reverse proxy, và load balancer hiệu suất cao, xử lý hàng ngàn kết nối đồng thời một cách hiệu quả.</p>", en: "<p>Configuring NGINX as a high-performance web server, reverse proxy, and load balancer, efficiently handling thousands of concurrent connections.</p>" },
+            apache: { vi: "<p>Có kinh nghiệm quản trị máy chủ web Apache, một lựa chọn đáng tin cậy và linh hoạt cho việc phục vụ các ứng dụng web truyền thống.</p>", en: "<p>Experience in administering the Apache HTTP Server, a reliable and flexible choice for serving traditional web applications.</p>" },
+            haproxy: { vi: "<p>Triển khai HAProxy làm bộ cân bằng tải chuyên dụng, đảm bảo tính sẵn sàng cao và phân phối lưu lượng truy cập một cách thông minh đến các máy chủ backend.</p>", en: "<p>Implementing HAProxy as a dedicated load balancer to ensure high availability and intelligently distribute traffic across backend servers.</p>" },
+            mysql: { vi: "<p>Quản trị cơ sở dữ liệu MySQL, bao gồm cài đặt, sao lưu, phục hồi và các tác vụ tối ưu hóa truy vấn cơ bản để hỗ trợ các ứng dụng.</p>", en: "<p>Administering MySQL databases, including setup, backup, recovery, and basic query optimization tasks to support applications.</p>" },
+            redis: { vi: "<p>Sử dụng Redis như một kho lưu trữ dữ liệu trong bộ nhớ (in-memory data store) tốc độ cao, phục vụ cho việc caching, hàng đợi tác vụ, và phiên làm việc.</p>", en: "<p>Using Redis as a high-speed in-memory data store for caching, session management, and message queuing purposes.</p>" },
+            git: { vi: "<p>Sử dụng Git làm hệ thống quản lý phiên bản mã nguồn, làm việc với các quy trình như GitFlow trên nền tảng GitLab để cộng tác hiệu quả và quản lý code an toàn.</p>", en: "<p>Using Git as the version control system, working with workflows like GitFlow on the GitLab platform for effective collaboration and secure code management.</p>" },
+            rabbitmq: { vi: "<p>Triển khai và quản lý RabbitMQ để xây dựng các hệ thống bất đồng bộ, tách rời các thành phần của ứng dụng thông qua cơ chế hàng đợi tin nhắn.</p>", en: "<p>Deploying and managing RabbitMQ to build asynchronous systems, decoupling application components through message queuing.</p>" },
+            kafka: { vi: "<p>Kiến thức nền tảng về Apache Kafka, hiểu rõ vai trò của nó như một nền tảng streaming sự kiện phân tán, có khả năng xử lý lượng dữ liệu lớn theo thời gian thực.</p>", en: "<p>Fundamental knowledge of Apache Kafka, understanding its role as a distributed event streaming platform capable of handling high-throughput, real-time data feeds.</p>" },
+            ipvs: { vi: "<p>Hiểu biết về IPVS (IP Virtual Server), một kỹ thuật cân bằng tải hiệu suất cao được tích hợp trong nhân Linux, thường được sử dụng bởi các hệ thống như Kubernetes.</p>", en: "<p>Understanding of IPVS (IP Virtual Server), a high-performance transport-layer load balancing technique built into the Linux kernel, often used by systems like Kubernetes.</p>" }
+        };
+
+        let currentLang = 'vi';
+        const langSwitcher = document.getElementById('lang-switcher');
+        const translatableElements = document.querySelectorAll('[data-en]');
+        
+        function switchLanguage(lang) {
+            currentLang = lang;
+            translatableElements.forEach(el => { el.innerText = el.dataset[lang]; });
+            langSwitcher.innerText = lang === 'vi' ? 'EN' : 'VI';
+            
+            const modalDataElements = document.querySelectorAll('#modal-data-storage > div');
+            modalDataElements.forEach(container => {
+                const frag = document.createRange().createContextualFragment(container.dataset[lang]);
+                const translatableSubElements = frag.querySelectorAll('[data-en]');
+                translatableSubElements.forEach(subEl => { subEl.innerText = subEl.dataset[lang]; });
+                container.innerHTML = '';
+                container.appendChild(frag);
+            });
+        }
+
+        langSwitcher.addEventListener('click', () => { switchLanguage(currentLang === 'vi' ? 'en' : 'vi'); });
+        
+        particlesJS('particles-js', {"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle"},"opacity":{"value":0.5,"random":false},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":150,"color":"#8892b0","opacity":0.4,"width":1},"move":{"enable":true,"speed":2,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":140,"line_linked":{"opacity":1}},"push":{"particles_nb":4}}},"retina_detect":true});
+
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const modal = document.getElementById('main-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDate = document.getElementById('modal-date');
+        const modalBody = document.getElementById('modal-body');
+        const closeModalBtn = modal.querySelector('.close-modal');
+
+        function openModal(title, content, date = null) {
+            modalTitle.innerHTML = title;
+            modalBody.innerHTML = content;
+            modalDate.style.display = date ? 'block' : 'none';
+            if (date) modalDate.innerText = date;
+            modal.classList.add('active');
+        }
+
+        function setupModalTriggers() {
+            document.querySelectorAll('.job-details-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const jobContainer = button.closest('.job');
+                    const title = jobContainer.querySelector('h3').innerHTML;
+                    const date = jobContainer.querySelector('p.job-date').innerText;
+                    const targetId = button.getAttribute('data-modal-target');
+                    const content = document.querySelector(`#modal-data-storage #${targetId}-data`).innerHTML;
+                    openModal(title, content, date);
+                });
+            });
+
+             document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const title = card.querySelector('h3').innerHTML;
+                    const targetId = card.getAttribute('data-modal-target');
+                    const content = document.querySelector(`#modal-data-storage #${targetId}-data`).innerHTML;
+                    openModal(title, content);
+                });
+            });
+            
+            document.querySelectorAll('.skill-item').forEach(item => {
+                const skillId = item.dataset.skillId;
+                if (skillDetails[skillId]) {
+                    const eventHandler = () => {
+                        const title = `<span id="modal-title-skill">${item.innerText}</span>`;
+                        const content = skillDetails[skillId][currentLang];
+                        openModal(title, content);
+                    };
+                    item.onclick = eventHandler;
+                    item.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') eventHandler(); };
+                }
+            });
+        }
+        
+        switchLanguage('vi');
+        setupModalTriggers();
+
+        const closeModal = () => modal.classList.remove('active');
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+        const emailBtn = document.getElementById('email-btn');
+        emailBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText("quan.bna@hotmail.com").then(() => {
+                const originalText = emailBtn.dataset[currentLang];
+                const copiedText = currentLang === 'vi' ? 'Đã sao chép!' : 'Copied!';
+                emailBtn.innerText = copiedText;
+                setTimeout(() => { emailBtn.innerText = originalText; }, 2000);
+            });
+        });
+    });
+    </script>
+</body>
+</html>
