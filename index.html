@@ -12,7 +12,6 @@
         :root {
             --dark-bg: #0a192f; --light-blue: #ccd6f6; --accent-color: #64ffda;
             --slate-color: #8892b0; --card-bg: #112240; --line-color: #304162;
-            /* NEW: RGBA values for glass effect */
             --glass-bg: rgba(17, 34, 64, 0.65);
             --glass-border: rgba(204, 214, 246, 0.2);
             --glass-border-hover: rgba(100, 255, 218, 0.5);
@@ -29,33 +28,30 @@
             width: 100%; height: 100%; z-index: -1;
         }
 
-        /* === GLASSMORPHISM STYLE FOR LANGUAGE SWITCHER === */
         .lang-switcher {
             position: fixed; top: 20px; right: 20px;
             z-index: 100; display: flex; gap: 10px;
         }
         .lang-switcher button {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
+            background: var(--glass-bg); backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
             color: var(--light-blue); border-radius: 5px; padding: 8px 16px;
             font-family: 'Poppins', sans-serif; font-weight: 600;
             font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease;
         }
-        .lang-switcher button:hover {
-            border-color: var(--glass-border-hover);
-        }
-        .lang-switcher button.active {
-            color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
+        .lang-switcher button:hover { border-color: var(--glass-border-hover); }
+        .lang-switcher button.active { color: var(--accent-color); border-color: var(--accent-color); }
 
         .timeline-container {
             width: 90%; max-width: 900px;
             margin: 50px auto; position: relative;
         }
-        .timeline-container::after {
+        
+        /* FIX 1: The vertical line is now applied to a new body container */
+        .timeline-body {
+            position: relative;
+        }
+        .timeline-body::after {
             content: ''; position: absolute;
             width: 3px; background-color: var(--line-color);
             top: 0; bottom: 0; left: 50%;
@@ -71,18 +67,15 @@
 
         .timeline-entry {
             padding: 10px 40px; position: relative;
-            width: 50%; margin: 20px 0;
+            width: 50%; margin-bottom: 40px; /* Increased margin for better spacing */
         }
         .timeline-entry.left { left: 0; text-align: right; }
         .timeline-entry.right { left: 50%; }
         .timeline-entry input[type="checkbox"] { display: none; }
         
-        /* === GLASSMORPHISM STYLE FOR LABELS === */
         .timeline-entry > label {
-            display: inline-block;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            display: inline-block; background: var(--glass-bg);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             padding: 15px 25px; border-radius: 8px;
             font-size: 1.2rem; font-weight: 600;
             border: 1px solid var(--glass-border);
@@ -96,13 +89,15 @@
              border-color: var(--accent-color); color: var(--accent-color);
         }
 
+        /* FIX 2: Locked the circle's vertical position */
         .timeline-entry::after {
             content: ''; position: absolute;
             width: 20px; height: 20px;
             background-color: var(--dark-bg);
             border: 3px solid var(--accent-color);
-            border-radius: 50%; top: 50%;
-            transform: translateY(-50%); z-index: 2;
+            border-radius: 50%;
+            top: 32px; /* Fixed value to align with the center of the label */
+            z-index: 2;
         }
         .timeline-entry.left::after { right: -10px; }
         .timeline-entry.right::after { left: -10px; }
@@ -117,15 +112,11 @@
             grid-template-rows: 1fr; margin-top: 20px;
         }
         
-        /* === GLASSMORPHISM STYLE FOR EXPANDED CONTENT === */
         .timeline-entry input:checked ~ .details-wrapper .details-content {
-            padding: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            padding: 20px; background: var(--glass-bg);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            cursor: pointer; 
+            border-radius: 8px; cursor: pointer; 
         }
 
         .sub-node { margin-bottom: 20px; }
@@ -148,10 +139,11 @@
         .sub-node-details em { color: var(--accent-color); font-style: normal; }
 
         @media (max-width: 768px) {
-            .timeline-container::after { left: 30px; }
+            .timeline-body::after { left: 30px; }
             .timeline-entry { width: 100%; padding-left: 70px; padding-right: 15px; }
             .timeline-entry.left, .timeline-entry.right { left: 0; text-align: left; }
             .timeline-entry.left::after, .timeline-entry.right::after { left: 20px; }
+            .timeline-entry::after { top: 28px; } /* Adjust circle for smaller labels */
         }
     </style>
 </head>
@@ -169,103 +161,108 @@
             <h2 data-vi="Kỹ Sư Hệ Thống & Đám Mây" data-en="Cloud & System Engineer">Kỹ Sư Hệ Thống & Đám Mây</h2>
         </div>
 
-        <div class="timeline-entry left">
-            <input type="checkbox" id="toggle-experience">
-            <label for="toggle-experience" data-vi="🏢 Kinh Nghiệm" data-en="🏢 Experience">Kinh Nghiệm</label>
-            <div class="details-wrapper">
-                <div class="details-content">
-                    <div class="sub-node">
-                        <p class="sub-node-title">System Administrator @ Bizfly Cloud <span data-vi="(05/2024 - Hiện tại)" data-en="(May 2024 - Present)">(05/2024 - Hiện tại)</span></p>
-                        <div class="sub-node-details">
-                            <ul data-vi-list='["Chủ trì thiết kế và triển khai pipeline CI/CD cho dự án CDN, tự động hóa 95% quy trình build và deploy.","Vận hành và tối ưu hóa cụm Kubernetes, xử lý hàng triệu request mỗi ngày, cải thiện độ trễ P95 xuống 20%.","Phát triển các playbook Ansible phức tạp để quản lý cấu hình đồng bộ trên 200+ máy chủ, giảm thời gian cấp phát từ hàng giờ xuống còn vài phút.","Xây dựng exporter tùy chỉnh bằng Go, tích hợp vào hệ thống Victoria Metrics & Grafana, cung cấp visibility sâu hơn về hiệu suất hệ thống."]' data-en-list='["Led the design and implementation of CI/CD pipelines for the CDN project, automating 95% of the build and deploy process.","Operated and optimized Kubernetes clusters handling millions of daily requests, improving P95 latency by 20%.","Developed complex Ansible playbooks for consistent configuration management across 200+ servers, reducing provisioning time from hours to minutes.","Built custom monitoring exporters in Go, integrating with Victoria Metrics & Grafana to provide deeper system performance visibility."]' >
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="sub-node">
-                        <p class="sub-node-title">Fresher Cloud Engineer @ FPT Software <span data-vi="(12/2023 - 05/2024)" data-en="(Dec 2023 - May 2024)">(12/2023 - 05/2024)</span></p>
-                        <div class="sub-node-details">
-                             <ul data-vi-list='["Trực tiếp tham gia vận hành hạ tầng AWS cho khách hàng thương mại điện tử lớn, đảm bảo uptime 99.9%.","Sử dụng AWS EC2, S3, và CloudWatch để triển khai, lưu trữ và giám sát ứng dụng. Cấu hình thành công các dashboard và cảnh báo quan trọng.","Hỗ trợ xử lý sự cố cấp 1 & 2 theo quy trình ITIL, phối hợp với team để xác định và khắc phục lỗi."]' data-en-list='["Directly participated in operating AWS infrastructure for a major e-commerce client, ensuring 99.9% uptime.","Utilized AWS EC2, S3, and CloudWatch to deploy, store, and monitor applications. Successfully configured critical dashboards and alarms.","Assisted in Level 1 & 2 incident response following ITIL processes, coordinating with teams to identify and resolve issues."]' >
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="sub-node">
-                        <p class="sub-node-title">Fresher System Administrator @ CMC Telecom <span data-vi="(02/2023 - 08/2023)" data-en="(Feb 2023 - Aug 2023)">(02/2023 - 08/2023)</span></p>
-                        <div class="sub-node-details">
-                             <ul data-vi-list='["Thực hiện cài đặt, cấu hình và bảo trì hơn 50 máy chủ vật lý (bare-metal) chạy CentOS và Ubuntu tại Data Center Tier 3.","Quản trị các dịch vụ mạng nền tảng như DNS (Bind), DHCP, và máy chủ web (Apache, NGINX).","Thực hiện các quy trình hardening bảo mật cơ bản cho máy chủ mới, bao gồm cấu hình firewall (iptables) và quản lý người dùng."]' data-en-list='["Performed installation, configuration, and maintenance on over 50 bare-metal servers running CentOS and Ubuntu in a Tier 3 Data Center.","Administered foundational network services such as DNS (Bind), DHCP, and web servers (Apache, NGINX).","Executed basic security hardening procedures for new servers, including firewall configuration (iptables) and user management."]' >
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- NEW: Wrapper for the entries to contain the vertical line -->
+        <div class="timeline-body">
 
-        <div class="timeline-entry right">
-             <input type="checkbox" id="toggle-projects">
-            <label for="toggle-projects" data-vi="🚀 Dự Án Tiêu Biểu" data-en="🚀 Featured Project">Dự Án Tiêu Biểu</label>
-             <div class="details-wrapper">
-                 <div class="details-content">
-                    <div class="sub-node">
-                        <p class="sub-node-title" data-vi="Tối Ưu Hóa Bizfly Cloud CDN" data-en="Bizfly Cloud CDN Optimization">Tối Ưu Hóa Bizfly Cloud CDN</p>
-                         <div class="sub-node-details">
-                            <p><strong data-vi="Vai Trò & Giải Pháp:" data-en="Role & Solution:">Vai Trò & Giải Pháp:</strong></p>
-                             <ul data-vi-list='["Tự động hóa triển khai caching node bằng Ansible (giảm 90% thời gian).","Container hóa control plane bằng Kubernetes.","Phát triển exporter giám sát bằng Go.","Cải thiện 30% tỷ lệ cache hit."]' data-en-list='["Automated caching node deployment with Ansible, reducing setup time by 90%.","Containerized the control plane with Kubernetes.","Developed a custom monitoring exporter in Go.","Improved cache hit ratio by 30%."]' >
-                            </ul>
-                            <p><strong data-vi="Công nghệ:" data-en="Technology:">Công nghệ:</strong> <em data-vi="Kubernetes, Docker, Ansible, Go, NGINX." data-en="Kubernetes, Docker, Ansible, Go, NGINX.">Kubernetes, Docker, Ansible, Go, NGINX.</em></p>
+            <div class="timeline-entry left">
+                <input type="checkbox" id="toggle-experience">
+                <label for="toggle-experience" data-vi="🏢 Kinh Nghiệm" data-en="🏢 Experience">Kinh Nghiệm</label>
+                <div class="details-wrapper">
+                    <div class="details-content">
+                        <div class="sub-node">
+                            <p class="sub-node-title">System Administrator @ Bizfly Cloud <span data-vi="(05/2024 - Hiện tại)" data-en="(May 2024 - Present)">(05/2024 - Hiện tại)</span></p>
+                            <div class="sub-node-details">
+                                <ul data-vi-list='["Chủ trì thiết kế và triển khai pipeline CI/CD cho dự án CDN, tự động hóa 95% quy trình build và deploy.","Vận hành và tối ưu hóa cụm Kubernetes, xử lý hàng triệu request mỗi ngày, cải thiện độ trễ P95 xuống 20%.","Phát triển các playbook Ansible phức tạp để quản lý cấu hình đồng bộ trên 200+ máy chủ, giảm thời gian cấp phát từ hàng giờ xuống còn vài phút.","Xây dựng exporter tùy chỉnh bằng Go, tích hợp vào hệ thống Victoria Metrics & Grafana, cung cấp visibility sâu hơn về hiệu suất hệ thống."]' data-en-list='["Led the design and implementation of CI/CD pipelines for the CDN project, automating 95% of the build and deploy process.","Operated and optimized Kubernetes clusters handling millions of daily requests, improving P95 latency by 20%.","Developed complex Ansible playbooks for consistent configuration management across 200+ servers, reducing provisioning time from hours to minutes.","Built custom monitoring exporters in Go, integrating with Victoria Metrics & Grafana to provide deeper system performance visibility."]' >
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sub-node">
+                            <p class="sub-node-title">Fresher Cloud Engineer @ FPT Software <span data-vi="(12/2023 - 05/2024)" data-en="(Dec 2023 - May 2024)">(12/2023 - 05/2024)</span></p>
+                            <div class="sub-node-details">
+                                <ul data-vi-list='["Trực tiếp tham gia vận hành hạ tầng AWS cho khách hàng thương mại điện tử lớn, đảm bảo uptime 99.9%.","Sử dụng AWS EC2, S3, và CloudWatch để triển khai, lưu trữ và giám sát ứng dụng. Cấu hình thành công các dashboard và cảnh báo quan trọng.","Hỗ trợ xử lý sự cố cấp 1 & 2 theo quy trình ITIL, phối hợp với team để xác định và khắc phục lỗi."]' data-en-list='["Directly participated in operating AWS infrastructure for a major e-commerce client, ensuring 99.9% uptime.","Utilized AWS EC2, S3, and CloudWatch to deploy, store, and monitor applications. Successfully configured critical dashboards and alarms.","Assisted in Level 1 & 2 incident response following ITIL processes, coordinating with teams to identify and resolve issues."]' >
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sub-node">
+                            <p class="sub-node-title">Fresher System Administrator @ CMC Telecom <span data-vi="(02/2023 - 08/2023)" data-en="(Feb 2023 - Aug 2023)">(02/2023 - 08/2023)</span></p>
+                            <div class="sub-node-details">
+                                <ul data-vi-list='["Thực hiện cài đặt, cấu hình và bảo trì hơn 50 máy chủ vật lý (bare-metal) chạy CentOS và Ubuntu tại Data Center Tier 3.","Quản trị các dịch vụ mạng nền tảng như DNS (Bind), DHCP, và máy chủ web (Apache, NGINX).","Thực hiện các quy trình hardening bảo mật cơ bản cho máy chủ mới, bao gồm cấu hình firewall (iptables) và quản lý người dùng."]' data-en-list='["Performed installation, configuration, and maintenance on over 50 bare-metal servers running CentOS and Ubuntu in a Tier 3 Data Center.","Administered foundational network services such as DNS (Bind), DHCP, and web servers (Apache, NGINX).","Executed basic security hardening procedures for new servers, including firewall configuration (iptables) and user management."]' >
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="timeline-entry left">
-             <input type="checkbox" id="toggle-skills">
-            <label for="toggle-skills" data-vi="🛠️ Năng Lực" data-en="🛠️ Skills">Năng Lực</label>
-             <div class="details-wrapper">
-                 <div class="details-content">
-                     <div class="sub-node">
-                        <p class="sub-node-title" data-vi="☁️ Cloud & CI/CD" data-en="☁️ Cloud & CI/CD">☁️ Cloud & CI/CD</p>
-                        <div class="sub-node-details">
-                            <p><strong data-vi="Xây dựng và tự động hóa hạ tầng từ A-Z, đảm bảo quy trình phát triển phần mềm nhanh chóng và đáng tin cậy." data-en="Building and automating infrastructure from A-Z, ensuring a fast and reliable software development lifecycle."></strong></p>
-                            <p><em data-vi="Công cụ: AWS (EC2, S3, CloudWatch), Bizfly Cloud, Docker, Kubernetes, GitLab CI, Ansible." data-en="Tools: AWS (EC2, S3, CloudWatch), Bizfly Cloud, Docker, Kubernetes, GitLab CI, Ansible."></em></p>
-                        </div>
-                    </div>
-                     <div class="sub-node">
-                        <p class="sub-node-title" data-vi="📊 Giám Sát & Cảnh Báo" data-en="📊 Monitoring & Alerting">📊 Giám Sát & Cảnh Báo</p>
-                        <div class="sub-node-details">
-                            <p><strong data-vi="Thiết lập hệ thống quan sát (observability) toàn diện để đảm bảo hiệu suất và phát hiện sự cố sớm." data-en="Establishing comprehensive observability systems to ensure performance and enable proactive incident detection."></strong></p>
-                            <p><em data-vi="Công cụ: Victoria Metrics, Grafana, Icinga, Splunk, Uptime Kuma." data-en="Tools: Victoria Metrics, Grafana, Icinga, Splunk, Uptime Kuma."></em></p>
-                        </div>
-                    </div>
-                     <div class="sub-node">
-                        <p class="sub-node-title" data-vi="⚙️ Hệ Thống & Dịch Vụ" data-en="⚙️ Systems & Services">⚙️ Hệ Thống & Dịch Vụ</p>
-                        <div class="sub-node-details">
-                            <p><strong data-vi="Quản trị thành thạo các dịch vụ nền tảng, đảm bảo tính sẵn sàng và khả năng mở rộng của ứng dụng." data-en="Proficient administration of foundational services, ensuring application availability and scalability."></strong></p>
-                            <p><em data-vi="Công cụ: Linux (Ubuntu, CentOS), NGINX, HAProxy, MySQL, Redis, Kafka, RabbitMQ." data-en="Tools: Linux (Ubuntu, CentOS), NGINX, HAProxy, MySQL, Redis, Kafka, RabbitMQ."></em></p>
-                        </div>
-                    </div>
-                     <div class="sub-node">
-                        <p class="sub-node-title" data-vi="💻 Scripting & Lập Trình" data-en="💻 Scripting & Programming">💻 Scripting & Lập Trình</p>
-                        <div class="sub-node-details">
-                            <p><strong data-vi="Sử dụng code để giải quyết các bài toán vận hành, tự động hóa các tác vụ lặp đi lặp lại." data-en="Using code to solve operational challenges and automate repetitive tasks."></strong></p>
-                            <p><em data-vi="Công cụ: Python, Go, Bash." data-en="Tools: Python, Go, Bash."></em></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="timeline-entry right">
-             <input type="checkbox" id="toggle-contact">
-            <label for="toggle-contact" data-vi="📞 Liên Hệ" data-en="📞 Contact">Liên Hệ</label>
-             <div class="details-wrapper">
-                 <div class="details-content" style="text-align: center;">
-                     <a href="https://linkedin.com/in/quanbna" target="_blank" style="color: var(--accent-color); text-decoration: none; border: 1px solid var(--accent-color); padding: 10px 20px; border-radius: 5px; transition: all 0.3s ease; display: inline-block;">
-                         LinkedIn
-                     </a>
-                     <p style="color: var(--slate-color); font-size: 0.9rem; margin-top: 15px;">Email: quan.bna@hotmail.com</p>
+            <div class="timeline-entry right">
+                <input type="checkbox" id="toggle-projects">
+                <label for="toggle-projects" data-vi="🚀 Dự Án Tiêu Biểu" data-en="🚀 Featured Project">Dự Án Tiêu Biểu</label>
+                <div class="details-wrapper">
+                    <div class="details-content">
+                        <div class="sub-node">
+                            <p class="sub-node-title" data-vi="Tối Ưu Hóa Bizfly Cloud CDN" data-en="Bizfly Cloud CDN Optimization">Tối Ưu Hóa Bizfly Cloud CDN</p>
+                            <div class="sub-node-details">
+                                <p><strong data-vi="Vai Trò & Giải Pháp:" data-en="Role & Solution:">Vai Trò & Giải Pháp:</strong></p>
+                                <ul data-vi-list='["Tự động hóa triển khai caching node bằng Ansible (giảm 90% thời gian).","Container hóa control plane bằng Kubernetes.","Phát triển exporter giám sát bằng Go.","Cải thiện 30% tỷ lệ cache hit."]' data-en-list='["Automated caching node deployment with Ansible, reducing setup time by 90%.","Containerized the control plane with Kubernetes.","Developed a custom monitoring exporter in Go.","Improved cache hit ratio by 30%."]' >
+                                </ul>
+                                <p><strong data-vi="Công nghệ:" data-en="Technology:">Công nghệ:</strong> <em data-vi="Kubernetes, Docker, Ansible, Go, NGINX." data-en="Kubernetes, Docker, Ansible, Go, NGINX.">Kubernetes, Docker, Ansible, Go, NGINX.</em></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+            
+            <div class="timeline-entry left">
+                <input type="checkbox" id="toggle-skills">
+                <label for="toggle-skills" data-vi="🛠️ Năng Lực" data-en="🛠️ Skills">Năng Lực</label>
+                <div class="details-wrapper">
+                    <div class="details-content">
+                        <div class="sub-node">
+                            <p class="sub-node-title" data-vi="☁️ Cloud & CI/CD" data-en="☁️ Cloud & CI/CD">☁️ Cloud & CI/CD</p>
+                            <div class="sub-node-details">
+                                <p><strong data-vi="Xây dựng và tự động hóa hạ tầng từ A-Z, đảm bảo quy trình phát triển phần mềm nhanh chóng và đáng tin cậy." data-en="Building and automating infrastructure from A-Z, ensuring a fast and reliable software development lifecycle."></strong></p>
+                                <p><em data-vi="Công cụ: AWS (EC2, S3, CloudWatch), Bizfly Cloud, Docker, Kubernetes, GitLab CI, Ansible." data-en="Tools: AWS (EC2, S3, CloudWatch), Bizfly Cloud, Docker, Kubernetes, GitLab CI, Ansible."></em></p>
+                            </div>
+                        </div>
+                        <div class="sub-node">
+                            <p class="sub-node-title" data-vi="📊 Giám Sát & Cảnh Báo" data-en="📊 Monitoring & Alerting">📊 Giám Sát & Cảnh Báo</p>
+                            <div class="sub-node-details">
+                                <p><strong data-vi="Thiết lập hệ thống quan sát (observability) toàn diện để đảm bảo hiệu suất và phát hiện sự cố sớm." data-en="Establishing comprehensive observability systems to ensure performance and enable proactive incident detection."></strong></p>
+                                <p><em data-vi="Công cụ: Victoria Metrics, Grafana, Icinga, Splunk, Uptime Kuma." data-en="Tools: Victoria Metrics, Grafana, Icinga, Splunk, Uptime Kuma."></em></p>
+                            </div>
+                        </div>
+                        <div class="sub-node">
+                            <p class="sub-node-title" data-vi="⚙️ Hệ Thống & Dịch Vụ" data-en="⚙️ Systems & Services">⚙️ Hệ Thống & Dịch Vụ</p>
+                            <div class="sub-node-details">
+                                <p><strong data-vi="Quản trị thành thạo các dịch vụ nền tảng, đảm bảo tính sẵn sàng và khả năng mở rộng của ứng dụng." data-en="Proficient administration of foundational services, ensuring application availability and scalability."></strong></p>
+                                <p><em data-vi="Công cụ: Linux (Ubuntu, CentOS), NGINX, HAProxy, MySQL, Redis, Kafka, RabbitMQ." data-en="Tools: Linux (Ubuntu, CentOS), NGINX, HAProxy, MySQL, Redis, Kafka, RabbitMQ."></em></p>
+                            </div>
+                        </div>
+                        <div class="sub-node">
+                            <p class="sub-node-title" data-vi="💻 Scripting & Lập Trình" data-en="💻 Scripting & Programming">💻 Scripting & Lập Trình</p>
+                            <div class="sub-node-details">
+                                <p><strong data-vi="Sử dụng code để giải quyết các bài toán vận hành, tự động hóa các tác vụ lặp đi lặp lại." data-en="Using code to solve operational challenges and automate repetitive tasks."></strong></p>
+                                <p><em data-vi="Công cụ: Python, Go, Bash." data-en="Tools: Python, Go, Bash."></em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-entry right">
+                <input type="checkbox" id="toggle-contact">
+                <label for="toggle-contact" data-vi="📞 Liên Hệ" data-en="📞 Contact">Liên Hệ</label>
+                <div class="details-wrapper">
+                    <div class="details-content" style="text-align: center;">
+                        <a href="https://linkedin.com/in/quanbna" target="_blank" style="color: var(--accent-color); text-decoration: none; border: 1px solid var(--accent-color); padding: 10px 20px; border-radius: 5px; transition: all 0.3s ease; display: inline-block;">
+                            LinkedIn
+                        </a>
+                        <p style="color: var(--slate-color); font-size: 0.9rem; margin-top: 15px;">Email: quan.bna@hotmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End of .timeline-body -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
