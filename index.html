@@ -47,7 +47,6 @@
             margin: 50px auto; position: relative;
         }
         
-        /* FIX 1: The vertical line is now applied to a new body container */
         .timeline-body {
             position: relative;
         }
@@ -67,7 +66,7 @@
 
         .timeline-entry {
             padding: 10px 40px; position: relative;
-            width: 50%; margin-bottom: 40px; /* Increased margin for better spacing */
+            width: 50%; margin-bottom: 40px;
         }
         .timeline-entry.left { left: 0; text-align: right; }
         .timeline-entry.right { left: 50%; }
@@ -89,14 +88,13 @@
              border-color: var(--accent-color); color: var(--accent-color);
         }
 
-        /* FIX 2: Locked the circle's vertical position */
         .timeline-entry::after {
             content: ''; position: absolute;
             width: 20px; height: 20px;
             background-color: var(--dark-bg);
             border: 3px solid var(--accent-color);
             border-radius: 50%;
-            top: 32px; /* Fixed value to align with the center of the label */
+            top: 32px;
             z-index: 2;
         }
         .timeline-entry.left::after { right: -10px; }
@@ -143,7 +141,7 @@
             .timeline-entry { width: 100%; padding-left: 70px; padding-right: 15px; }
             .timeline-entry.left, .timeline-entry.right { left: 0; text-align: left; }
             .timeline-entry.left::after, .timeline-entry.right::after { left: 20px; }
-            .timeline-entry::after { top: 28px; } /* Adjust circle for smaller labels */
+            .timeline-entry::after { top: 28px; }
         }
     </style>
 </head>
@@ -161,7 +159,6 @@
             <h2 data-vi="Kỹ Sư Hệ Thống & Đám Mây" data-en="Cloud & System Engineer">Kỹ Sư Hệ Thống & Đám Mây</h2>
         </div>
 
-        <!-- NEW: Wrapper for the entries to contain the vertical line -->
         <div class="timeline-body">
 
             <div class="timeline-entry left">
@@ -194,7 +191,24 @@
                 </div>
             </div>
 
+            <!-- NEW SECTION: Education -->
             <div class="timeline-entry right">
+                <input type="checkbox" id="toggle-education">
+                <label for="toggle-education" data-vi="🎓 Học Vấn" data-en="🎓 Education">Học Vấn</label>
+                <div class="details-wrapper">
+                    <div class="details-content">
+                        <div class="sub-node">
+                            <p class="sub-node-title">Hanoi Vocational College of Technology</p>
+                            <div class="sub-node-details">
+                                <p><strong data-vi="Chuyên ngành:" data-en="Major:">Chuyên ngành:</strong> <span data-vi="Cử nhân Kỹ sư Quản trị Mạng" data-en="Bachelor of Engineering in Network Administration">Cử nhân Kỹ sư Quản trị Mạng</span></p>
+                                <p><strong>GPA:</strong> 3.6/4.0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-entry left">
                 <input type="checkbox" id="toggle-projects">
                 <label for="toggle-projects" data-vi="🚀 Dự Án Tiêu Biểu" data-en="🚀 Featured Project">Dự Án Tiêu Biểu</label>
                 <div class="details-wrapper">
@@ -206,6 +220,23 @@
                                 <ul data-vi-list='["Tự động hóa triển khai caching node bằng Ansible (giảm 90% thời gian).","Container hóa control plane bằng Kubernetes.","Phát triển exporter giám sát bằng Go.","Cải thiện 30% tỷ lệ cache hit."]' data-en-list='["Automated caching node deployment with Ansible, reducing setup time by 90%.","Containerized the control plane with Kubernetes.","Developed a custom monitoring exporter in Go.","Improved cache hit ratio by 30%."]' >
                                 </ul>
                                 <p><strong data-vi="Công nghệ:" data-en="Technology:">Công nghệ:</strong> <em data-vi="Kubernetes, Docker, Ansible, Go, NGINX." data-en="Kubernetes, Docker, Ansible, Go, NGINX.">Kubernetes, Docker, Ansible, Go, NGINX.</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW SECTION: Certificates -->
+            <div class="timeline-entry right">
+                <input type="checkbox" id="toggle-certs">
+                <label for="toggle-certs" data-vi="📜 Chứng Chỉ" data-en="📜 Certificates">Chứng Chỉ</label>
+                <div class="details-wrapper">
+                    <div class="details-content">
+                        <div class="sub-node">
+                            <p class="sub-node-title">AWS Certified Solutions Architect - Associate</p>
+                            <div class="sub-node-details">
+                                <!-- You can add validation links or issue dates here if you want -->
+                                <p data-vi="Chứng chỉ xác nhận năng lực thiết kế và triển khai các hệ thống có khả năng mở rộng, sẵn sàng cao và chịu lỗi trên nền tảng AWS." data-en="Validates the ability to design and deploy well-architected, scalable, highly available, and fault-tolerant systems on AWS."></p>
                             </div>
                         </div>
                     </div>
@@ -269,15 +300,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             tsParticles.load("tsparticles", {
-                background: { color: { value: "#0a192f" } }, fpsLimit: 60,
+                background: { color: { value: "#0a192f" } }, fpsLimit: 360,
                 interactivity: {
                     events: { onHover: { enable: true, mode: "grab" }, onClick: { enable: true, mode: "push" }, resize: true },
-                    modes: { grab: { distance: 140, links: { opacity: 1 } }, push: { quantity: 4 } }
+                    modes: { grab: { distance: 140, links: { opacity: 1 } }, push: { quantity: 7 } }
                 },
                 particles: {
-                    color: { value: "#ccd6f6" },
-                    links: { color: "#8892b0", distance: 150, enable: true, opacity: 0.4, width: 1 },
-                    move: { direction: "none", enable: true, outModes: { default: "out" }, random: false, speed: 2, straight: false },
+                    color: { value: "#8892b0" },
+                    links: { color: "#304162", distance: 150, enable: true, opacity: 0.4, width: 1 },
+                    move: { direction: "none", enable: true, outModes: { default: "out" }, random: false, speed: 1, straight: false },
                     number: { density: { enable: true, area: 800 }, value: 80 },
                     opacity: { value: 0.5 }, shape: { type: "circle" },
                     size: { value: { min: 1, max: 3 } }
@@ -291,11 +322,21 @@
 
             const switchLanguage = (lang) => {
                 translatableElements.forEach(el => {
-                    if (el.dataset[lang]) { el.textContent = el.dataset[lang]; }
+                    const key = lang === 'vi' ? 'vi' : 'en';
+                    if (el.dataset[key] !== undefined) {
+                         // Check if the element is a span within a sub-node-title to avoid overwriting the whole title
+                        if (el.tagName === 'SPAN' && el.parentElement.classList.contains('sub-node-title')) {
+                             el.textContent = el.dataset[key];
+                        } else if (el.dataset[key] !== '') { // Avoid clearing elements with empty data attributes
+                            el.textContent = el.dataset[key];
+                        }
+                    }
                 });
-                translatableLists.forEach(ul => {
-                    if (ul.dataset[lang + 'List']) {
-                        const listData = JSON.parse(ul.dataset[lang + 'List']);
+
+                document.querySelectorAll('[data-vi-list], [data-en-list]').forEach(ul => {
+                    const key = lang === 'vi' ? 'viList' : 'enList';
+                    if (ul.dataset[key]) {
+                        const listData = JSON.parse(ul.dataset[key]);
                         ul.innerHTML = '';
                         listData.forEach(itemText => {
                             const li = document.createElement('li');
@@ -304,6 +345,21 @@
                         });
                     }
                 });
+                
+                // Special handling for elements with mixed static and dynamic text
+                document.querySelectorAll('.sub-node-details p').forEach(p => {
+                    const span = p.querySelector('span[data-vi]');
+                    if (span) {
+                        p.childNodes.forEach(node => {
+                            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') {
+                                // This is tricky, let's just handle the span specifically
+                            }
+                        });
+                        span.textContent = span.dataset[lang];
+                    }
+                });
+
+
                 if (lang === 'vi') {
                     langVI.classList.add('active');
                     langEN.classList.remove('active');
@@ -332,6 +388,9 @@
                     }
                 });
             });
+
+            // Re-run language switch after initial setup to fix any complex elements
+            switchLanguage(savedLang);
         });
     </script>
 </body>
