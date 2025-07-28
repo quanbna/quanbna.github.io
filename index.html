@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bui Nguyen Anh Quan | Portfolio v7.3 - The Final Edition</title>
+    <title>Bui Nguyen Anh Quan | Portfolio v7.4 - Smart Scroll</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* CSS is identical to V7.3 */
         :root {
             --bg-color: #0a192f; --panel-bg: rgba(17, 34, 64, 0.55); --panel-border: rgba(48, 65, 86, 0.4); --panel-border-glow: rgba(100, 255, 218, 0.3); --text-primary: #ccd6f6; --text-secondary: #8892b0; --accent-color: #64ffda; --accent-glow: rgba(100, 255, 218, 0.1); --dock-bg: rgba(10, 25, 47, 0.5); --blob1-color: #f72585; --blob2-color: #7209b7; --blob3-color: #3a0ca3; --transition-speed: 0.5s;
             --coverflow-transition-duration: 0.6s;
@@ -42,7 +43,6 @@
             perspective: 1200px; transform-style: preserve-3d;
             cursor: grab; user-select: none;
             transition: transform var(--coverflow-transition-duration) var(--coverflow-transition-timing);
-            /* ✨ THE FIX: Restore the proper centering transform */
             transform: translate(-50%, -50%);
         }
         .stage.is-dragging { cursor: grabbing; transition: none; }
@@ -110,7 +110,7 @@
     </header>
 
     <main class="stage">
-        <section class="panel" id="panel-home"><div class="panel-content-wrapper"><img src="avt.jpg" alt="Avatar" class="profile-avatar"><h3 class="profile-name" data-vi="Bùi Nguyễn Anh Quân" data-en="Bui Nguyen Anh Quan"></h3><p class="profile-title" data-vi="Kỹ Sư Hệ Thống & Đám Mây" data-en="Cloud & System Engineer"></p><p class="profile-bio" data-vi="Kỹ sư Hệ thống & Đám mây với kinh nghiệm thực chiến xây dựng và tự động hóa hạ tầng có khả năng mở rộng. Đã trực tiếp vận hành các cụm Kubernetes quy mô lớn tại Bizfly Cloud và quản trị môi trường AWS cho doanh nghiệp tại FPT Software. Chuyên môn sâu về CI/CD, Ansible và đảm bảo tính sẵn sàng cao cho hệ thống." data-en="Cloud & System Engineer with proven experience in building and automating scalable infrastructure. I've managed large-scale Kubernetes clusters at Bizfly Cloud and maintained enterprise AWS environments at FPT Software. My expertise lies in CI/CD, Ansible, and ensuring high system availability."></p><div class="profile-links"><a href="https://linkedin.com/in/quanbna" target="_blank" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a><a href="mailto:quan.bna@hotmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></a></div><a href="https://1drv.ms/f/c/bdf75d6bdb6f3ffe/EiMTxw2p-GZAlZkoLQAwLfEBG00OludHOM52SnvbRysI-Q?e=l7cOPf" class="profile-cv-btn" target="_blank" rel="noopener noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span data-vi="Tải CV" data-en="Download CV"></span></a></div></section>
+        <section class="panel" id="panel-home"><div class="panel-content-wrapper"><img src="avt.jpg" alt="Avatar" class="profile-avatar"><h3 class="profile-name" data-vi="Bùi Nguyễn Anh Quân" data-en="Bui Nguyen Anh Quan"></h3><p class="profile-title" data-vi="Kỹ Sư Hệ Thống & Đám Mây" data-en="Cloud & System Engineer"></p><p class="profile-bio" data-vi="Kỹ sư Hệ thống & Đám mây với kinh nghiệm thực chiến xây dựng và tự động hóa hạ tầng có khả năng mở rộng. Đã trực tiếp vận hành các cụm Kubernetes quy mô lớn tại Bizfly Cloud và quản trị môi trường AWS cho doanh nghiệp tại FPT Software. Chuyên môn sâu về CI/CD, Ansible và đảm bảo tính sẵn sàng cao cho hệ thống." data-en="Cloud & System Engineer with proven experience in building and automating scalable infrastructure. I've managed large-scale Kubernetes clusters at Bizfly Cloud and maintained enterprise AWS environments at FPT Software. My expertise lies in CI/CD, Ansible, and ensuring high system availability."></p><div class="profile-links"><a href="https://linkedin.com/in/quanbna" target="_blank" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a><a href="mailto:quan.bna@hotmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></a></div><a href="https://1drv.ms/b/c/bdf75d6bdb6f3ffe/EQKyDN-FMdNPiv37_aYrWDMBct783J3hoNZRl2x0ZFM8-w?e=hHdCF1" class="profile-cv-btn" target="_blank" rel="noopener noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span data-vi="Tải CV" data-en="Download CV"></span></a></div></section>
         <section class="panel" id="panel-experience"><div class="panel-content-wrapper"><h3 class="panel-title" data-vi="🏢 Kinh Nghiệm" data-en="🏢 Experience"></h3><div class="sub-node"><p class="sub-node-title"><span data-vi="Quản trị Hệ thống" data-en="System Administrator"></span> @ <span class="clickable" data-modal-title-vi="Về Bizfly Cloud" data-modal-title-en="About Bizfly Cloud" data-modal-content-vi="Bizfly Cloud là một nhà cung cấp dịch vụ điện toán đám mây hàng đầu tại Việt Nam, trực thuộc VCCorp, tập trung cung cấp các giải pháp hạ tầng đa dạng và tối ưu cho thị trường trong nước." data-modal-content-en="Bizfly Cloud is a leading cloud computing provider in Vietnam, part of VCCorp, focusing on delivering a wide range of infrastructure solutions optimized for the local market."><img src="https://images.crunchbase.com/image/upload/c_pad,f_auto,q_auto:eco,dpr_1/uzxexbqiotwtjtvmxdkp" alt="Bizfly Cloud Logo" class="company-logo">Bizfly Cloud</span> <span data-vi="(05/2024 - Hiện tại)" data-en="(May 2024 - Present)"></span></p><div class="sub-node-details"><ul data-vi-list='["Chủ trì thiết kế và triển khai pipeline CI/CD cho dự án CDN, tự động hóa 95% quy trình.","Vận hành và tối ưu hóa cụm Kubernetes, xử lý hàng triệu request mỗi ngày.","Phát triển playbook Ansible phức tạp để quản lý cấu hình đồng bộ trên 200+ máy chủ."]' data-en-list='["Led the design and implementation of CI/CD pipelines for the CDN project, automating 95% of the process.","Operated and optimized Kubernetes clusters handling millions of daily requests.","Developed complex Ansible playbooks for consistent configuration management across 200+ servers."]' ></ul></div></div><div class="sub-node"><p class="sub-node-title"><span data-vi="Kỹ sư Cloud (Fresher)" data-en="Fresher Cloud Engineer"></span> @ <span class="clickable" data-modal-title-vi="Về FPT Software" data-modal-title-en="About FPT Software" data-modal-content-vi="FPT Software là công ty công nghệ và gia công phần mềm lớn nhất Việt Nam, cung cấp dịch vụ IT và chuyển đổi số cho các khách hàng trên toàn cầu." data-modal-content-en="FPT Software is Vietnam's largest technology and IT outsourcing company, providing digital transformation and IT services to clients worldwide."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/FPT_logo_2010.svg/1200px-FPT_logo_2010.svg.png" alt="FPT Software Logo" class="company-logo">FPT Software</span> <span data-vi="(12/2023 - 05/2024)" data-en="(Dec 2023 - May 2024)"></span></p><div class="sub-node-details"><ul data-vi-list='["Tham gia vận hành hạ tầng AWS cho khách hàng thương mại điện tử lớn, đảm bảo uptime 99.9%.","Sử dụng AWS EC2, S3, và CloudWatch để triển khai, lưu trữ và giám sát ứng dụng.","Hỗ trợ xử lý sự cố cấp 1 & 2 theo quy trình ITIL."]' data-en-list='["Participated in operating AWS infrastructure for a major e-commerce client, ensuring 99.9% uptime.","Utilized AWS EC2, S3, and CloudWatch to deploy, store, and monitor applications.","Assisted in Level 1 & 2 incident response following ITIL processes."]' ></ul></div></div><div class="sub-node"><p class="sub-node-title"><span data-vi="Quản trị Hệ thống (Fresher)" data-en="Fresher System Administrator"></span> @ <span class="clickable" data-modal-title-vi="Về CMC Telecom" data-modal-title-en="About CMC Telecom" data-modal-content-vi="CMC Telecom là một nhà cung cấp dịch vụ viễn thông và hạ tầng số uy tín tại Việt Nam, nổi bật với các dịch vụ Data Center và kết nối mạng." data-modal-content-en="CMC Telecom is a reputable telecommunications and digital infrastructure provider in Vietnam, known for its Data Center and connectivity services."><img src="https://cdn.haitrieu.com/wp-content/uploads/2022/12/Icon-Dai-hoc-CMC.png" alt="CMC Telecom Logo" class="company-logo">CMC Telecom</span> <span data-vi="(02/2023 - 08/2023)" data-en="(Feb 2023 - Aug 2023)"></span></p><div class="sub-node-details"><ul data-vi-list='["Thực hiện cài đặt, cấu hình và bảo trì hơn 50 máy chủ vật lý (bare-metal) tại Data Center.","Quản trị các dịch vụ mạng nền tảng như DNS (Bind), DHCP, và máy chủ web (Apache, NGINX).","Thực hiện các quy trình hardening bảo mật cơ bản cho máy chủ mới."]' data-en-list='["Performed installation, configuration, and maintenance on over 50 bare-metal servers in a Data Center.","Administered foundational network services like DNS (Bind), DHCP, and web servers (Apache, NGINX).","Executed basic security hardening procedures for new servers."]' ></ul></div></div></div></section>
         <section class="panel" id="panel-education"><div class="panel-content-wrapper"><h3 class="panel-title" data-vi="🎓 Học Vấn" data-en="🎓 Education"></h3><div class="sub-node"><p class="sub-node-title" data-vi="Cao đẳng Kỹ thuật Hà Nội" data-en="Hanoi Vocational College of Technology"></p><div class="sub-node-details"><p><strong data-vi="Chuyên ngành:" data-en="Major:"></strong> <span data-vi="Cử nhân Kỹ sư Quản trị Mạng" data-en="Bachelor of Engineering in Network Administration"></span></p><p><strong>GPA:</strong> 3.6/4.0</p></div></div></div></section>
         <section class="panel" id="panel-certificates"><div class="panel-content-wrapper"><h3 class="panel-title" data-vi="🏆 Chứng Chỉ" data-en="🏆 Certificates"></h3><div class="certificate-node"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2xQcwKitRgXfqdi34DYlocPSEXD2G2zZipg&s" alt="AWS Certified Solutions Architect Associate Logo" class="certificate-logo"><p class="certificate-name">AWS Certified Solutions Architect - Associate</p><p class="certificate-desc" data-vi="Chứng chỉ xác nhận năng lực thiết kế và triển khai các hệ thống có khả năng mở rộng, sẵn sàng cao và chịu lỗi trên nền tảng AWS." data-en="Validates the ability to design and deploy well-architected, scalable, highly available, and fault-tolerant systems on AWS."></p></div></div></section>
@@ -155,8 +155,12 @@
         const panels = document.querySelectorAll('.panel');
         const TOTAL_PANELS = panels.length;
         let activeIndex = 0;
+        let isTransitioning = false; // Cooldown for all transitions
         
         function updatePanels(newIndex, fromHistory = false) {
+            //if (isTransitioning) return;
+            
+            //isTransitioning = true;
             activeIndex = (newIndex + TOTAL_PANELS) % TOTAL_PANELS;
             const activeDockItem = document.querySelector(`.dock-item[data-index="${activeIndex}"]`);
             if(!activeDockItem) return;
@@ -165,43 +169,34 @@
             activeDockItem.classList.add('active');
 
             if (activeDockItem.dataset.themeColors) {
-                try {
-                    const colors = JSON.parse(activeDockItem.dataset.themeColors);
-                    doc.style.setProperty('--blob1-color', colors[0] || '#f72585');
-                    doc.style.setProperty('--blob2-color', colors[1] || '#7209b7');
-                    doc.style.setProperty('--blob3-color', colors[2] || '#3a0ca3');
-                } catch (e) { console.error("Could not parse theme colors", e); }
+                try { const colors = JSON.parse(activeDockItem.dataset.themeColors); doc.style.setProperty('--blob1-color', colors[0]); doc.style.setProperty('--blob2-color', colors[1]); doc.style.setProperty('--blob3-color', colors[2]); } catch (e) {}
             }
             
             panels.forEach((panel, i) => {
                 panel.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next');
-                const diff = i - activeIndex;
-                if (diff === 0) panel.classList.add('active');
-                else if (diff === 1 || diff === - (TOTAL_PANELS - 1)) panel.classList.add('next');
-                else if (diff === 2 || diff === - (TOTAL_PANELS - 2)) panel.classList.add('far-next');
-                else if (diff === -1 || diff === TOTAL_PANELS - 1) panel.classList.add('prev');
-                else if (diff === -2 || diff === TOTAL_PANELS - 2) panel.classList.add('far-prev');
+                if (i === activeIndex) panel.classList.add('active');
+                else if (i === (activeIndex - 1 + TOTAL_PANELS) % TOTAL_PANELS) panel.classList.add('prev');
+                else if (i === (activeIndex + 1) % TOTAL_PANELS) panel.classList.add('next');
+                else if (i === (activeIndex - 2 + TOTAL_PANELS) % TOTAL_PANELS) panel.classList.add('far-prev');
+                else if (i === (activeIndex + 2) % TOTAL_PANELS) panel.classList.add('far-next');
             });
             
-            if (!fromHistory) {
-                history.pushState({ panelIndex: activeIndex }, '', `#${activeDockItem.dataset.panel}`);
-            }
+            if (!fromHistory) { history.pushState({ panelIndex: activeIndex }, '', `#${activeDockItem.dataset.panel}`); }
+
+            // Release the lock after the transition ends
+            //setTimeout(() => { isTransitioning = false; }, 600);
         }
         
-        // ✨ DRAG & SNAP INTERACTION V3.1 - POLISHED ✨
-        let isDragging = false;
-        let startX = 0, startY = 0;
-        let deltaX = 0, deltaY = 0;
-        const SWIPE_THRESHOLD = 50;
-        const DRAG_DAMPING = 0.3;
+        // --- GESTURE INTERACTION ---
+        let isDragging = false, startX = 0, startY = 0, deltaX = 0, deltaY = 0;
+        const SWIPE_THRESHOLD = 50, DRAG_DAMPING = 0.3;
 
         function onDragStart(e) {
-            if (e.target.closest('a, button, .clickable, .skill-item')) return;
+            if (isTransitioning || e.target.closest('a, button, .clickable, .skill-item')) return;
             isDragging = true;
             startX = e.pageX || e.touches[0].pageX;
             startY = e.pageY || e.touches[0].pageY;
-            deltaX = 0;
-            deltaY = 0;
+            deltaX = 0; deltaY = 0;
             stage.classList.add('is-dragging');
         }
 
@@ -209,12 +204,9 @@
             if (!isDragging) return;
             const currentX = e.pageX || e.touches[0].pageX;
             const currentY = e.pageY || e.touches[0].pageY;
-            deltaX = currentX - startX;
-            deltaY = currentY - startY;
-            
+            deltaX = currentX - startX; deltaY = currentY - startY;
             if (Math.abs(deltaX) > Math.abs(deltaY)) {
                 if (e.cancelable) e.preventDefault();
-                // ✨ THE FIX: use calc() to combine centering with drag offset
                 stage.style.transform = `translate(calc(-50% + ${deltaX * DRAG_DAMPING}px), -50%)`;
             }
         }
@@ -223,36 +215,39 @@
             if (!isDragging) return;
             isDragging = false;
             stage.classList.remove('is-dragging');
-            
-            // Snap back to center
             stage.style.transform = `translate(-50%, -50%)`;
-
             if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > SWIPE_THRESHOLD) {
-                if (deltaX > 0) { // Swipe Right
-                    updatePanels(activeIndex - 1);
-                } else { // Swipe Left
-                    updatePanels(activeIndex + 1);
-                }
+                updatePanels(deltaX > 0 ? activeIndex - 1 : activeIndex + 1);
             }
         }
 
+        // --- SCROLL INTERACTION ---
+        function handleScroll(e) {
+            if (isTransitioning || window.innerWidth <= 800) return;
+            const contentWrapper = e.target.closest('.panel-content-wrapper');
+            if (contentWrapper) {
+                const { scrollTop, scrollHeight, clientHeight } = contentWrapper;
+                const isAtTop = scrollTop === 0;
+                const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1;
+                if ((e.deltaY < 0 && !isAtTop) || (e.deltaY > 0 && !isAtBottom)) {
+                    return; // Allow native scroll
+                }
+            }
+            e.preventDefault();
+            updatePanels(e.deltaY > 0 ? activeIndex + 1 : activeIndex - 1);
+        }
+        
         // --- INITIALIZATION ---
         function handleRouting() {
             let initialIndex = 0;
             const panelName = window.location.hash.substring(1);
-            if (panelName) {
-                const targetDockItem = document.querySelector(`.dock-item[data-panel="${panelName}"]`);
-                if (targetDockItem) initialIndex = parseInt(targetDockItem.dataset.index, 10);
-            }
-            
+            if (panelName) { const item = document.querySelector(`.dock-item[data-panel="${panelName}"]`); if (item) initialIndex = parseInt(item.dataset.index, 10); }
             if (window.innerWidth <= 800) {
                 document.querySelectorAll('.dock-item').forEach(item => item.classList.remove('active'));
-                const activeDockItem = document.querySelector(`.dock-item[data-index="${initialIndex}"]`);
-                if (activeDockItem) activeDockItem.classList.add('active');
+                const activeItem = document.querySelector(`.dock-item[data-index="${initialIndex}"]`);
+                if (activeItem) activeItem.classList.add('active');
                 panels.forEach((p, i) => p.classList.toggle('active', i === initialIndex));
-            } else {
-                updatePanels(initialIndex, true);
-            }
+            } else { updatePanels(initialIndex, true); }
         }
         
         function initialize() {
@@ -270,15 +265,14 @@
             window.addEventListener('popstate', e => { const index = e.state ? e.state.panelIndex : 0; updatePanels(index, true); });
             window.addEventListener('resize', handleRouting);
 
-            if (window.innerWidth > 800) {
-                stage.addEventListener('mousedown', onDragStart);
-                document.addEventListener('mousemove', onDragMove);
-                document.addEventListener('mouseup', onDragEnd);
-                stage.addEventListener('touchstart', onDragStart, { passive: false });
-                stage.addEventListener('touchmove', onDragMove, { passive: false });
-                stage.addEventListener('touchend', onDragEnd);
-            }
-
+            stage.addEventListener('mousedown', onDragStart);
+            document.addEventListener('mousemove', onDragMove);
+            document.addEventListener('mouseup', onDragEnd);
+            stage.addEventListener('touchstart', onDragStart, { passive: false });
+            stage.addEventListener('touchmove', onDragMove, { passive: false });
+            stage.addEventListener('touchend', onDragEnd);
+            window.addEventListener('wheel', handleScroll, { passive: false });
+            
             handleRouting();
         }
 
