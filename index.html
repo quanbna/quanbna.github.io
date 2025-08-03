@@ -1,283 +1,1414 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bui Nguyen Anh Quan | Portfolio v7.4 - Smart Scroll</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <title>Bui Nguyen Anh Quan - Portfolio</title>
     <style>
-        /* CSS is identical to V7.3 */
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         :root {
-            --bg-color: #0a192f; --panel-bg: rgba(17, 34, 64, 0.55); --panel-border: rgba(48, 65, 86, 0.4); --panel-border-glow: rgba(100, 255, 218, 0.3); --text-primary: #ccd6f6; --text-secondary: #8892b0; --accent-color: #64ffda; --accent-glow: rgba(100, 255, 218, 0.1); --dock-bg: rgba(10, 25, 47, 0.5); --blob1-color: #f72585; --blob2-color: #7209b7; --blob3-color: #3a0ca3; --transition-speed: 0.5s;
-            --coverflow-transition-duration: 0.6s;
-            --coverflow-transition-timing: cubic-bezier(0.23, 1, 0.32, 1);
+            /* Light mode colors */
+            --bg-primary: #f5f7fa;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-bright: #000000;
+            --accent-primary: #007AFF;
+            --accent-secondary: #FF3B30;
+            --accent-gradient: linear-gradient(90deg, #007AFF, #5856D6);
+            --border-color: rgba(255, 255, 255, 0.3);
+            --shadow-color: rgba(31, 38, 135, 0.25);
+            --rgb-block-opacity: 0.4;
         }
-        html.light-mode {
-            --bg-color: #f0f4f8; --panel-bg: rgba(255, 255, 255, 0.4); --panel-border: rgba(205, 215, 225, 0.6); --panel-border-glow: rgba(45, 125, 245, 0.3); --text-primary: #0a192f; --text-secondary: #4a5568; --accent-color: #2d7df5; --accent-glow: rgba(45, 125, 245, 0.15); --dock-bg: rgba(230, 235, 240, 0.5); --blob1-color: #ff8ac5; --blob2-color: #c9a7ff; --blob3-color: #a7b5ff;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--bg-color); color: var(--text-primary); line-height: 1.6; overflow: hidden; transition: background-color var(--transition-speed) ease; }
-        .company-logo { height: 1.2em; vertical-align: -0.2em; margin-right: 0.5em; border-radius: 4px;}
-        .tech-logo { height: 1.1em; vertical-align: -0.15em; margin-right: 0.4em; }
-        #tsparticles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        #aurora-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; filter: blur(120px); }
-        .aurora-blob { position: absolute; border-radius: 50%; opacity: 0.4; transition: background-color 1.5s ease-in-out, transform 3s ease; }
-        .blob-1 { width: 500px; height: 500px; background: var(--blob1-color); top: -200px; left: -200px; animation: moveBlob1 35s infinite alternate ease-in-out; }
-        .blob-2 { width: 600px; height: 600px; background: var(--blob2-color); bottom: -250px; right: -250px; animation: moveBlob2 40s infinite alternate ease-in-out; }
-        .blob-3 { width: 400px; height: 400px; background: var(--blob3-color); bottom: 50px; left: 100px; animation: moveBlob3 28s infinite alternate ease-in-out; }
-        @keyframes moveBlob1 { from { transform: translate(0, 0) scale(1) rotate(0deg); } to { transform: translate(50vw, 60vh) scale(1.3) rotate(90deg); } }
-        @keyframes moveBlob2 { from { transform: translate(0, 0) scale(1); } to { transform: translate(-50vw, -45vh) scale(0.7); } }
-        @keyframes moveBlob3 { from { transform: translate(0, 0) scale(1.1); } to { transform: translate(40vw, -40vh) scale(1.2) rotate(-90deg); } }
-        .top-controls { position: fixed; top: 20px; right: 20px; z-index: 100; display: flex; gap: 10px; }
-        .control-btn { background: var(--panel-bg); backdrop-filter: blur(10px); border: 1px solid var(--panel-border); color: var(--text-secondary); border-radius: 8px; padding: 8px 12px; font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 6px; }
-        .control-btn:hover { border-color: var(--panel-border-glow); color: var(--text-primary); }
-        .control-btn.active { color: var(--accent-color); border-color: var(--accent-color); }
         
-        .stage {
-            position: absolute; top: 50%; left: 50%;
-            width: 90%; max-width: 850px; height: 75vh; max-height: 650px;
-            perspective: 1200px; transform-style: preserve-3d;
-            cursor: grab; user-select: none;
-            transition: transform var(--coverflow-transition-duration) var(--coverflow-transition-timing);
+        body.dark-mode {
+            /* Dark mode colors */
+            --bg-primary: #000000;
+            --bg-secondary: #1d1d1f;
+            --bg-card: rgba(29, 29, 31, 0.95);
+            --bg-glass: rgba(29, 29, 31, 0.85);
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --text-bright: #ffffff;
+            --accent-primary: #0A84FF;
+            --accent-secondary: #FF453A;
+            --accent-gradient: linear-gradient(90deg, #0A84FF, #5856D6);
+            --border-color: rgba(255, 255, 255, 0.2);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --rgb-block-opacity: 0.2;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        /* RGB Blocks Container */
+        .rgb-blocks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .rgb-block {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: var(--rgb-block-opacity);
+            mix-blend-mode: screen;
+            animation: colorShift 15s infinite alternate;
+        }
+        
+        @keyframes colorShift {
+            0% { filter: blur(80px) hue-rotate(0deg); }
+            100% { filter: blur(80px) hue-rotate(360deg); }
+        }
+        
+        /* Static background overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+            z-index: -2;
+            opacity: 0.03;
+            transition: opacity 0.5s ease;
+        }
+        
+        /* ===== HORIZONTAL LAYOUT ===== */
+        .horizontal-container {
+            display: flex;
+            flex-direction: row;
+            width: fit-content;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .section {
+            width: 100vw;
+            min-height: 100vh;
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            scroll-snap-align: start;
+        }
+        
+        .section-content {
+            width: 90%;
+            max-width: 1200px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .nav-dots {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background: var(--accent-primary);
+            transform: scale(1.2);
+        }
+        
+        /* Desktop Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: none; /* Hidden by default */
+            background: var(--bg-glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px 0 var(--shadow-color);
+            padding: 10px 20px;
+        }
+        
+        .nav-menu-items {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-menu-item {
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--text-secondary);
+            position: relative;
+        }
+        
+        .nav-menu-item.active {
+            color: var(--accent-primary);
+            background: rgba(0, 122, 255, 0.1);
+        }
+        
+        .nav-menu-item:hover {
+            color: var(--accent-primary);
+            transform: translateY(-3px);
+        }
+        
+        .nav-arrows {
+            position: fixed;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 100;
+            pointer-events: none;
+        }
+        
+        .nav-arrow {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+        }
+        
+        .nav-arrow:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        /* ===== GLASS EFFECT ===== */
+        .glass {
+            background: var(--bg-glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px 0 var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== HEADER SECTION ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            width: 60px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            z-index: 1000;
+        }
+        
+        .theme-toggle:hover {
+            box-shadow: 0 0 15px var(--accent-primary);
+        }
+        
+        .theme-toggle-slider {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+        
+        body.dark-mode .theme-toggle-slider {
+            transform: translateX(30px);
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-primary);
+            margin: 0 auto 20px;
+            background: url('avt.jpg') center/cover;
+            box-shadow: 0 8px 30px var(--accent-primary);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px var(--accent-primary);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-bright);
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .contact-links a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        
+        .contact-links a:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--accent-primary);
+        }
+        
+        /* ===== EXPERIENCE SECTION ===== */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 4px;
+        }
+        
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 15px;
+            height: 100%;
+            width: 4px;
+            background: var(--accent-gradient);
+            border-radius: 4px;
+        }
+        
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+            padding-left: 60px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 8px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            box-shadow: 0 0 0 6px var(--accent-primary);
+            opacity: 0.2;
+        }
+        
+        .timeline-date {
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-bright);
+        }
+        
+        .timeline-company {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: var(--accent-secondary);
+            font-weight: 600;
+        }
+        
+        .timeline-content {
+            padding: 25px;
+            border-radius: 16px;
+            font-size: 1rem;
+            line-height: 1.7;
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px var(--shadow-color);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+        
+        /* ===== TECH STACK SECTION ===== */
+        .tech-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .tech-category {
+            margin-bottom: 20px;
+        }
+        
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-bright);
+            margin-bottom: 20px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .category-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 25px;
+            background: var(--accent-gradient);
+            border-radius: 3px;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 30px;
+        }
+        
+        .tech-item {
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            height: 180px;
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px var(--accent-primary);
+            background: var(--bg-secondary);
+            border-color: var(--accent-primary);
+        }
+        
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover .tech-icon {
+            transform: scale(1.1);
+        }
+        
+        .tech-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-bright);
+        }
+        
+        /* ===== TECH DETAIL ===== */
+        .tech-detail {
+            position: fixed;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-        }
-        .stage.is-dragging { cursor: grabbing; transition: none; }
-
-        .panel {
-            position: absolute; inset: 0; padding: 30px 40px; background: var(--panel-bg); backdrop-filter: blur(35px); border: 1px solid var(--panel-border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;
-            transition: transform var(--coverflow-transition-duration) var(--coverflow-transition-timing),
-                        opacity calc(var(--coverflow-transition-duration) / 2) ease;
+            width: 90%;
+            max-width: 700px;
+            padding: 40px;
+            display: none;
+            z-index: 200;
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px var(--shadow-color);
+            transition: all 0.3s ease;
         }
         
-        .panel { transform: translateX(0) scale(0.5); opacity: 0; pointer-events: none; }
-        .panel.active { transform: translateX(0) scale(1) rotateY(0); opacity: 1; z-index: 10; pointer-events: all; box-shadow: 0 8px 40px 0 var(--accent-glow); }
-        .panel.prev { transform: translateX(-45%) translateZ(-250px) rotateY(35deg); opacity: 0.5; z-index: 5; }
-        .panel.next { transform: translateX(45%) translateZ(-250px) rotateY(-35deg); opacity: 0.5; z-index: 5; }
-        .panel.far-prev { transform: translateX(-65%) translateZ(-450px) rotateY(45deg); opacity: 0; z-index: 1; }
-        .panel.far-next { transform: translateX(65%) translateZ(-450px) rotateY(-45deg); opacity: 0; z-index: 1; }
-
-        .panel-content-wrapper { width: 100%; height: 100%; overflow-y: auto; padding-right: 15px; pointer-events: auto; }
-        .panel-content-wrapper::-webkit-scrollbar { width: 8px; } .panel-content-wrapper::-webkit-scrollbar-track { background: transparent; } .panel-content-wrapper::-webkit-scrollbar-thumb { background-color: var(--panel-border); border-radius: 20px; }
-        .panel-title { font-size: 1.6rem; color: var(--text-primary); margin-bottom: 25px; border-bottom: 1px solid var(--panel-border); padding-bottom: 10px; flex-shrink: 0;}
-        .sub-node { margin-bottom: 25px; } .sub-node-title { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 5px; } .sub-node-title span { font-size: 0.9rem; color: var(--text-secondary); font-weight: 400; }
-        .sub-node-details ul { list-style: none; padding-left: 0; margin-top: 10px; } .sub-node-details ul li { padding-left: 20px; position: relative; margin-bottom: 8px; color: var(--text-secondary); font-size: 0.95rem; } .sub-node-details ul li::before { content: '▹'; position: absolute; left: 0; color: var(--accent-color); }
-        .sub-node-details p { color: var(--text-secondary); font-size: 0.95rem; margin-top: 5px; }
-        .clickable { cursor: pointer; color: var(--text-primary); font-weight: 500; padding: 2px 4px; margin: -2px -4px; border-radius: 4px; transition: background-color 0.2s; } .clickable:hover { background: var(--panel-border); }
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; margin-top: 15px; }
-        .skill-item { background: rgba(0,0,0,0.1); padding: 12px; border-radius: 8px; text-align: center; font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .skill-item:hover { background: var(--panel-border); color: var(--text-primary); transform: translateY(-3px); box-shadow: 0 5px 25px -5px var(--glow-color, var(--accent-color)); }
-        #panel-home .panel-content-wrapper { display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; padding: 20px 0; }
-        .profile-avatar { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--panel-border); object-fit: cover; margin-bottom: 20px; box-shadow: 0 0 15px rgba(0,0,0,0.2); }
-        .profile-name { font-size: 1.5rem; font-weight: 600; color: var(--text-primary); }
-        .profile-title { font-size: 1rem; color: var(--accent-color); margin-bottom: 15px; font-weight: 500; }
-        .profile-bio { color: var(--text-secondary); max-width: 450px; margin-bottom: 30px; font-size: 0.95rem; line-height: 1.7; }
-        .profile-links { display: flex; gap: 20px; margin-bottom: 30px; }
-        .profile-links a { color: var(--text-secondary); text-decoration: none; transition: all 0.3s; }
-        .profile-links a:hover { color: var(--accent-color); transform: scale(1.1); }
-        .profile-links svg { width: 28px; height: 28px; }
-        .profile-cv-btn { display: inline-flex; align-items: center; gap: 10px; background-color: transparent; border: 1px solid var(--accent-color); color: var(--accent-color); padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
-        .profile-cv-btn:hover { background-color: var(--accent-glow); box-shadow: 0 0 15px var(--accent-glow); }
-        .dock { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 10px; padding: 8px; background: var(--dock-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 16px; border: 1px solid var(--panel-border); z-index: 100; }
-        .dock-item { text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; border: none; background: transparent; color: var(--text-secondary); padding: 5px; border-radius: 8px; transition: all 0.2s ease-in-out; position: relative; }
-        .dock-item-icon { width: 48px; height: 48px; transition: transform 0.2s ease; } .dock-item-icon svg { width: 100%; height: 100%; fill: currentColor; }
-        .dock-item-label { font-size: 12px; font-weight: 500; opacity: 0; transform: translateY(5px); transition: all 0.2s ease; background: #0a192f; color: #f0f2f5; padding: 3px 8px; border-radius: 5px; position: absolute; bottom: 110%; white-space: nowrap; }
-        html.light-mode .dock-item-label { background: #f0f4f8; color: #0a192f; }
-        .dock-item:hover { color: var(--text-primary); } .dock-item:hover .dock-item-icon { transform: scale(1.2) translateY(-8px); } .dock-item:hover .dock-item-label { opacity: 1; transform: translateY(0); }
-        .dock-item.active { color: var(--accent-color); } .dock-item.active::after { content: ''; position: absolute; bottom: -8px; width: 6px; height: 6px; border-radius: 50%; background-color: var(--accent-color); }
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity var(--transition-speed) ease; } .modal-overlay.visible { opacity: 1; pointer-events: all; } .modal-content { background: var(--panel-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--panel-border); width: 90%; max-width: 500px; transform: scale(0.95); transition: transform var(--transition-speed) ease; box-shadow: 0 8px 32px 0 var(--accent-glow);}
-        .modal-overlay.visible .modal-content { transform: scale(1); } .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; } .modal-title { font-size: 1.5rem; color: var(--text-primary); } .modal-close { font-size: 1.5rem; cursor: pointer; color: var(--text-secondary); background: none; border: none; }
+        .tech-detail.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
         
-        @media (max-width: 800px) {
-            .stage { cursor: default; transform: translate(-50%, -50%) !important; }
-            .panel { transform: rotateX(15deg) scale(0.95) translateY(20px) !important; opacity: 0 !important; pointer-events: none !important; transition: transform var(--transition-speed) ease, opacity var(--transition-speed) ease, box-shadow var(--transition-speed) ease; padding: 25px; }
-            .panel.active { opacity: 1 !important; transform: rotateX(0deg) scale(1) translateY(0) !important; pointer-events: all !important; }
-            .dock { gap: 4px; } .dock-item-icon { width: 40px; height: 40px; } .dock-item:hover .dock-item-icon { transform: scale(1.1) translateY(-5px); } .dock-item-label { display: none; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent-secondary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .detail-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+        
+        .detail-icon {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px var(--shadow-color));
+        }
+        
+        .detail-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .detail-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .detail-projects {
+            padding: 25px;
+            border-radius: 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .detail-projects h4 {
+            color: var(--accent-secondary);
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .detail-projects p {
+            color: var(--text-primary);
+        }
+        
+        /* ===== EDUCATION & CERTIFICATE SECTION ===== */
+        .edu-cert-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .education-container, .certificate-container {
+            padding: 30px;
+            border-radius: 16px;
+            background: var(--bg-card);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 32px 0 var(--shadow-color);
+        }
+        
+        .edu-cert-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .edu-cert-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-gradient);
+            border-radius: 3px;
+        }
+        
+        .edu-item, .cert-item {
+            margin-bottom: 20px;
+        }
+        
+        .edu-school {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 8px;
+        }
+        
+        .edu-degree {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+        
+        .edu-gpa {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--accent-primary);
+        }
+        
+        .cert-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 5px;
+        }
+        
+        .cert-date {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .cert-detail {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        /* ===== OVERLAY ===== */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 150;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            /* Mobile Layout Changes */
+            .horizontal-container {
+                flex-direction: column;
+                width: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                scroll-snap-type: none;
+            }
+            
+            .section {
+                width: 100%;
+                min-height: 100vh;
+                scroll-snap-align: none;
+                padding: 60px 0;
+            }
+            
+            /* Navigation dots at bottom center for mobile */
+            .nav-dots {
+                bottom: 20px;
+                gap: 10px;
+                display: flex; /* Show dots on mobile */
+            }
+            
+            .nav-menu {
+                display: none; /* Hide menu on mobile */
+            }
+            
+            .nav-dot {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .nav-arrows {
+                padding: 0 15px;
+            }
+            
+            .nav-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 1.1rem; }
+            .section-title { font-size: 2rem; }
+            .profile-img { width: 120px; height: 120px; }
+            
+            /* Tech Stack Responsive */
+            .tech-categories {
+                gap: 30px;
+            }
+            
+            .category-title {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+            
+            .tech-grid { 
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+                gap: 20px; 
+            }
+            
+            .tech-item { 
+                height: 160px; 
+                padding: 20px 15px; 
+            }
+            
+            .tech-icon { 
+                width: 60px; 
+                height: 60px; 
+            }
+            
+            .tech-name { 
+                font-size: 1rem; 
+            }
+            
+            .tech-detail { 
+                width: 95%; 
+                padding: 30px 20px; 
+            }
+            
+            .detail-icon { 
+                width: 80px; 
+                height: 80px; 
+            }
+            
+            .detail-title { 
+                font-size: 1.8rem; 
+            }
+            
+            /* Education & Certificate Responsive */
+            .education-container, .certificate-container {
+                padding: 20px;
+            }
+            
+            .edu-cert-title {
+                font-size: 1.5rem;
+            }
+            
+            .edu-school {
+                font-size: 1.1rem;
+            }
+            
+            .edu-degree {
+                font-size: 1rem;
+            }
+            
+            .cert-name {
+                font-size: 1.1rem;
+            }
+            
+            /* Thêm media query cho màn hình rất nhỏ */
+            @media (max-width: 480px) {
+                .section-content {
+                    width: 95%;
+                }
+                
+                .contact-links a {
+                    padding: 10px 20px;
+                    font-size: 0.9rem;
+                }
+                
+                .timeline-item {
+                    padding-left: 40px;
+                }
+                
+                .timeline-content {
+                    padding: 15px;
+                }
+                
+                .tech-grid {
+                    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                }
+            }
+        }
+        
+        /* Desktop specific styles */
+        @media (min-width: 769px) {
+            .nav-dots {
+                display: none; /* Hide dots on desktop */
+            }
+            
+            .nav-menu {
+                display: flex; /* Show menu on desktop */
+            }
         }
     </style>
 </head>
 <body>
-
-    <div id="aurora-bg"> <div class="aurora-blob blob-1"></div> <div class="aurora-blob blob-2"></div> <div class="aurora-blob blob-3"></div> </div>
-    <div id="tsparticles"></div>
-
-    <header class="top-controls">
-        <div class="lang-switcher"> <button class="control-btn" id="lang-vi">VI</button> <button class="control-btn" id="lang-en">EN</button> </div>
-        <button class="control-btn" id="theme-toggle"></button>
-    </header>
-
-    <main class="stage">
-        <section class="panel" id="panel-home"><div class="panel-content-wrapper"><img src="avt.jpg" alt="Avatar" class="profile-avatar"><h3 class="profile-name" data-vi="Bùi Nguyễn Anh Quân" data-en="Bui Nguyen Anh Quan"></h3><p class="profile-title" data-vi="Kỹ Sư Hệ Thống & Đám Mây" data-en="Cloud & System Engineer"></p><p class="profile-bio" data-vi="Kỹ sư Hệ thống & Đám mây với kinh nghiệm thực chiến xây dựng và tự động hóa hạ tầng có khả năng mở rộng. Đã trực tiếp vận hành các cụm Kubernetes quy mô lớn tại Bizfly Cloud và quản trị môi trường AWS cho doanh nghiệp tại FPT Software. Chuyên môn sâu về CI/CD, Ansible và đảm bảo tính sẵn sàng cao cho hệ thống." data-en="Cloud & System Engineer with proven experience in building and automating scalable infrastructure. I've managed large-scale Kubernetes clusters at Bizfly Cloud and maintained enterprise AWS environments at FPT Software. My expertise lies in CI/CD, Ansible, and ensuring high system availability."></p><div class="profile-links"><a href="https://linkedin.com/in/quanbna" target="_blank" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a><a href="mailto:quan.bna@hotmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></a></div><a href="https://1drv.ms/b/c/bdf75d6bdb6f3ffe/EQKyDN-FMdNPiv37_aYrWDMBct783J3hoNZRl2x0ZFM8-w?e=hHdCF1" class="profile-cv-btn" target="_blank" rel="noopener noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg><span data-vi="Tải CV" data-en="Download CV"></span></a></div></section>
-        <section class="panel" id="panel-experience"><div class="panel-content-wrapper"><h3 class="panel-title" data-vi="🏢 Kinh Nghiệm" data-en="🏢 Experience"></h3><div class="sub-node"><p class="sub-node-title"><span data-vi="Quản trị Hệ thống" data-en="System Administrator"></span> @ <span class="clickable" data-modal-title-vi="Về Bizfly Cloud" data-modal-title-en="About Bizfly Cloud" data-modal-content-vi="Bizfly Cloud là một nhà cung cấp dịch vụ điện toán đám mây hàng đầu tại Việt Nam, trực thuộc VCCorp, tập trung cung cấp các giải pháp hạ tầng đa dạng và tối ưu cho thị trường trong nước." data-modal-content-en="Bizfly Cloud is a leading cloud computing provider in Vietnam, part of VCCorp, focusing on delivering a wide range of infrastructure solutions optimized for the local market."><img src="https://images.crunchbase.com/image/upload/c_pad,f_auto,q_auto:eco,dpr_1/uzxexbqiotwtjtvmxdkp" alt="Bizfly Cloud Logo" class="company-logo">Bizfly Cloud</span> <span data-vi="(05/2024 - Hiện tại)" data-en="(May 2024 - Present)"></span></p><div class="sub-node-details"><ul data-vi-list='["Chủ trì thiết kế và triển khai pipeline CI/CD cho dự án CDN, tự động hóa 95% quy trình.","Vận hành và tối ưu hóa cụm Kubernetes, xử lý hàng triệu request mỗi ngày.","Phát triển playbook Ansible phức tạp để quản lý cấu hình đồng bộ trên 200+ máy chủ."]' data-en-list='["Led the design and implementation of CI/CD pipelines for the CDN project, automating 95% of the process.","Operated and optimized Kubernetes clusters handling millions of daily requests.","Developed complex Ansible playbooks for consistent configuration management across 200+ servers."]' ></ul></div></div><div class="sub-node"><p class="sub-node-title"><span data-vi="Kỹ sư Cloud (Fresher)" data-en="Fresher Cloud Engineer"></span> @ <span class="clickable" data-modal-title-vi="Về FPT Software" data-modal-title-en="About FPT Software" data-modal-content-vi="FPT Software là công ty công nghệ và gia công phần mềm lớn nhất Việt Nam, cung cấp dịch vụ IT và chuyển đổi số cho các khách hàng trên toàn cầu." data-modal-content-en="FPT Software is Vietnam's largest technology and IT outsourcing company, providing digital transformation and IT services to clients worldwide."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/FPT_logo_2010.svg/1200px-FPT_logo_2010.svg.png" alt="FPT Software Logo" class="company-logo">FPT Software</span> <span data-vi="(12/2023 - 05/2024)" data-en="(Dec 2023 - May 2024)"></span></p><div class="sub-node-details"><ul data-vi-list='["Tham gia vận hành hạ tầng AWS cho khách hàng thương mại điện tử lớn, đảm bảo uptime 99.9%.","Sử dụng AWS EC2, S3, và CloudWatch để triển khai, lưu trữ và giám sát ứng dụng.","Hỗ trợ xử lý sự cố cấp 1 & 2 theo quy trình ITIL."]' data-en-list='["Participated in operating AWS infrastructure for a major e-commerce client, ensuring 99.9% uptime.","Utilized AWS EC2, S3, and CloudWatch to deploy, store, and monitor applications.","Assisted in Level 1 & 2 incident response following ITIL processes."]' ></ul></div></div><div class="sub-node"><p class="sub-node-title"><span data-vi="Quản trị Hệ thống (Fresher)" data-en="Fresher System Administrator"></span> @ <span class="clickable" data-modal-title-vi="Về CMC Telecom" data-modal-title-en="About CMC Telecom" data-modal-content-vi="CMC Telecom là một nhà cung cấp dịch vụ viễn thông và hạ tầng số uy tín tại Việt Nam, nổi bật với các dịch vụ Data Center và kết nối mạng." data-modal-content-en="CMC Telecom is a reputable telecommunications and digital infrastructure provider in Vietnam, known for its Data Center and connectivity services."><img src="https://cdn.haitrieu.com/wp-content/uploads/2022/12/Icon-Dai-hoc-CMC.png" alt="CMC Telecom Logo" class="company-logo">CMC Telecom</span> <span data-vi="(02/2023 - 08/2023)" data-en="(Feb 2023 - Aug 2023)"></span></p><div class="sub-node-details"><ul data-vi-list='["Thực hiện cài đặt, cấu hình và bảo trì hơn 50 máy chủ vật lý (bare-metal) tại Data Center.","Quản trị các dịch vụ mạng nền tảng như DNS (Bind), DHCP, và máy chủ web (Apache, NGINX).","Thực hiện các quy trình hardening bảo mật cơ bản cho máy chủ mới."]' data-en-list='["Performed installation, configuration, and maintenance on over 50 bare-metal servers in a Data Center.","Administered foundational network services like DNS (Bind), DHCP, and web servers (Apache, NGINX).","Executed basic security hardening procedures for new servers."]' ></ul></div></div></div></section>
-        <section class="panel" id="panel-education"><div class="panel-content-wrapper"><h3 class="panel-title" data-vi="🎓 Học Vấn" data-en="🎓 Education"></h3><div class="sub-node"><p class="sub-node-title" data-vi="Cao đẳng Kỹ thuật Hà Nội" data-en="Hanoi Vocational College of Technology"></p><div class="sub-node-details"><p><strong data-vi="Chuyên ngành:" data-en="Major:"></strong> <span data-vi="Cử nhân Kỹ sư Quản trị Mạng" data-en="Bachelor of Engineering in Network Administration"></span></p><p><strong>GPA:</strong> 3.6/4.0</p></div></div></div></section>
-        <section class="panel" id="panel-certificates"><div class="panel-content-wrapper"><h3 class="panel-title" data-vi="🏆 Chứng Chỉ" data-en="🏆 Certificates"></h3><div class="certificate-node"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2xQcwKitRgXfqdi34DYlocPSEXD2G2zZipg&s" alt="AWS Certified Solutions Architect Associate Logo" class="certificate-logo"><p class="certificate-name">AWS Certified Solutions Architect - Associate</p><p class="certificate-desc" data-vi="Chứng chỉ xác nhận năng lực thiết kế và triển khai các hệ thống có khả năng mở rộng, sẵn sàng cao và chịu lỗi trên nền tảng AWS." data-en="Validates the ability to design and deploy well-architected, scalable, highly available, and fault-tolerant systems on AWS."></p></div></div></section>
-        <section class="panel" id="panel-projects"><div class="panel-content-wrapper"><h3 class="panel-title" data-vi="🚀 Dự Án" data-en="🚀 Projects"></h3><div class="sub-node"><p class="sub-node-title" data-vi="Tối Ưu Hóa Bizfly Cloud CDN" data-en="Bizfly Cloud CDN Optimization"></p><div class="sub-node-details"><ul data-vi-list='["Tự động hóa triển khai caching node bằng Ansible, giảm 90% thời gian thiết lập.","Container hóa control plane bằng Kubernetes để dễ dàng quản lý và scaling.","Phát triển exporter giám sát tùy chỉnh bằng Go để có visibility sâu hơn.","Cải thiện 30% tỷ lệ cache hit thông qua tinh chỉnh cấu hình NGINX."]' data-en-list='["Automated caching node deployment with Ansible, reducing setup time by 90%.","Containerized the control plane with Kubernetes for easier management and scaling.","Developed a custom monitoring exporter in Go for deeper visibility.","Improved cache hit ratio by 30% through NGINX configuration tuning."]' ></ul><p style="margin-top: 15px;"><strong data-vi="Công nghệ:" data-en="Technology:"></strong> <em>Kubernetes, Docker, Ansible, Go, NGINX.</em></p></div></div></div></section>
-        <section class="panel" id="panel-skills"><div class="panel-content-wrapper"><h3 class="panel-title" data-vi="🛠️ Kỹ Năng" data-en="🛠️ Skills"></h3><div class="sub-node"><p class="sub-node-title" data-vi="☁️ Cloud, CI/CD & Tự động hóa" data-en="☁️ Cloud, CI/CD & Automation"></p><div class="skills-grid"><div class="skill-item" style="--glow-color: #FF9900;" data-modal-title-vi="Amazon Web Services" data-modal-title-en="Amazon Web Services" data-modal-content-vi="Kinh nghiệm với các dịch vụ cốt lõi như EC2, S3, VPC và CloudWatch để xây dựng hạ tầng đám mây linh hoạt và có khả năng mở rộng." data-modal-content-en="Experience with core services like EC2, S3, VPC, and CloudWatch to build scalable and flexible cloud infrastructure."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amazon_Web_Services_Logo.svg/512px-Amazon_Web_Services_Logo.svg.png" alt="AWS Logo" class="tech-logo"/>AWS</div><div class="skill-item" style="--glow-color: #326CE5;" data-modal-title-vi="Kubernetes" data-modal-title-en="Kubernetes" data-modal-content-vi="Điều phối các ứng dụng container hóa ở quy mô lớn, quản lý vòng đời, tự động scaling và đảm bảo tính sẵn sàng cao." data-modal-content-en="Orchestrating containerized applications at scale, managing their lifecycle, auto-scaling, and ensuring high availability."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/512px-Kubernetes_logo_without_workmark.svg.png" alt="Kubernetes Logo" class="tech-logo"/>Kubernetes</div><div class="skill-item" style="--glow-color: #2496ED;" data-modal-title-vi="Docker" data-modal-title-en="Docker" data-modal-content-vi="Xây dựng, đóng gói và chạy ứng dụng trong các container biệt lập, đảm bảo tính nhất quán giữa các môi trường phát triển và sản phẩm." data-modal-content-en="Building, shipping, and running applications in isolated containers, ensuring consistency between development and production environments."><img src="https://cdn.worldvectorlogo.com/logos/docker.svg" alt="Docker Logo" class="tech-logo"/>Docker</div><div class="skill-item" style="--glow-color: #EE0000;" data-modal-title-vi="Ansible" data-modal-title-en="Ansible" data-modal-content-vi="Tự động hóa quản lý cấu hình, cấp phát máy chủ và triển khai ứng dụng bằng các playbook đơn giản, không cần agent." data-modal-content-en="Automating configuration management, server provisioning, and application deployment using simple, agentless playbooks."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Ansible_logo.svg/512px-Ansible_logo.svg.png" alt="Ansible Logo" class="tech-logo"/>Ansible</div><div class="skill-item" style="--glow-color: #FC6D26;" data-modal-title-vi="GitLab CI/CD" data-modal-title-en="GitLab CI/CD" data-modal-content-vi="Xây dựng pipeline CI/CD tích hợp sẵn trong GitLab để tự động hóa các quy trình build, test và deploy." data-modal-content-en="Building CI/CD pipelines integrated within GitLab to automate the build, test, and deployment processes."><img src="https://cdn.worldvectorlogo.com/logos/gitlab.svg" alt="GitLab Logo" class="tech-logo"/>GitLab CI</div></div></div><div class="sub-node"><p class="sub-node-title" data-vi="📊 Giám Sát & Ghi Log" data-en="📊 Monitoring & Logging"></p><div class="skills-grid"><div class="skill-item" style="--glow-color: #F46800;" data-modal-title-vi="Grafana" data-modal-title-en="Grafana" data-modal-content-vi="Trực quan hóa dữ liệu metrics và log từ nhiều nguồn khác nhau để tạo dashboard giám sát mạnh mẽ." data-modal-content-en="Visualizing metrics and logs from various data sources to create powerful monitoring dashboards."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Grafana_icon.svg/512px-Grafana_icon.svg.png" alt="Grafana Logo" class="tech-logo"/>Grafana</div><div class="skill-item" style="--glow-color: #8A2BE2;" data-modal-title-vi="VictoriaMetrics" data-modal-title-en="VictoriaMetrics" data-modal-content-vi="Giải pháp lưu trữ time-series hiệu năng cao, tương thích Prometheus, dùng để thu thập và truy vấn metrics hệ thống một cách hiệu quả." data-modal-content-en="A high-performance, Prometheus-compatible time-series database for efficiently collecting and querying system metrics."><img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/victoriametrics-li9zhx6xfxjlnyb7ymgwk.png/victoriametrics-ue5txd3x1rl0jo7xigoq.png?_a=DATAg1AAZAA0" alt="VictoriaMetrics Logo" class="tech-logo"/>VictoriaMetrics</div><div class="skill-item" style="--glow-color: #0095BF;" data-modal-title-vi="Icinga" data-modal-title-en="Icinga" data-modal-content-vi="Hệ thống giám sát mã nguồn mở để kiểm tra tính sẵn sàng của các host, dịch vụ mạng và gửi cảnh báo khi có sự cố." data-modal-content-en="An open-source monitoring system to check the availability of network hosts and services, and to send alerts on incidents."><img src="https://www.svgrepo.com/download/330667/icinga.svg" alt="Icinga Logo" class="tech-logo"/>Icinga</div><div class="skill-item" style="--glow-color: #FF4500;" data-modal-title-vi="Splunk" data-modal-title-en="Splunk" data-modal-content-vi="Nền tảng phân tích và tìm kiếm log tập trung, giúp điều tra sự cố, phân tích hành vi và tạo báo cáo bảo mật." data-modal-content-en="A centralized platform for searching, analyzing, and visualizing machine-generated data for troubleshooting and security analytics."><img src="https://img.icons8.com/?size=512&id=49188&format=png" alt="Splunk Logo" class="tech-logo"/>Splunk</div></div></div><div class="sub-node"><p class="sub-node-title" data-vi="⚙️ Hệ Thống & Dịch Vụ" data-en="⚙️ Systems & Services"></p><div class="skills-grid"><div class="skill-item" style="--glow-color: #FCC624;" data-modal-title-vi="Linux" data-modal-title-en="Linux" data-modal-content-vi="Quản trị thành thạo các bản phân phối phổ biến như Ubuntu và CentOS, bao gồm quản lý hệ thống, mạng và bảo mật." data-modal-content-en="Proficient administration of popular distributions like Ubuntu and CentOS, including system, network, and security management."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/512px-Tux.svg.png" alt="Linux Logo" class="tech-logo"/>Linux</div><div class="skill-item" style="--glow-color: #009639;" data-modal-title-vi="NGINX" data-modal-title-en="NGINX" data-modal-content-vi="Sử dụng NGINX làm web server, reverse proxy và load balancer hiệu năng cao cho các ứng dụng web." data-modal-content-en="Using NGINX as a high-performance web server, reverse proxy, and load balancer for web applications."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/512px-Nginx_logo.svg.png" alt="NGINX Logo" class="tech-logo"/>NGINX</div><div class="skill-item" style="--glow-color: #00A6D6;" data-modal-title-vi="HAProxy" data-modal-title-en="HAProxy" data-modal-content-vi="Cung cấp giải pháp cân bằng tải và proxy TCP/HTTP đáng tin cậy, đảm bảo tính sẵn sàng cao và hiệu suất." data-modal-content-en="Providing reliable load balancing and proxying for TCP and HTTP-based applications, ensuring high availability and performance."><img src="https://images.icon-icons.com/2699/PNG/512/haproxy_logo_icon_171017.png" alt="HAProxy Logo" class="tech-logo"/>HAProxy</div></div></div><div class="sub-node"><p class="sub-node-title" data-vi="💻 Scripting & Lập Trình" data-en="💻 Scripting & Programming"></p><div class="skills-grid"><div class="skill-item" style="--glow-color: #00ADD8;" data-modal-title-vi="Go (Golang)" data-modal-title-en="Go (Golang)" data-modal-content-vi="Phát triển các công cụ CLI, exporter giám sát và microservice hiệu năng cao với Go." data-modal-content-en="Developing high-performance CLI tools, monitoring exporters, and microservices with Go."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Go_Logo_Blue.svg/512px-Go_Logo_Blue.svg.png" alt="Go Logo" class="tech-logo"/>Go</div><div class="skill-item" style="--glow-color: #3776AB;" data-modal-title-vi="Python" data-modal-title-en="Python" data-modal-content-vi="Viết kịch bản tự động hóa các tác vụ hạ tầng, tương tác với API của cloud và xử lý dữ liệu." data-modal-content-en="Writing automation scripts for infrastructure tasks, interacting with cloud APIs, and data processing."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/512px-Python-logo-notext.svg.png" alt="Python Logo" class="tech-logo"/>Python</div><div class="skill-item" style="--glow-color: #4EAA25;" data-modal-title-vi="Bash" data-modal-title-en="Bash" data-modal-content-vi="Thành thạo viết kịch bản shell để tự động hóa các tác vụ quản trị hệ thống Linux hàng ngày." data-modal-content-en="Proficient in writing shell scripts to automate daily Linux system administration tasks."><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bash_Logo_Colored.svg/512px-Bash_Logo_Colored.svg.png" alt="Bash Logo" class="tech-logo"/>Bash</div></div></div></div></section>
-    </main>
-
-    <nav class="dock">
-        <a href="#home" class="dock-item" data-panel="home" data-index="0" data-theme-colors='["#f72585", "#7209b7", "#3a0ca3"]'><div class="dock-item-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg></div><span class="dock-item-label" data-vi="Trang Chủ" data-en="Home"></span></a>
-        <a href="#experience" class="dock-item" data-panel="experience" data-index="1" data-theme-colors='["#4cc9f0", "#4895ef", "#4361ee"]'><div class="dock-item-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg></div><span class="dock-item-label" data-vi="Kinh Nghiệm" data-en="Experience"></span></a>
-        <a href="#education" class="dock-item" data-panel="education" data-index="2" data-theme-colors='["#6a0dad", "#5a189a", "#3c096c"]'><div class="dock-item-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.25V15h14v-3.75L23 9l-2.32-1.32L12 3zm-2 13.5v-3.04l2 1.12l2-1.12v3.04h-4zm7-6.26l-5 2.77l-5-2.77l5-2.77l5 2.77z"/></svg></div><span class="dock-item-label" data-vi="Học Vấn" data-en="Education"></span></a>
-        <a href="#certificates" class="dock-item" data-panel="certificates" data-index="3" data-theme-colors='["#fca311", "#e85d04", "#dc2f02"]'><div class="dock-item-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-3.5-3.5 1.41-1.41L10 13.17l5.59-5.59L17 9l-7 7z"/></svg></div><span class="dock-item-label" data-vi="Chứng Chỉ" data-en="Certificates"></span></a>
-        <a href="#projects" class="dock-item" data-panel="projects" data-index="4" data-theme-colors='["#00f5d4", "#00bbf9", "#00a2e0"]'><div class="dock-item-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 9h-2v3.13c-.59.34-1 .95-1 1.67c0 1.1.9 2 2 2s2-.9 2-2c0-.72-.41-1.33-1-1.67V11zm4-3H5V4h8v4z"/></svg></div><span class="dock-item-label" data-vi="Dự Án" data-en="Projects"></span></a>
-        <a href="#skills" class="dock-item" data-panel="skills" data-index="5" data-theme-colors='["#34a853", "#1e8e3e", "#0d652d"]'><div class="dock-item-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg></div><span class="dock-item-label" data-vi="Kỹ Năng" data-en="Skills"></span></a>
+    <!-- RGB Blocks Container -->
+    <div class="rgb-blocks" id="rgbBlocks"></div>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle">
+        <div class="theme-toggle-slider">☀️</div>
+    </div>
+    
+    <!-- Navigation Menu (Desktop) -->
+    <nav class="nav-menu">
+        <div class="nav-menu-items">
+            <div class="nav-menu-item active" data-section="0">Home</div>
+            <div class="nav-menu-item" data-section="1">Experience</div>
+            <div class="nav-menu-item" data-section="2">Skills</div>
+            <div class="nav-menu-item" data-section="3">Education</div>
+        </div>
     </nav>
     
-    <div class="modal-overlay"><div class="modal-content"><div class="modal-header"><h3 class="modal-title"></h3><button class="modal-close" aria-label="Close modal">×</button></div><div class="modal-body"><p></p></div></div></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.4.0/tsparticles.bundle.min.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- BASIC SETUP ---
-        const doc = document.documentElement;
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const langVI_btn = document.getElementById('lang-vi');
-        const langEN_btn = document.getElementById('lang-en');
-        let currentLang = 'vi';
-        const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></svg>`;
-        const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>`;
-        const particlesConfig = { dark: { particles: { number: { value: 80 }, color: { value: "#ccd6f6" }, links: { enable: true, distance: 150, color: "#8892b0", opacity: 0.2, width: 1 }, move: { enable: true, speed: 1.5 } }, interactivity: { events: { onhover: { enable: true, mode: "repulse" } }, modes: { repulse: { distance: 120, duration: 0.4 } } } }, light: { particles: { number: { value: 100 }, color: { value: "#8892b0" }, links: { enable: true, distance: 150, color: "#cad0d7", opacity: 0.4, width: 1 }, move: { enable: true, speed: 1.5 } }, interactivity: { events: { onhover: { enable: true, mode: "repulse" } }, modes: { repulse: { distance: 120, duration: 0.4 } } } } };
-        async function initParticles(theme) { const existingInstance = tsParticles.domItem(0); if (existingInstance) { existingInstance.destroy(); } await tsParticles.load({ id: "tsparticles", options: particlesConfig[theme] }); }
-        function applyTheme(theme) { doc.classList.toggle('light-mode', theme === 'light'); themeToggleBtn.innerHTML = theme === 'light' ? moonIcon : sunIcon; initParticles(theme); }
-        function toggleTheme() { const newTheme = doc.classList.contains('light-mode') ? 'dark' : 'light'; applyTheme(newTheme); localStorage.setItem('portfolioTheme', newTheme); }
-        function applyLanguage(lang) { currentLang = lang; doc.lang = lang; document.querySelectorAll('[data-vi], [data-en]').forEach(el => { if (el.dataset[lang] !== undefined) { el.textContent = el.dataset[lang]; } }); document.querySelectorAll('[data-vi-list], [data-en-list]').forEach(ul => { const listKey = lang === 'vi' ? 'viList' : 'enList'; if (ul.dataset[listKey]) { try { const items = JSON.parse(ul.dataset[listKey]); ul.innerHTML = items.map(item => `<li>${item}</li>`).join(''); } catch(e) { console.error('Error parsing list data', e); } } }); langVI_btn.classList.toggle('active', lang === 'vi'); langEN_btn.classList.toggle('active', lang === 'en'); localStorage.setItem('portfolioLang', lang); }
-        function showModal(title, content) { modalOverlay.classList.add('visible'); modalOverlay.querySelector('.modal-title').textContent = title; modalOverlay.querySelector('.modal-body p').textContent = content; }
-        function hideModal() { modalOverlay.classList.remove('visible'); }
-
-        // --- CORE INTERACTION LOGIC ---
-        const stage = document.querySelector('.stage');
-        const dockMenu = document.querySelector('.dock');
-        const modalOverlay = document.querySelector('.modal-overlay');
-        const panels = document.querySelectorAll('.panel');
-        const TOTAL_PANELS = panels.length;
-        let activeIndex = 0;
-        let isTransitioning = false; // Cooldown for all transitions
+    <!-- Navigation Dots (Mobile) -->
+    <div class="nav-dots">
+        <div class="nav-dot active" data-section="0"></div>
+        <div class="nav-dot" data-section="1"></div>
+        <div class="nav-dot" data-section="2"></div>
+        <div class="nav-dot" data-section="3"></div>
+    </div>
+    
+    <!-- Navigation Arrows -->
+    <div class="nav-arrows">
+        <div class="nav-arrow" id="prevArrow">❮</div>
+        <div class="nav-arrow" id="nextArrow">❯</div>
+    </div>
+    
+    <!-- Horizontal Container -->
+    <div class="horizontal-container" id="horizontalContainer">
+        <!-- Header Section -->
+        <section class="section" id="section-0">
+            <div class="section-content">
+                <div class="profile-img"></div>
+                <h1>Bui Nguyen Anh Quan</h1>
+                <p class="subtitle">System Administrator | Cloud Engineer</p>
+                
+                <div class="contact-links">
+                    <a href="mailto:quan.bna@hotmail.com">Email</a>
+                    <a href="https://linkedin.com/in/quanbna" target="_blank">LinkedIn</a>
+                    <a href="https://quanbna.github.io" target="_blank">Website</a>
+                </div>
+            </div>
+        </section>
         
-        function updatePanels(newIndex, fromHistory = false) {
-            //if (isTransitioning) return;
+        <!-- Experience Section -->
+        <section class="section" id="section-1">
+            <div class="section-content">
+                <h2 class="section-title">Work Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">May 2024 – Present</div>
+                        <div class="timeline-title">System Administrator</div>
+                        <div class="timeline-company">Bizfly Cloud</div>
+                        <div class="timeline-content glass">
+                            Key member running Bizfly Cloud CDN project and sub-member in 3 other internal projects. Responsible for managing CI/CD, containerization (Docker, Kubernetes), and infrastructure automation (Ansible, Python, Go). Optimizing high-throughput systems and complex monitoring solutions.
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Dec 2023 – May 2024</div>
+                        <div class="timeline-title">Fresher Cloud Engineer</div>
+                        <div class="timeline-company">FPT Software</div>
+                        <div class="timeline-content glass">
+                            Gained foundational knowledge and hands-on experience with Amazon Web Services (AWS), including EC2 and CloudWatch. Actively participated in an outsourcing project, contributing to the operational support of an e-commerce customer's AWS infrastructure.
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Feb 2023 – Aug 2023</div>
+                        <div class="timeline-title">Fresher System Administrator</div>
+                        <div class="timeline-company">CMC Telecom</div>
+                        <div class="timeline-content glass">
+                            Comprehensive training on Linux server deployment and administration. Provided technical support and contributed to server management in data centers, ensuring continuous operations for customers.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Tech Stack Section -->
+        <section class="section" id="section-2">
+            <div class="section-content">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="tech-categories" id="techGrid">
+                    <!-- Tech items will be generated by JavaScript -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Education & Certificate Section -->
+        <section class="section" id="section-3">
+            <div class="section-content">
+                <h2 class="section-title">Education & Certificate</h2>
+                
+                <div class="edu-cert-container">
+                    <div class="education-container glass">
+                        <h3 class="edu-cert-title">Education</h3>
+                        <div class="edu-item">
+                            <div class="edu-school">HANOI VOCATIONAL COLLEGE OF TECHNOLOGY</div>
+                            <div class="edu-degree">Bachelor of Network Administration</div>
+                            <div class="edu-gpa">GPA: 3.5/4</div>
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-container glass">
+                        <h3 class="edu-cert-title">Certificate</h3>
+                        <div class="cert-item">
+                            <div class="cert-name">AWS Certified Solutions Architect - Associate</div>
+                            <div class="cert-date">Issued: 2023</div>
+                            <div class="cert-detail">
+                                Validates expertise in designing and deploying scalable systems on AWS. Demonstrates knowledge of AWS services, architectural best practices, and cloud migration strategies.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Tech Detail Modal -->
+    <div class="overlay" id="overlay"></div>
+    <div class="tech-detail" id="techDetail">
+        <button class="close-btn" id="closeBtn">×</button>
+        <div class="detail-header">
+            <img class="detail-icon" id="detailIcon" src="" alt="">
+            <h2 class="detail-title" id="detailTitle"></h2>
+        </div>
+        <div class="detail-content" id="detailContent"></div>
+        <div class="detail-projects" id="detailProjects"></div>
+    </div>
+
+    <script>
+        // Create RGB blocks
+        function createRGBBlocks() {
+            const container = document.getElementById('rgbBlocks');
+            const colors = [
+                'linear-gradient(45deg, #ff0000, #ff7300)',
+                'linear-gradient(45deg, #fffb00, #48ff00)',
+                'linear-gradient(45deg, #00ffd5, #002bff)',
+                'linear-gradient(45deg, #7a00ff, #ff00c8)',
+                'linear-gradient(45deg, #ff0080, #ff8c00)',
+                'linear-gradient(45deg, #00ff80, #8000ff)'
+            ];
             
-            //isTransitioning = true;
-            activeIndex = (newIndex + TOTAL_PANELS) % TOTAL_PANELS;
-            const activeDockItem = document.querySelector(`.dock-item[data-index="${activeIndex}"]`);
-            if(!activeDockItem) return;
-
-            document.querySelectorAll('.dock-item').forEach(item => item.classList.remove('active'));
-            activeDockItem.classList.add('active');
-
-            if (activeDockItem.dataset.themeColors) {
-                try { const colors = JSON.parse(activeDockItem.dataset.themeColors); doc.style.setProperty('--blob1-color', colors[0]); doc.style.setProperty('--blob2-color', colors[1]); doc.style.setProperty('--blob3-color', colors[2]); } catch (e) {}
+            // Create 6 blocks
+            for (let i = 0; i < 6; i++) {
+                const block = document.createElement('div');
+                block.className = 'rgb-block';
+                
+                // Random size between 200px and 400px
+                const size = Math.random() * 200 + 200;
+                block.style.width = `${size}px`;
+                block.style.height = `${size}px`;
+                
+                // Random position
+                block.style.left = `${Math.random() * 100}%`;
+                block.style.top = `${Math.random() * 100}%`;
+                
+                // Random color gradient
+                block.style.background = colors[i % colors.length];
+                
+                container.appendChild(block);
+                
+                // Animate block movement
+                animateBlock(block);
+            }
+        }
+        
+        // Animate block movement
+        function animateBlock(block) {
+            function moveBlock() {
+                // Random target position
+                const targetX = Math.random() * (window.innerWidth - 400);
+                const targetY = Math.random() * (window.innerHeight - 400);
+                
+                // Random duration between 15s and 25s
+                const duration = Math.random() * 10000 + 15000;
+                
+                // Apply transition
+                block.style.transition = `all ${duration}ms ease-in-out`;
+                block.style.left = `${targetX}px`;
+                block.style.top = `${targetY}px`;
+                
+                // Continue animation after duration
+                setTimeout(moveBlock, duration);
             }
             
-            panels.forEach((panel, i) => {
-                panel.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next');
-                if (i === activeIndex) panel.classList.add('active');
-                else if (i === (activeIndex - 1 + TOTAL_PANELS) % TOTAL_PANELS) panel.classList.add('prev');
-                else if (i === (activeIndex + 1) % TOTAL_PANELS) panel.classList.add('next');
-                else if (i === (activeIndex - 2 + TOTAL_PANELS) % TOTAL_PANELS) panel.classList.add('far-prev');
-                else if (i === (activeIndex + 2) % TOTAL_PANELS) panel.classList.add('far-next');
+            // Start animation
+            moveBlock();
+        }
+        
+        // Initialize RGB blocks
+        createRGBBlocks();
+        
+        // Tech stack data with official logos and categories
+        const techStack = [
+            {
+                name: "AWS",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
+                description: "Experience with Amazon Web Services (EC2, CloudWatch). Participated in supporting AWS infrastructure for e-commerce customers.",
+                projects: "FPT Software Project: Supported AWS infrastructure for e-commerce clients, including basic monitoring and troubleshooting.",
+                category: "cloud"
+            },
+            {
+                name: "Kubernetes",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg",
+                description: "Managing container orchestration, deploying and optimizing distributed systems on Kubernetes platform.",
+                projects: "Bizfly Cloud CDN Project: Key member in the CDN project, responsible for Kubernetes management and system optimization.",
+                category: "devops"
+            },
+            {
+                name: "Docker",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg",
+                description: "Containerization expert, building and managing Docker images for development and production environments.",
+                projects: "Automated CI/CD processes using Docker to create consistent environments from development to production.",
+                category: "devops"
+            },
+            {
+                name: "Python",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+                description: "Developing custom tools for workflow automation, data processing, and system integration.",
+                projects: "Built custom monitoring tools and automated system administration tasks at Bizfly Cloud.",
+                category: "devops"
+            },
+            {
+                name: "Grafana",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg",
+                description: "Designing complex monitoring dashboards, visualizing performance data and real-time alerts.",
+                projects: "Deployed comprehensive monitoring solutions using Grafana combined with Victoria Metrics for the CDN system.",
+                category: "monitoring"
+            },
+            {
+                name: "Ansible",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ansible_logo.svg",
+                description: "Automating configuration and system deployment, managing infrastructure as code.",
+                projects: "Developed Ansible playbooks to automate deployment and server management processes at Bizfly Cloud.",
+                category: "devops"
+            },
+            {
+                name: "Linux",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
+                description: "Expert in Linux system administration (Ubuntu, CentOS, Debian), optimizing performance and security.",
+                projects: "Managed servers at CMC Telecom and Bizfly Cloud, ensuring continuous operations for customers.",
+                category: "other"
+            },
+            {
+                name: "GitLab CI",
+                icon: "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/144_Gitlab_logo_logos-512.png",
+                description: "Building automated CI/CD pipelines, integrating testing and continuous deployment.",
+                projects: "Implemented CI/CD pipelines for the Bizfly Cloud project, reducing release time and minimizing errors.",
+                category: "devops"
+            },
+            {
+                name: "Victoria Metrics",
+                icon: "https://victoriametrics.com/icons/apple-touch-icon.webp",
+                description: "High-performance, cost-effective monitoring solution and time series database. Efficiently handles large amounts of metrics data with low resource consumption.",
+                projects: "Deployed Victoria Metrics as the primary monitoring backend for Bizfly Cloud CDN project, replacing traditional solutions with significant performance improvements.",
+                category: "monitoring"
+            },
+            {
+                name: "Icinga",
+                icon: "https://doc.pegasi.fi/wiki/lib/exe/fetch.php?cache=&media=icinga-logo.png",
+                description: "Enterprise-grade monitoring system that checks the availability of network resources and notifies users of outages. Provides comprehensive infrastructure monitoring.",
+                projects: "Implemented Icinga monitoring solution at Bizfly Cloud to monitor server infrastructure and application performance, reducing downtime by 30%.",
+                category: "monitoring"
+            },
+            {
+                name: "Splunk",
+                icon: "https://img.icons8.com/?size=512&id=49188&format=png",
+                description: "Platform for searching, monitoring, and analyzing machine-generated data through web-style interface. Powerful tool for log management and security analytics.",
+                projects: "Utilized Splunk for log aggregation and analysis in cloud infrastructure, enabling proactive troubleshooting and security monitoring.",
+                category: "monitoring"
+            },
+            {
+                name: "ELK Stack",
+                icon: "https://flowygo.com/wp-content/uploads/2021/12/ELK_stack.png",
+                description: "Collection of three open-source products — Elasticsearch, Logstash, and Kibana — all developed by Elastic. Used for centralized logging and data analytics.",
+                projects: "Deployed ELK Stack to aggregate logs from distributed systems, creating dashboards for real-time monitoring and historical analysis.",
+                category: "monitoring"
+            },
+            {
+                name: "Nginx",
+                icon: "https://images.icon-icons.com/2699/PNG/512/nginx_logo_icon_169915.png",
+                description: "High-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. Known for high performance, stability, and low resource consumption.",
+                projects: "Configured and optimized Nginx as reverse proxy and load balancer for high-traffic web applications, improving response times and reliability.",
+                category: "other"
+            }
+        ];
+
+        // Function to generate tech items by category
+        function generateTechItems() {
+            const techGrid = document.getElementById('techGrid');
+            techGrid.innerHTML = '';
+            
+            // Create categories
+            const categories = {
+                cloud: { title: "Cloud Platforms", items: [] },
+                devops: { title: "DevOps & Automation", items: [] },
+                monitoring: { title: "Monitoring & Logging", items: [] },
+                other: { title: "Other Technologies", items: [] }
+            };
+            
+            // Group tech items by category
+            techStack.forEach(tech => {
+                if (categories[tech.category]) {
+                    categories[tech.category].items.push(tech);
+                } else {
+                    categories.other.items.push(tech);
+                }
             });
             
-            if (!fromHistory) { history.pushState({ panelIndex: activeIndex }, '', `#${activeDockItem.dataset.panel}`); }
-
-            // Release the lock after the transition ends
-            //setTimeout(() => { isTransitioning = false; }, 600);
-        }
-        
-        // --- GESTURE INTERACTION ---
-        let isDragging = false, startX = 0, startY = 0, deltaX = 0, deltaY = 0;
-        const SWIPE_THRESHOLD = 50, DRAG_DAMPING = 0.3;
-
-        function onDragStart(e) {
-            if (isTransitioning || e.target.closest('a, button, .clickable, .skill-item')) return;
-            isDragging = true;
-            startX = e.pageX || e.touches[0].pageX;
-            startY = e.pageY || e.touches[0].pageY;
-            deltaX = 0; deltaY = 0;
-            stage.classList.add('is-dragging');
-        }
-
-        function onDragMove(e) {
-            if (!isDragging) return;
-            const currentX = e.pageX || e.touches[0].pageX;
-            const currentY = e.pageY || e.touches[0].pageY;
-            deltaX = currentX - startX; deltaY = currentY - startY;
-            if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                if (e.cancelable) e.preventDefault();
-                stage.style.transform = `translate(calc(-50% + ${deltaX * DRAG_DAMPING}px), -50%)`;
-            }
-        }
-
-        function onDragEnd() {
-            if (!isDragging) return;
-            isDragging = false;
-            stage.classList.remove('is-dragging');
-            stage.style.transform = `translate(-50%, -50%)`;
-            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > SWIPE_THRESHOLD) {
-                updatePanels(deltaX > 0 ? activeIndex - 1 : activeIndex + 1);
-            }
-        }
-
-        // --- SCROLL INTERACTION ---
-        function handleScroll(e) {
-            if (isTransitioning || window.innerWidth <= 800) return;
-            const contentWrapper = e.target.closest('.panel-content-wrapper');
-            if (contentWrapper) {
-                const { scrollTop, scrollHeight, clientHeight } = contentWrapper;
-                const isAtTop = scrollTop === 0;
-                const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1;
-                if ((e.deltaY < 0 && !isAtTop) || (e.deltaY > 0 && !isAtBottom)) {
-                    return; // Allow native scroll
+            // Generate HTML for each category
+            Object.keys(categories).forEach(categoryKey => {
+                const category = categories[categoryKey];
+                if (category.items.length > 0) {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'tech-category';
+                    
+                    const categoryTitle = document.createElement('h3');
+                    categoryTitle.className = 'category-title';
+                    categoryTitle.textContent = category.title;
+                    categoryDiv.appendChild(categoryTitle);
+                    
+                    const gridDiv = document.createElement('div');
+                    gridDiv.className = 'tech-grid';
+                    
+                    category.items.forEach(tech => {
+                        const item = document.createElement('div');
+                        item.className = 'tech-item glass';
+                        item.innerHTML = `
+                            <img class="tech-icon" src="${tech.icon}" alt="${tech.name}">
+                            <div class="tech-name">${tech.name}</div>
+                        `;
+                        
+                        // Add click event
+                        item.addEventListener('click', () => showTechDetail(tech));
+                        
+                        gridDiv.appendChild(item);
+                    });
+                    
+                    categoryDiv.appendChild(gridDiv);
+                    techGrid.appendChild(categoryDiv);
                 }
+            });
+        }
+        
+        // Initialize tech items
+        generateTechItems();
+        
+        // Show tech detail
+        function showTechDetail(tech) {
+            document.getElementById('detailIcon').src = tech.icon;
+            document.getElementById('detailIcon').alt = tech.name;
+            document.getElementById('detailTitle').textContent = tech.name;
+            document.getElementById('detailContent').textContent = tech.description;
+            document.getElementById('detailProjects').innerHTML = `
+                <h4>Real-world Application:</h4>
+                <p>${tech.projects}</p>
+            `;
+            
+            techDetail.classList.add('active');
+            overlay.classList.add('active');
+        }
+        
+        // Close tech detail
+        function closeTechDetail() {
+            techDetail.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+        
+        const techDetail = document.getElementById('techDetail');
+        const overlay = document.getElementById('overlay');
+        const closeBtn = document.getElementById('closeBtn');
+        
+        closeBtn.addEventListener('click', closeTechDetail);
+        overlay.addEventListener('click', closeTechDetail);
+        
+        // Horizontal scrolling functionality
+        const container = document.getElementById('horizontalContainer');
+        const sections = document.querySelectorAll('.section');
+        const navDots = document.querySelectorAll('.nav-dot');
+        const navMenuItems = document.querySelectorAll('.nav-menu-item');
+        const prevArrow = document.getElementById('prevArrow');
+        const nextArrow = document.getElementById('nextArrow');
+        
+        let currentSection = 0;
+        let isScrolling = false;
+        
+        // Update navigation
+        function updateNavigation() {
+            navDots.forEach((dot, index) => {
+                if (index === currentSection) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+            
+            navMenuItems.forEach((item, index) => {
+                if (index === currentSection) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+        
+        // Scroll to section
+        function scrollToSection(index) {
+            if (index < 0 || index >= sections.length || isScrolling) return;
+            
+            isScrolling = true;
+            currentSection = index;
+            
+            // Thay đổi xử lý scroll dựa trên kích thước màn hình
+            if (window.innerWidth <= 768) {
+                // Mobile: scroll vertical
+                sections[index].scrollIntoView({ behavior: 'smooth' });
+            } else {
+                // Desktop: scroll horizontal
+                sections[index].scrollIntoView({ behavior: 'smooth' });
             }
-            e.preventDefault();
-            updatePanels(e.deltaY > 0 ? activeIndex + 1 : activeIndex - 1);
+            
+            updateNavigation();
+            
+            setTimeout(() => {
+                isScrolling = false;
+            }, 1000);
         }
         
-        // --- INITIALIZATION ---
-        function handleRouting() {
-            let initialIndex = 0;
-            const panelName = window.location.hash.substring(1);
-            if (panelName) { const item = document.querySelector(`.dock-item[data-panel="${panelName}"]`); if (item) initialIndex = parseInt(item.dataset.index, 10); }
-            if (window.innerWidth <= 800) {
-                document.querySelectorAll('.dock-item').forEach(item => item.classList.remove('active'));
-                const activeItem = document.querySelector(`.dock-item[data-index="${initialIndex}"]`);
-                if (activeItem) activeItem.classList.add('active');
-                panels.forEach((p, i) => p.classList.toggle('active', i === initialIndex));
-            } else { updatePanels(initialIndex, true); }
+        // Navigation dots click
+        navDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                scrollToSection(index);
+            });
+        });
+        
+        // Navigation menu items click
+        navMenuItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                scrollToSection(index);
+            });
+        });
+        
+        // Arrow navigation
+        prevArrow.addEventListener('click', () => {
+            scrollToSection(currentSection - 1);
+        });
+        
+        nextArrow.addEventListener('click', () => {
+            scrollToSection(currentSection + 1);
+        });
+        
+        // Touch events for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        container.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        container.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swipe left
+                scrollToSection(currentSection + 1);
+            }
+            
+            if (touchEndX > touchStartX + 50) {
+                // Swipe right
+                scrollToSection(currentSection - 1);
+            }
         }
         
-        function initialize() {
-            const savedTheme = localStorage.getItem('portfolioTheme') || 'dark'; applyTheme(savedTheme);
-            const savedLang = localStorage.getItem('portfolioLang') || 'vi'; applyLanguage(savedLang);
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                scrollToSection(currentSection + 1);
+            } else if (e.key === 'ArrowLeft') {
+                scrollToSection(currentSection - 1);
+            }
+        });
+        
+        // Handle scroll event to update current section
+        container.addEventListener('scroll', () => {
+            if (isScrolling) return;
             
-            themeToggleBtn.addEventListener('click', toggleTheme);
-            langVI_btn.addEventListener('click', () => applyLanguage('vi'));
-            langEN_btn.addEventListener('click', () => applyLanguage('en'));
-            dockMenu.addEventListener('click', e => { const item = e.target.closest('.dock-item'); if (item) { e.preventDefault(); updatePanels(parseInt(item.dataset.index, 10)); } });
-            document.addEventListener('click', e => { const clickable = e.target.closest('.clickable, .skill-item'); if (clickable) { const titleKey = `modalTitle${currentLang.charAt(0).toUpperCase() + currentLang.slice(1)}`; const contentKey = `modalContent${currentLang.charAt(0).toUpperCase() + currentLang.slice(1)}`; if (clickable.dataset[titleKey] && clickable.dataset[contentKey]) { showModal(clickable.dataset[titleKey], clickable.dataset[contentKey]); } } });
-            modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) hideModal(); });
-            modalOverlay.querySelector('.modal-close').addEventListener('click', hideModal);
-            window.addEventListener('keydown', e => { if (e.key === 'Escape') hideModal(); });
-            window.addEventListener('popstate', e => { const index = e.state ? e.state.panelIndex : 0; updatePanels(index, true); });
-            window.addEventListener('resize', handleRouting);
-
-            stage.addEventListener('mousedown', onDragStart);
-            document.addEventListener('mousemove', onDragMove);
-            document.addEventListener('mouseup', onDragEnd);
-            stage.addEventListener('touchstart', onDragStart, { passive: false });
-            stage.addEventListener('touchmove', onDragMove, { passive: false });
-            stage.addEventListener('touchend', onDragEnd);
-            window.addEventListener('wheel', handleScroll, { passive: false });
+            const containerWidth = container.offsetWidth;
+            const scrollPosition = container.scrollLeft;
+            const sectionIndex = Math.round(scrollPosition / containerWidth);
             
-            handleRouting();
+            if (sectionIndex !== currentSection) {
+                currentSection = sectionIndex;
+                updateNavigation();
+            }
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeSlider = document.querySelector('.theme-toggle-slider');
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeSlider.textContent = '🌙';
         }
-
-        initialize();
-    });
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            // Update icon
+            if (document.body.classList.contains('dark-mode')) {
+                themeSlider.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeSlider.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Auto-adjust height based on window size
+        function adjustSectionHeight() {
+            const windowHeight = window.innerHeight;
+            sections.forEach(section => {
+                // Ensure section takes at least full viewport height
+                section.style.minHeight = `${windowHeight}px`;
+            });
+        }
+        
+        // Initial adjustment
+        adjustSectionHeight();
+        
+        // Adjust on window resize
+        window.addEventListener('resize', adjustSectionHeight);
     </script>
 </body>
 </html>
