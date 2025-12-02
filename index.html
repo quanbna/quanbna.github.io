@@ -1,1414 +1,546 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bui Nguyen Anh Quan - Portfolio</title>
+    <title>Bui Nguyen Anh Quan | Cloud Architect</title>
+    <meta name="description" content="Portfolio of Bui Nguyen Anh Quan - Cloud Architect & System Orchestrator.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            900: '#0c4a6e',
+                            glow: '#00f0ff'
+                        },
+                        dark: {
+                            bg: '#050505',
+                            card: 'rgba(255, 255, 255, 0.03)',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Styles -->
     <style>
-        /* ===== RESET & BASE STYLES ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
         }
-        
-        :root {
-            /* Light mode colors */
-            --bg-primary: #f5f7fa;
-            --bg-secondary: #ffffff;
-            --bg-card: rgba(255, 255, 255, 0.95);
-            --bg-glass: rgba(255, 255, 255, 0.85);
-            --text-primary: #1d1d1f;
-            --text-secondary: #6e6e73;
-            --text-bright: #000000;
-            --accent-primary: #007AFF;
-            --accent-secondary: #FF3B30;
-            --accent-gradient: linear-gradient(90deg, #007AFF, #5856D6);
-            --border-color: rgba(255, 255, 255, 0.3);
-            --shadow-color: rgba(31, 38, 135, 0.25);
-            --rgb-block-opacity: 0.4;
+        ::-webkit-scrollbar-track {
+            background: #050505;
         }
-        
-        body.dark-mode {
-            /* Dark mode colors */
-            --bg-primary: #000000;
-            --bg-secondary: #1d1d1f;
-            --bg-card: rgba(29, 29, 31, 0.95);
-            --bg-glass: rgba(29, 29, 31, 0.85);
-            --text-primary: #f5f5f7;
-            --text-secondary: #a1a1a6;
-            --text-bright: #ffffff;
-            --accent-primary: #0A84FF;
-            --accent-secondary: #FF453A;
-            --accent-gradient: linear-gradient(90deg, #0A84FF, #5856D6);
-            --border-color: rgba(255, 255, 255, 0.2);
-            --shadow-color: rgba(0, 0, 0, 0.5);
-            --rgb-block-opacity: 0.2;
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
         }
-        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--bg-primary);
-            min-height: 100vh;
+            background-color: #050505;
+            color: #e5e5e5;
             overflow-x: hidden;
-            position: relative;
-            transition: all 0.5s ease;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        /* RGB Blocks Container */
-        .rgb-blocks {
+
+        /* Noise Texture */
+        .noise-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .rgb-block {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: var(--rgb-block-opacity);
-            mix-blend-mode: screen;
-            animation: colorShift 15s infinite alternate;
-        }
-        
-        @keyframes colorShift {
-            0% { filter: blur(80px) hue-rotate(0deg); }
-            100% { filter: blur(80px) hue-rotate(360deg); }
-        }
-        
-        /* Static background overlay */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
-            z-index: -2;
-            opacity: 0.03;
-            transition: opacity 0.5s ease;
-        }
-        
-        /* ===== HORIZONTAL LAYOUT ===== */
-        .horizontal-container {
-            display: flex;
-            flex-direction: row;
-            width: fit-content;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-            scroll-behavior: smooth;
-            scroll-snap-type: x mandatory;
-        }
-        
-        .section {
-            width: 100vw;
-            min-height: 100vh;
-            padding: 40px 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            scroll-snap-align: start;
-        }
-        
-        .section-content {
-            width: 90%;
-            max-width: 1200px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* ===== NAVIGATION ===== */
-        .nav-dots {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: row;
-            gap: 15px;
-        }
-        
-        .nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-dot.active {
-            background: var(--accent-primary);
-            transform: scale(1.2);
-        }
-        
-        /* Desktop Navigation Menu */
-        .nav-menu {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-            display: none; /* Hidden by default */
-            background: var(--bg-glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 50px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 32px 0 var(--shadow-color);
-            padding: 10px 20px;
-        }
-        
-        .nav-menu-items {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .nav-menu-item {
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            color: var(--text-secondary);
-            position: relative;
-        }
-        
-        .nav-menu-item.active {
-            color: var(--accent-primary);
-            background: rgba(0, 122, 255, 0.1);
-        }
-        
-        .nav-menu-item:hover {
-            color: var(--accent-primary);
-            transform: translateY(-3px);
-        }
-        
-        .nav-arrows {
-            position: fixed;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 30px;
-            z-index: 100;
             pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-card {
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            background: rgba(30, 30, 30, 0.5);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.1);
+        }
+
+        /* Text Gradients */
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        .nav-arrow {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--bg-glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            pointer-events: all;
-            transition: all 0.3s ease;
-            color: var(--text-primary);
-            font-size: 1.5rem;
+        .text-gradient-blue {
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
-        .nav-arrow:hover {
-            background: var(--accent-primary);
-            color: white;
-            transform: scale(1.1);
-        }
-        
-        /* ===== GLASS EFFECT ===== */
-        .glass {
-            background: var(--bg-glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 32px 0 var(--shadow-color);
-            transition: all 0.3s ease;
-        }
-        
-        /* ===== HEADER SECTION ===== */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            width: 60px;
-            height: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 0 5px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 4px 15px var(--shadow-color);
-            z-index: 1000;
-        }
-        
-        .theme-toggle:hover {
-            box-shadow: 0 0 15px var(--accent-primary);
-        }
-        
-        .theme-toggle-slider {
-            width: 20px;
+
+        /* Utilities */
+        .separator {
+            width: 1px;
             height: 20px;
-            border-radius: 50%;
-            background: var(--accent-primary);
-            transition: transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 12px;
+            background: rgba(255,255,255,0.1);
+            margin: 0 1rem;
         }
-        
-        body.dark-mode .theme-toggle-slider {
-            transform: translateX(30px);
-        }
-        
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid var(--accent-primary);
-            margin: 0 auto 20px;
-            background: url('avt.jpg') center/cover;
-            box-shadow: 0 8px 30px var(--accent-primary);
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-align: center;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px var(--accent-primary);
-        }
-        
-        .subtitle {
-            font-size: 1.3rem;
-            font-weight: 500;
-            margin-bottom: 30px;
-            text-align: center;
-            color: var(--text-bright);
-        }
-        
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-        
-        .contact-links a {
-            color: var(--accent-primary);
-            text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            background: var(--bg-glass);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-            border: 1px solid var(--border-color);
-            font-weight: 600;
-            box-shadow: 0 4px 15px var(--shadow-color);
-        }
-        
-        .contact-links a:hover {
-            background: var(--accent-primary);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px var(--accent-primary);
-        }
-        
-        /* ===== EXPERIENCE SECTION ===== */
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-bright);
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--accent-gradient);
-            border-radius: 4px;
-        }
-        
-        .timeline {
-            position: relative;
-            margin: 30px 0;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 15px;
-            height: 100%;
-            width: 4px;
-            background: var(--accent-gradient);
-            border-radius: 4px;
-        }
-        
-        .timeline-item {
-            margin-bottom: 40px;
-            position: relative;
-            padding-left: 60px;
-        }
-        
-        .timeline-dot {
-            position: absolute;
-            left: 8px;
-            top: 5px;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--accent-primary);
-            box-shadow: 0 0 0 6px var(--accent-primary);
-            opacity: 0.2;
-        }
-        
-        .timeline-date {
-            font-weight: 700;
-            color: var(--accent-primary);
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
-        
-        .timeline-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--text-bright);
-        }
-        
-        .timeline-company {
-            font-style: italic;
-            margin-bottom: 15px;
-            color: var(--accent-secondary);
-            font-weight: 600;
-        }
-        
-        .timeline-content {
-            padding: 25px;
-            border-radius: 16px;
-            font-size: 1rem;
-            line-height: 1.7;
-            background: var(--bg-card);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px var(--shadow-color);
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
-        
-        /* ===== TECH STACK SECTION ===== */
-        .tech-categories {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            margin-top: 30px;
-        }
-        
-        .tech-category {
-            margin-bottom: 20px;
-        }
-        
-        .category-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--text-bright);
-            margin-bottom: 20px;
-            padding-left: 15px;
-            position: relative;
-        }
-        
-        .category-title::before {
-            content: '';
+
+        .timeline-line {
             position: absolute;
             left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 5px;
-            height: 25px;
-            background: var(--accent-gradient);
-            border-radius: 3px;
-        }
-        
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 30px;
-        }
-        
-        .tech-item {
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-            height: 180px;
-            background: var(--bg-card);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            box-shadow: 0 8px 25px var(--shadow-color);
-        }
-        
-        .tech-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px var(--accent-primary);
-            background: var(--bg-secondary);
-            border-color: var(--accent-primary);
-        }
-        
-        .tech-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 15px;
-            object-fit: contain;
-            transition: all 0.3s ease;
-        }
-        
-        .tech-item:hover .tech-icon {
-            transform: scale(1.1);
-        }
-        
-        .tech-name {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--text-bright);
-        }
-        
-        /* ===== TECH DETAIL ===== */
-        .tech-detail {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 700px;
-            padding: 40px;
-            display: none;
-            z-index: 200;
-            background: var(--bg-card);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            box-shadow: 0 15px 40px var(--shadow-color);
-            transition: all 0.3s ease;
-        }
-        
-        .tech-detail.active {
-            display: block;
-            animation: fadeIn 0.5s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: var(--accent-secondary);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-        
-        .close-btn:hover {
-            transform: scale(1.1);
-        }
-        
-        .detail-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-            gap: 20px;
-        }
-        
-        .detail-icon {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-            filter: drop-shadow(0 4px 8px var(--shadow-color));
-        }
-        
-        .detail-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .detail-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-primary);
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
-        
-        .detail-projects {
-            padding: 25px;
-            border-radius: 16px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-        
-        .detail-projects h4 {
-            color: var(--accent-secondary);
-            margin-bottom: 12px;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-        
-        .detail-projects p {
-            color: var(--text-primary);
-        }
-        
-        /* ===== EDUCATION & CERTIFICATE SECTION ===== */
-        .edu-cert-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        
-        .education-container, .certificate-container {
-            padding: 30px;
-            border-radius: 16px;
-            background: var(--bg-card);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 32px 0 var(--shadow-color);
-        }
-        
-        .edu-cert-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-bright);
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .edu-cert-title::after {
-            content: '';
-            position: absolute;
+            top: 0;
             bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: var(--accent-gradient);
-            border-radius: 3px;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(56, 189, 248, 0.5) 10%, rgba(56, 189, 248, 0.5) 90%, transparent);
         }
-        
-        .edu-item, .cert-item {
-            margin-bottom: 20px;
+
+        /* Cursor blinking */
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
         }
-        
-        .edu-school {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-bright);
-            margin-bottom: 8px;
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
-        
-        .edu-degree {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 5px;
-        }
-        
-        .edu-gpa {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--accent-primary);
-        }
-        
-        .cert-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-bright);
-            margin-bottom: 5px;
-        }
-        
-        .cert-date {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-        }
-        
-        .cert-detail {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--text-primary);
-        }
-        
-        /* ===== OVERLAY ===== */
-        .overlay {
+
+        canvas {
+            display: block;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 150;
-            display: none;
-        }
-        
-        .overlay.active {
-            display: block;
-        }
-        
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            /* Mobile Layout Changes */
-            .horizontal-container {
-                flex-direction: column;
-                width: 100%;
-                overflow-x: hidden;
-                overflow-y: auto;
-                scroll-snap-type: none;
-            }
-            
-            .section {
-                width: 100%;
-                min-height: 100vh;
-                scroll-snap-align: none;
-                padding: 60px 0;
-            }
-            
-            /* Navigation dots at bottom center for mobile */
-            .nav-dots {
-                bottom: 20px;
-                gap: 10px;
-                display: flex; /* Show dots on mobile */
-            }
-            
-            .nav-menu {
-                display: none; /* Hide menu on mobile */
-            }
-            
-            .nav-dot {
-                width: 10px;
-                height: 10px;
-            }
-            
-            .nav-arrows {
-                padding: 0 15px;
-            }
-            
-            .nav-arrow {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
-            
-            h1 { font-size: 2rem; }
-            .subtitle { font-size: 1.1rem; }
-            .section-title { font-size: 2rem; }
-            .profile-img { width: 120px; height: 120px; }
-            
-            /* Tech Stack Responsive */
-            .tech-categories {
-                gap: 30px;
-            }
-            
-            .category-title {
-                font-size: 1.5rem;
-                margin-bottom: 15px;
-            }
-            
-            .tech-grid { 
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
-                gap: 20px; 
-            }
-            
-            .tech-item { 
-                height: 160px; 
-                padding: 20px 15px; 
-            }
-            
-            .tech-icon { 
-                width: 60px; 
-                height: 60px; 
-            }
-            
-            .tech-name { 
-                font-size: 1rem; 
-            }
-            
-            .tech-detail { 
-                width: 95%; 
-                padding: 30px 20px; 
-            }
-            
-            .detail-icon { 
-                width: 80px; 
-                height: 80px; 
-            }
-            
-            .detail-title { 
-                font-size: 1.8rem; 
-            }
-            
-            /* Education & Certificate Responsive */
-            .education-container, .certificate-container {
-                padding: 20px;
-            }
-            
-            .edu-cert-title {
-                font-size: 1.5rem;
-            }
-            
-            .edu-school {
-                font-size: 1.1rem;
-            }
-            
-            .edu-degree {
-                font-size: 1rem;
-            }
-            
-            .cert-name {
-                font-size: 1.1rem;
-            }
-            
-            /* Thêm media query cho màn hình rất nhỏ */
-            @media (max-width: 480px) {
-                .section-content {
-                    width: 95%;
-                }
-                
-                .contact-links a {
-                    padding: 10px 20px;
-                    font-size: 0.9rem;
-                }
-                
-                .timeline-item {
-                    padding-left: 40px;
-                }
-                
-                .timeline-content {
-                    padding: 15px;
-                }
-                
-                .tech-grid {
-                    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                }
-            }
-        }
-        
-        /* Desktop specific styles */
-        @media (min-width: 769px) {
-            .nav-dots {
-                display: none; /* Hide dots on desktop */
-            }
-            
-            .nav-menu {
-                display: flex; /* Show menu on desktop */
-            }
+            z-index: -1;
         }
     </style>
 </head>
-<body>
-    <!-- RGB Blocks Container -->
-    <div class="rgb-blocks" id="rgbBlocks"></div>
-    
-    <!-- Theme Toggle -->
-    <div class="theme-toggle" id="themeToggle">
-        <div class="theme-toggle-slider">☀️</div>
-    </div>
-    
-    <!-- Navigation Menu (Desktop) -->
-    <nav class="nav-menu">
-        <div class="nav-menu-items">
-            <div class="nav-menu-item active" data-section="0">Home</div>
-            <div class="nav-menu-item" data-section="1">Experience</div>
-            <div class="nav-menu-item" data-section="2">Skills</div>
-            <div class="nav-menu-item" data-section="3">Education</div>
+<body class="selection:bg-brand-500 selection:text-white">
+
+    <!-- Backgrounds -->
+    <div class="noise-overlay"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 border-b border-white/5 bg-black/50 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="font-mono font-bold text-sm tracking-tighter flex items-center gap-2">
+                <span class="w-2 h-2 bg-brand-400 rounded-full animate-pulse"></span>
+                <span class="text-gray-300">USER:</span> <span class="text-white">QUAN_BNA</span>
+            </div>
+            <div class="flex items-center gap-6 text-xs font-mono text-gray-400">
+                <a href="mailto:quan.bna@hotmail.com" class="hover:text-white transition-colors">STATUS: ONLINE</a>
+                <span class="text-gray-700">|</span>
+                <span class="text-brand-400">SYS_READY</span>
+            </div>
         </div>
     </nav>
-    
-    <!-- Navigation Dots (Mobile) -->
-    <div class="nav-dots">
-        <div class="nav-dot active" data-section="0"></div>
-        <div class="nav-dot" data-section="1"></div>
-        <div class="nav-dot" data-section="2"></div>
-        <div class="nav-dot" data-section="3"></div>
-    </div>
-    
-    <!-- Navigation Arrows -->
-    <div class="nav-arrows">
-        <div class="nav-arrow" id="prevArrow">❮</div>
-        <div class="nav-arrow" id="nextArrow">❯</div>
-    </div>
-    
-    <!-- Horizontal Container -->
-    <div class="horizontal-container" id="horizontalContainer">
-        <!-- Header Section -->
-        <section class="section" id="section-0">
-            <div class="section-content">
-                <div class="profile-img"></div>
-                <h1>Bui Nguyen Anh Quan</h1>
-                <p class="subtitle">System Administrator | Cloud Engineer</p>
+
+    <!-- Main Content -->
+    <main class="relative z-10 pt-32 pb-20 px-6 max-w-5xl mx-auto">
+
+        <!-- Hero Section -->
+        <section class="min-h-[70vh] flex flex-col justify-center mb-24">
+            <div class="gsap-hero opacity-0 translate-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/20 bg-brand-500/5 text-brand-400 text-xs font-mono mb-6">
+                    <i class="fa-solid fa-terminal text-[10px]"></i>
+                    <span>Cloud Architect & System Orchestrator</span>
+                </div>
+            </div>
+            
+            <h1 class="gsap-hero opacity-0 translate-y-4 text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
+                <span class="text-gradient">Bui Nguyen Anh Quan</span>
+            </h1>
+            
+            <p class="gsap-hero opacity-0 translate-y-4 text-xl md:text-2xl text-gray-400 font-light max-w-2xl mb-8 leading-relaxed">
+                Stabilizing Chaos in the Cloud. <br>
+                <span class="text-white font-mono text-base mt-2 block">System Administrator</span>
+            </p>
+
+            <div class="gsap-hero opacity-0 translate-y-4 flex flex-wrap gap-4">
+                <a href="#contact" class="group relative px-6 py-3 bg-white text-black font-medium text-sm rounded transition-all hover:bg-gray-200 overflow-hidden">
+                    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent translate-x-[-100%] group-hover:animate-[shimmer_1s_infinite]"></div>
+                    <span>Initiate Contact</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="mb-32">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                <div class="glass-card p-8 rounded-xl gsap-fade">
+                    <h3 class="font-mono text-brand-400 text-sm mb-4">/// WHO_AM_I</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Top 0.01% Infrastructure aesthetic. Experienced with heavy-duty systems at Bizfly Cloud & FPT.
+                    </p>
+                    <p class="text-white text-lg font-medium italic border-l-2 border-brand-500 pl-4 py-2 bg-white/5">
+                        "I make servers purr like kittens."
+                    </p>
+                    <div class="mt-8 flex gap-4 text-sm font-mono text-gray-500">
+                        <div>
+                            <span class="block text-white text-xl font-bold">2+</span>
+                            Years Exp
+                        </div>
+                        <div class="separator"></div>
+                        <div>
+                            <span class="block text-white text-xl font-bold">100%</span>
+                            Uptime Goal
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="contact-links">
-                    <a href="mailto:quan.bna@hotmail.com">Email</a>
-                    <a href="https://linkedin.com/in/quanbna" target="_blank">LinkedIn</a>
-                    <a href="https://quanbna.github.io" target="_blank">Website</a>
+                <div class="flex flex-col justify-center space-y-6 pt-4 gsap-fade delay-100">
+                    <h2 class="text-3xl font-bold text-white">I touch production on Fridays.</h2>
+                    <p class="text-gray-400">
+                        My expertise lies in orchestrating complex cloud environments where failure is not an option. From bare metal Linux data centers to serverless AWS architectures, I build resilient systems that scale.
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-gray-300">Solution Architect Associate</span>
+                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-gray-300">Network Admin</span>
+                    </div>
                 </div>
             </div>
         </section>
-        
+
         <!-- Experience Section -->
-        <section class="section" id="section-1">
-            <div class="section-content">
-                <h2 class="section-title">Work Experience</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">May 2024 – Present</div>
-                        <div class="timeline-title">System Administrator</div>
-                        <div class="timeline-company">Bizfly Cloud</div>
-                        <div class="timeline-content glass">
-                            Key member running Bizfly Cloud CDN project and sub-member in 3 other internal projects. Responsible for managing CI/CD, containerization (Docker, Kubernetes), and infrastructure automation (Ansible, Python, Go). Optimizing high-throughput systems and complex monitoring solutions.
+        <section class="mb-32">
+            <h2 class="text-2xl font-bold mb-12 flex items-center gap-3 gsap-fade">
+                <i class="fa-solid fa-layer-group text-brand-400 text-sm"></i>
+                <span class="text-gradient">Execution History</span>
+            </h2>
+
+            <div class="relative pl-8 space-y-12">
+                <!-- Vertical Line -->
+                <div class="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-brand-500 via-brand-500/20 to-transparent"></div>
+
+                <!-- Job 1 -->
+                <div class="relative group gsap-fade">
+                    <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-black border-2 border-brand-500 shadow-[0_0_10px_rgba(14,165,233,0.5)] group-hover:scale-125 transition-transform"></div>
+                    <div class="glass-card p-6 rounded-lg hover:border-brand-500/30">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-white">Bizfly Cloud</h3>
+                            <span class="font-mono text-xs text-brand-400">May 2024 - Present</span>
                         </div>
+                        <div class="text-sm font-medium text-gray-400 mb-4">System Administrator</div>
+                        <ul class="space-y-2 text-sm text-gray-300 list-disc list-inside marker:text-brand-500">
+                            <li>Key member running Bizfly Cloud CDN project.</li>
+                            <li>Managing CI/CD pipelines & Infrastructure Automation (Ansible, Python, Go).</li>
+                            <li>Orchestrating Containerization with Docker & Kubernetes.</li>
+                            <li>Optimizing High-Throughput systems & security standards.</li>
+                        </ul>
                     </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">Dec 2023 – May 2024</div>
-                        <div class="timeline-title">Fresher Cloud Engineer</div>
-                        <div class="timeline-company">FPT Software</div>
-                        <div class="timeline-content glass">
-                            Gained foundational knowledge and hands-on experience with Amazon Web Services (AWS), including EC2 and CloudWatch. Actively participated in an outsourcing project, contributing to the operational support of an e-commerce customer's AWS infrastructure.
+                </div>
+
+                <!-- Job 2 -->
+                <div class="relative group gsap-fade">
+                    <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-black border-2 border-gray-600 group-hover:border-brand-400 transition-colors"></div>
+                    <div class="glass-card p-6 rounded-lg">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-white">FPT Software</h3>
+                            <span class="font-mono text-xs text-gray-500">Dec 2023 - May 2024</span>
                         </div>
+                        <div class="text-sm font-medium text-gray-400 mb-4">Fresher Cloud Engineer</div>
+                        <p class="text-sm text-gray-300">
+                            Hands-on experience with Amazon Web Services (AWS), specifically EC2 and CloudWatch. Operational support for e-commerce infrastructure.
+                        </p>
                     </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-date">Feb 2023 – Aug 2023</div>
-                        <div class="timeline-title">Fresher System Administrator</div>
-                        <div class="timeline-company">CMC Telecom</div>
-                        <div class="timeline-content glass">
-                            Comprehensive training on Linux server deployment and administration. Provided technical support and contributed to server management in data centers, ensuring continuous operations for customers.
+                </div>
+
+                <!-- Job 3 -->
+                <div class="relative group gsap-fade">
+                    <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-black border-2 border-gray-600 group-hover:border-brand-400 transition-colors"></div>
+                    <div class="glass-card p-6 rounded-lg">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h3 class="text-xl font-bold text-white">CMC Telecom</h3>
+                            <span class="font-mono text-xs text-gray-500">Feb 2023 - Aug 2023</span>
                         </div>
+                        <div class="text-sm font-medium text-gray-400 mb-4">Fresher System Administrator</div>
+                        <p class="text-sm text-gray-300">
+                            Comprehensive training on Linux server deployment. Data center management and technical support ensuring continuous operations.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- Tech Stack Section -->
-        <section class="section" id="section-2">
-            <div class="section-content">
-                <h2 class="section-title">Technical Skills</h2>
-                <div class="tech-categories" id="techGrid">
-                    <!-- Tech items will be generated by JavaScript -->
+
+        <!-- Tech Stack -->
+        <section class="mb-32">
+            <h2 class="text-2xl font-bold mb-8 flex items-center gap-3 gsap-fade">
+                <i class="fa-solid fa-microchip text-brand-400 text-sm"></i>
+                <span class="text-gradient">Technology Arsenal</span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Column 1 -->
+                <div class="space-y-4 gsap-fade">
+                    <h4 class="font-mono text-xs text-gray-500 uppercase tracking-widest border-b border-white/10 pb-2">Core Infrastructure</h4>
+                    <div class="glass-card p-4 rounded flex items-center gap-3">
+                        <i class="fa-brands fa-docker text-blue-500 text-xl"></i>
+                        <span class="font-mono text-sm">Docker</span>
+                    </div>
+                    <div class="glass-card p-4 rounded flex items-center gap-3">
+                        <i class="fa-solid fa-dharmachakra text-blue-400 text-xl"></i>
+                        <span class="font-mono text-sm">Kubernetes</span>
+                    </div>
+                    <div class="glass-card p-4 rounded flex items-center gap-3">
+                        <i class="fa-brands fa-aws text-orange-400 text-xl"></i>
+                        <span class="font-mono text-sm">AWS</span>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="space-y-4 gsap-fade delay-100">
+                    <h4 class="font-mono text-xs text-gray-500 uppercase tracking-widest border-b border-white/10 pb-2">Automation & Code</h4>
+                    <div class="glass-card p-4 rounded flex items-center gap-3">
+                        <i class="fa-solid fa-robot text-red-500 text-xl"></i>
+                        <span class="font-mono text-sm">Ansible</span>
+                    </div>
+                    <div class="glass-card p-4 rounded flex items-center gap-3">
+                        <i class="fa-brands fa-gitlab text-orange-600 text-xl"></i>
+                        <span class="font-mono text-sm">GitLab CI</span>
+                    </div>
+                    <div class="glass-card p-4 rounded flex items-center gap-3">
+                        <i class="fa-brands fa-python text-yellow-300 text-xl"></i>
+                        <span class="font-mono text-sm">Python / Go</span>
+                    </div>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="space-y-4 gsap-fade delay-200">
+                    <h4 class="font-mono text-xs text-gray-500 uppercase tracking-widest border-b border-white/10 pb-2">Observability</h4>
+                    <div class="glass-card p-4 rounded flex items-center gap-3">
+                        <i class="fa-solid fa-chart-line text-orange-500 text-xl"></i>
+                        <span class="font-mono text-sm">Grafana</span>
+                    </div>
+                    <div class="glass-card p-4 rounded flex items-center gap-3">
+                        <i class="fa-solid fa-fire text-red-400 text-xl"></i>
+                        <span class="font-mono text-sm">Prometheus / VM</span>
+                    </div>
+                    <div class="glass-card p-4 rounded flex items-center gap-3">
+                        <i class="fa-solid fa-magnifying-glass-chart text-green-500 text-xl"></i>
+                        <span class="font-mono text-sm">Splunk</span>
+                    </div>
                 </div>
             </div>
         </section>
-        
-        <!-- Education & Certificate Section -->
-        <section class="section" id="section-3">
-            <div class="section-content">
-                <h2 class="section-title">Education & Certificate</h2>
-                
-                <div class="edu-cert-container">
-                    <div class="education-container glass">
-                        <h3 class="edu-cert-title">Education</h3>
-                        <div class="edu-item">
-                            <div class="edu-school">HANOI VOCATIONAL COLLEGE OF TECHNOLOGY</div>
-                            <div class="edu-degree">Bachelor of Network Administration</div>
-                            <div class="edu-gpa">GPA: 3.5/4</div>
-                        </div>
-                    </div>
-                    
-                    <div class="certificate-container glass">
-                        <h3 class="edu-cert-title">Certificate</h3>
-                        <div class="cert-item">
-                            <div class="cert-name">AWS Certified Solutions Architect - Associate</div>
-                            <div class="cert-date">Issued: 2023</div>
-                            <div class="cert-detail">
-                                Validates expertise in designing and deploying scalable systems on AWS. Demonstrates knowledge of AWS services, architectural best practices, and cloud migration strategies.
-                            </div>
-                        </div>
-                    </div>
+
+        <!-- Footer / Contact -->
+        <footer id="contact" class="border-t border-white/10 pt-12 pb-6">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-2">Ready to deploy?</h2>
+                    <p class="text-gray-400 mb-6">Let's discuss architecture.</p>
+                    <a href="mailto:quan.bna@hotmail.com" class="text-brand-400 font-mono text-lg hover:text-brand-300 transition-colors flex items-center gap-2">
+                        quan.bna@hotmail.com <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                    </a>
+                </div>
+                <div class="flex gap-4">
+                    <a href="https://linkedin.com/in/quanbna" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
                 </div>
             </div>
-        </section>
-    </div>
-    
-    <!-- Tech Detail Modal -->
-    <div class="overlay" id="overlay"></div>
-    <div class="tech-detail" id="techDetail">
-        <button class="close-btn" id="closeBtn">×</button>
-        <div class="detail-header">
-            <img class="detail-icon" id="detailIcon" src="" alt="">
-            <h2 class="detail-title" id="detailTitle"></h2>
-        </div>
-        <div class="detail-content" id="detailContent"></div>
-        <div class="detail-projects" id="detailProjects"></div>
-    </div>
+            <div class="mt-12 text-center text-xs text-gray-700 font-mono">
+                <span class="text-green-500">●</span> SYSTEM_NORMAL // © 2025 BUI NGUYEN ANH QUAN
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Scripts -->
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // Create RGB blocks
-        function createRGBBlocks() {
-            const container = document.getElementById('rgbBlocks');
-            const colors = [
-                'linear-gradient(45deg, #ff0000, #ff7300)',
-                'linear-gradient(45deg, #fffb00, #48ff00)',
-                'linear-gradient(45deg, #00ffd5, #002bff)',
-                'linear-gradient(45deg, #7a00ff, #ff00c8)',
-                'linear-gradient(45deg, #ff0080, #ff8c00)',
-                'linear-gradient(45deg, #00ff80, #8000ff)'
-            ];
-            
-            // Create 6 blocks
-            for (let i = 0; i < 6; i++) {
-                const block = document.createElement('div');
-                block.className = 'rgb-block';
-                
-                // Random size between 200px and 400px
-                const size = Math.random() * 200 + 200;
-                block.style.width = `${size}px`;
-                block.style.height = `${size}px`;
-                
-                // Random position
-                block.style.left = `${Math.random() * 100}%`;
-                block.style.top = `${Math.random() * 100}%`;
-                
-                // Random color gradient
-                block.style.background = colors[i % colors.length];
-                
-                container.appendChild(block);
-                
-                // Animate block movement
-                animateBlock(block);
-            }
-        }
+        // --- THREE.JS BACKGROUND ---
+        const canvas = document.getElementById('bg-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
         
-        // Animate block movement
-        function animateBlock(block) {
-            function moveBlock() {
-                // Random target position
-                const targetX = Math.random() * (window.innerWidth - 400);
-                const targetY = Math.random() * (window.innerHeight - 400);
-                
-                // Random duration between 15s and 25s
-                const duration = Math.random() * 10000 + 15000;
-                
-                // Apply transition
-                block.style.transition = `all ${duration}ms ease-in-out`;
-                block.style.left = `${targetX}px`;
-                block.style.top = `${targetY}px`;
-                
-                // Continue animation after duration
-                setTimeout(moveBlock, duration);
-            }
-            
-            // Start animation
-            moveBlock();
-        }
-        
-        // Initialize RGB blocks
-        createRGBBlocks();
-        
-        // Tech stack data with official logos and categories
-        const techStack = [
-            {
-                name: "AWS",
-                icon: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
-                description: "Experience with Amazon Web Services (EC2, CloudWatch). Participated in supporting AWS infrastructure for e-commerce customers.",
-                projects: "FPT Software Project: Supported AWS infrastructure for e-commerce clients, including basic monitoring and troubleshooting.",
-                category: "cloud"
-            },
-            {
-                name: "Kubernetes",
-                icon: "https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg",
-                description: "Managing container orchestration, deploying and optimizing distributed systems on Kubernetes platform.",
-                projects: "Bizfly Cloud CDN Project: Key member in the CDN project, responsible for Kubernetes management and system optimization.",
-                category: "devops"
-            },
-            {
-                name: "Docker",
-                icon: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg",
-                description: "Containerization expert, building and managing Docker images for development and production environments.",
-                projects: "Automated CI/CD processes using Docker to create consistent environments from development to production.",
-                category: "devops"
-            },
-            {
-                name: "Python",
-                icon: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
-                description: "Developing custom tools for workflow automation, data processing, and system integration.",
-                projects: "Built custom monitoring tools and automated system administration tasks at Bizfly Cloud.",
-                category: "devops"
-            },
-            {
-                name: "Grafana",
-                icon: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg",
-                description: "Designing complex monitoring dashboards, visualizing performance data and real-time alerts.",
-                projects: "Deployed comprehensive monitoring solutions using Grafana combined with Victoria Metrics for the CDN system.",
-                category: "monitoring"
-            },
-            {
-                name: "Ansible",
-                icon: "https://upload.wikimedia.org/wikipedia/commons/2/24/Ansible_logo.svg",
-                description: "Automating configuration and system deployment, managing infrastructure as code.",
-                projects: "Developed Ansible playbooks to automate deployment and server management processes at Bizfly Cloud.",
-                category: "devops"
-            },
-            {
-                name: "Linux",
-                icon: "https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg",
-                description: "Expert in Linux system administration (Ubuntu, CentOS, Debian), optimizing performance and security.",
-                projects: "Managed servers at CMC Telecom and Bizfly Cloud, ensuring continuous operations for customers.",
-                category: "other"
-            },
-            {
-                name: "GitLab CI",
-                icon: "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/144_Gitlab_logo_logos-512.png",
-                description: "Building automated CI/CD pipelines, integrating testing and continuous deployment.",
-                projects: "Implemented CI/CD pipelines for the Bizfly Cloud project, reducing release time and minimizing errors.",
-                category: "devops"
-            },
-            {
-                name: "Victoria Metrics",
-                icon: "https://victoriametrics.com/icons/apple-touch-icon.webp",
-                description: "High-performance, cost-effective monitoring solution and time series database. Efficiently handles large amounts of metrics data with low resource consumption.",
-                projects: "Deployed Victoria Metrics as the primary monitoring backend for Bizfly Cloud CDN project, replacing traditional solutions with significant performance improvements.",
-                category: "monitoring"
-            },
-            {
-                name: "Icinga",
-                icon: "https://doc.pegasi.fi/wiki/lib/exe/fetch.php?cache=&media=icinga-logo.png",
-                description: "Enterprise-grade monitoring system that checks the availability of network resources and notifies users of outages. Provides comprehensive infrastructure monitoring.",
-                projects: "Implemented Icinga monitoring solution at Bizfly Cloud to monitor server infrastructure and application performance, reducing downtime by 30%.",
-                category: "monitoring"
-            },
-            {
-                name: "Splunk",
-                icon: "https://img.icons8.com/?size=512&id=49188&format=png",
-                description: "Platform for searching, monitoring, and analyzing machine-generated data through web-style interface. Powerful tool for log management and security analytics.",
-                projects: "Utilized Splunk for log aggregation and analysis in cloud infrastructure, enabling proactive troubleshooting and security monitoring.",
-                category: "monitoring"
-            },
-            {
-                name: "ELK Stack",
-                icon: "https://flowygo.com/wp-content/uploads/2021/12/ELK_stack.png",
-                description: "Collection of three open-source products — Elasticsearch, Logstash, and Kibana — all developed by Elastic. Used for centralized logging and data analytics.",
-                projects: "Deployed ELK Stack to aggregate logs from distributed systems, creating dashboards for real-time monitoring and historical analysis.",
-                category: "monitoring"
-            },
-            {
-                name: "Nginx",
-                icon: "https://images.icon-icons.com/2699/PNG/512/nginx_logo_icon_169915.png",
-                description: "High-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. Known for high performance, stability, and low resource consumption.",
-                projects: "Configured and optimized Nginx as reverse proxy and load balancer for high-traffic web applications, improving response times and reliability.",
-                category: "other"
-            }
-        ];
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        // Function to generate tech items by category
-        function generateTechItems() {
-            const techGrid = document.getElementById('techGrid');
-            techGrid.innerHTML = '';
+        // Particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = window.innerWidth < 768 ? 60 : 130; // Optimize for mobile
+        
+        const posArray = new Float32Array(particlesCount * 3);
+        const velArray = new Float32Array(particlesCount * 3); // Velocity
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            // Spread particles
+            posArray[i] = (Math.random() - 0.5) * 25; 
+            // Random velocity
+            velArray[i] = (Math.random() - 0.5) * 0.02; 
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.05,
+            color: 0x38bdf8, // Tailwind Brand Blue
+            transparent: true,
+            opacity: 0.8,
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, material);
+        scene.add(particlesMesh);
+
+        // Lines Geometry (to be updated every frame)
+        const linesMaterial = new THREE.LineBasicMaterial({
+            color: 0x38bdf8,
+            transparent: true,
+            opacity: 0.15
+        });
+        const linesGeometry = new THREE.BufferGeometry();
+        const linesMesh = new THREE.LineSegments(linesGeometry, linesMaterial);
+        scene.add(linesMesh);
+
+        camera.position.z = 5;
+
+        // Mouse interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        document.addEventListener('mousemove', (event) => {
+            mouseX = event.clientX / window.innerWidth - 0.5;
+            mouseY = event.clientY / window.innerHeight - 0.5;
+        });
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const positions = particlesGeometry.attributes.position.array;
             
-            // Create categories
-            const categories = {
-                cloud: { title: "Cloud Platforms", items: [] },
-                devops: { title: "DevOps & Automation", items: [] },
-                monitoring: { title: "Monitoring & Logging", items: [] },
-                other: { title: "Other Technologies", items: [] }
-            };
-            
-            // Group tech items by category
-            techStack.forEach(tech => {
-                if (categories[tech.category]) {
-                    categories[tech.category].items.push(tech);
-                } else {
-                    categories.other.items.push(tech);
+            // Move particles
+            for(let i = 0; i < particlesCount; i++) {
+                const i3 = i * 3;
+                
+                positions[i3] += velArray[i3];
+                positions[i3 + 1] += velArray[i3 + 1];
+                positions[i3 + 2] += velArray[i3 + 2];
+
+                // Boundary check (if out of bounds, wrap around)
+                if(positions[i3] > 12.5) positions[i3] = -12.5;
+                if(positions[i3] < -12.5) positions[i3] = 12.5;
+                if(positions[i3+1] > 12.5) positions[i3+1] = -12.5;
+                if(positions[i3+1] < -12.5) positions[i3+1] = 12.5;
+            }
+            particlesGeometry.attributes.position.needsUpdate = true;
+
+            // Connect particles
+            const linePositions = [];
+            const connectDistance = 3.5;
+
+            for(let i = 0; i < particlesCount; i++) {
+                for(let j = i + 1; j < particlesCount; j++) {
+                    const dx = positions[i * 3] - positions[j * 3];
+                    const dy = positions[i * 3 + 1] - positions[j * 3 + 1];
+                    const dz = positions[i * 3 + 2] - positions[j * 3 + 2];
+                    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+
+                    if(dist < connectDistance) {
+                        linePositions.push(
+                            positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2],
+                            positions[j * 3], positions[j * 3 + 1], positions[j * 3 + 2]
+                        );
+                    }
                 }
-            });
+            }
             
-            // Generate HTML for each category
-            Object.keys(categories).forEach(categoryKey => {
-                const category = categories[categoryKey];
-                if (category.items.length > 0) {
-                    const categoryDiv = document.createElement('div');
-                    categoryDiv.className = 'tech-category';
-                    
-                    const categoryTitle = document.createElement('h3');
-                    categoryTitle.className = 'category-title';
-                    categoryTitle.textContent = category.title;
-                    categoryDiv.appendChild(categoryTitle);
-                    
-                    const gridDiv = document.createElement('div');
-                    gridDiv.className = 'tech-grid';
-                    
-                    category.items.forEach(tech => {
-                        const item = document.createElement('div');
-                        item.className = 'tech-item glass';
-                        item.innerHTML = `
-                            <img class="tech-icon" src="${tech.icon}" alt="${tech.name}">
-                            <div class="tech-name">${tech.name}</div>
-                        `;
-                        
-                        // Add click event
-                        item.addEventListener('click', () => showTechDetail(tech));
-                        
-                        gridDiv.appendChild(item);
-                    });
-                    
-                    categoryDiv.appendChild(gridDiv);
-                    techGrid.appendChild(categoryDiv);
+            linesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+
+            // Gentle rotation based on mouse
+            scene.rotation.y += 0.001;
+            scene.rotation.x += 0.0005;
+            
+            // Mouse parallax
+            particlesMesh.rotation.y = mouseX * 0.2;
+            particlesMesh.rotation.x = mouseY * 0.2;
+            linesMesh.rotation.y = mouseX * 0.2;
+            linesMesh.rotation.x = mouseY * 0.2;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+
+        // --- GSAP ANIMATIONS ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Stagger
+        gsap.to(".gsap-hero", {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+            delay: 0.2
+        });
+
+        // Scroll Fade Ins
+        gsap.utils.toArray('.gsap-fade').forEach(element => {
+            gsap.fromTo(element, 
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
                 }
-            });
-        }
-        
-        // Initialize tech items
-        generateTechItems();
-        
-        // Show tech detail
-        function showTechDetail(tech) {
-            document.getElementById('detailIcon').src = tech.icon;
-            document.getElementById('detailIcon').alt = tech.name;
-            document.getElementById('detailTitle').textContent = tech.name;
-            document.getElementById('detailContent').textContent = tech.description;
-            document.getElementById('detailProjects').innerHTML = `
-                <h4>Real-world Application:</h4>
-                <p>${tech.projects}</p>
-            `;
-            
-            techDetail.classList.add('active');
-            overlay.classList.add('active');
-        }
-        
-        // Close tech detail
-        function closeTechDetail() {
-            techDetail.classList.remove('active');
-            overlay.classList.remove('active');
-        }
-        
-        const techDetail = document.getElementById('techDetail');
-        const overlay = document.getElementById('overlay');
-        const closeBtn = document.getElementById('closeBtn');
-        
-        closeBtn.addEventListener('click', closeTechDetail);
-        overlay.addEventListener('click', closeTechDetail);
-        
-        // Horizontal scrolling functionality
-        const container = document.getElementById('horizontalContainer');
-        const sections = document.querySelectorAll('.section');
-        const navDots = document.querySelectorAll('.nav-dot');
-        const navMenuItems = document.querySelectorAll('.nav-menu-item');
-        const prevArrow = document.getElementById('prevArrow');
-        const nextArrow = document.getElementById('nextArrow');
-        
-        let currentSection = 0;
-        let isScrolling = false;
-        
-        // Update navigation
-        function updateNavigation() {
-            navDots.forEach((dot, index) => {
-                if (index === currentSection) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-            
-            navMenuItems.forEach((item, index) => {
-                if (index === currentSection) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-        }
-        
-        // Scroll to section
-        function scrollToSection(index) {
-            if (index < 0 || index >= sections.length || isScrolling) return;
-            
-            isScrolling = true;
-            currentSection = index;
-            
-            // Thay đổi xử lý scroll dựa trên kích thước màn hình
-            if (window.innerWidth <= 768) {
-                // Mobile: scroll vertical
-                sections[index].scrollIntoView({ behavior: 'smooth' });
-            } else {
-                // Desktop: scroll horizontal
-                sections[index].scrollIntoView({ behavior: 'smooth' });
-            }
-            
-            updateNavigation();
-            
-            setTimeout(() => {
-                isScrolling = false;
-            }, 1000);
-        }
-        
-        // Navigation dots click
-        navDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                scrollToSection(index);
-            });
+            );
         });
-        
-        // Navigation menu items click
-        navMenuItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                scrollToSection(index);
-            });
-        });
-        
-        // Arrow navigation
-        prevArrow.addEventListener('click', () => {
-            scrollToSection(currentSection - 1);
-        });
-        
-        nextArrow.addEventListener('click', () => {
-            scrollToSection(currentSection + 1);
-        });
-        
-        // Touch events for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        container.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-        
-        container.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-        
-        function handleSwipe() {
-            if (touchEndX < touchStartX - 50) {
-                // Swipe left
-                scrollToSection(currentSection + 1);
-            }
-            
-            if (touchEndX > touchStartX + 50) {
-                // Swipe right
-                scrollToSection(currentSection - 1);
-            }
-        }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-                scrollToSection(currentSection + 1);
-            } else if (e.key === 'ArrowLeft') {
-                scrollToSection(currentSection - 1);
-            }
-        });
-        
-        // Handle scroll event to update current section
-        container.addEventListener('scroll', () => {
-            if (isScrolling) return;
-            
-            const containerWidth = container.offsetWidth;
-            const scrollPosition = container.scrollLeft;
-            const sectionIndex = Math.round(scrollPosition / containerWidth);
-            
-            if (sectionIndex !== currentSection) {
-                currentSection = sectionIndex;
-                updateNavigation();
-            }
-        });
-        
-        // Theme toggle functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const themeSlider = document.querySelector('.theme-toggle-slider');
-        
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeSlider.textContent = '🌙';
-        }
-        
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            
-            // Update icon
-            if (document.body.classList.contains('dark-mode')) {
-                themeSlider.textContent = '🌙';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                themeSlider.textContent = '☀️';
-                localStorage.setItem('theme', 'light');
-            }
-        });
-        
-        // Auto-adjust height based on window size
-        function adjustSectionHeight() {
-            const windowHeight = window.innerHeight;
-            sections.forEach(section => {
-                // Ensure section takes at least full viewport height
-                section.style.minHeight = `${windowHeight}px`;
-            });
-        }
-        
-        // Initial adjustment
-        adjustSectionHeight();
-        
-        // Adjust on window resize
-        window.addEventListener('resize', adjustSectionHeight);
+
     </script>
 </body>
 </html>
