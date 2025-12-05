@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bui Nguyen Anh Quan | Cloud Architect</title>
-    <meta name="description" content="Portfolio of Bui Nguyen Anh Quan - Cloud Architect & System Orchestrator.">
+    <title>Bui Nguyen Anh Quan | System Administrator</title>
+    <meta name="description" content="Portfolio of Bui Nguyen Anh Quan - System Administrator & Cloud Engineer">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,534 +13,465 @@
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Config -->
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            900: '#0c4a6e',
-                            glow: '#00f0ff'
-                        },
-                        dark: {
-                            bg: '#050505',
-                            card: 'rgba(255, 255, 255, 0.03)',
-                            border: 'rgba(255, 255, 255, 0.08)'
-                        }
-                    },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    colors: {
+                        primary: '#0ea5e9', // Sky 500
+                        secondary: '#6366f1', // Indigo 500
+                        dark: '#0f172a', // Slate 900
+                        darker: '#020617', // Slate 950
+                        surface: '#1e293b', // Slate 800
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'cursor': 'cursor .75s step-end infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        cursor: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
         }
     </script>
 
-    <!-- Styles -->
-    <style>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .glass {
+                @apply bg-white/5 backdrop-blur-lg border border-white/10;
+            }
+            .glass-hover {
+                @apply hover:bg-white/10 transition-all duration-300;
+            }
+            .text-gradient {
+                @apply bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-indigo-400;
+            }
+            .section-padding {
+                @apply py-20 px-6 md:px-12 lg:px-24;
+            }
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #050505;
+            background: #020617;
         }
         ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 3px;
+            background: #334155;
+            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            background: #475569;
         }
 
         body {
-            background-color: #050505;
-            color: #e5e5e5;
+            background-color: #020617;
+            color: #f8fafc;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Noise Texture */
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 50;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-
-        /* Glassmorphism Utilities */
-        .glass-card {
-            background: rgba(20, 20, 20, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-            background: rgba(30, 30, 30, 0.5);
-            box-shadow: 0 0 20px rgba(14, 165, 233, 0.1);
-        }
-
-        /* Text Gradients */
-        .text-gradient {
-            background: linear-gradient(to right, #ffffff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
         
-        .text-gradient-blue {
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Utilities */
-        .separator {
-            width: 1px;
-            height: 20px;
-            background: rgba(255,255,255,0.1);
-            margin: 0 1rem;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: linear-gradient(to bottom, transparent, rgba(56, 189, 248, 0.5) 10%, rgba(56, 189, 248, 0.5) 90%, transparent);
-        }
-
-        /* Cursor blinking */
-        .cursor-blink {
-            animation: blink 1s step-end infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        canvas {
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
+        /* Animation delays utility */
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
     </style>
 </head>
-<body class="selection:bg-brand-500 selection:text-white">
+<body class="antialiased selection:bg-sky-500/30 selection:text-sky-200">
 
-    <!-- Backgrounds -->
-    <div class="noise-overlay"></div>
-    <canvas id="bg-canvas"></canvas>
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-secondary/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-purple-500/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"></div>
+        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150"></div>
+    </div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-40 border-b border-white/5 bg-black/50 backdrop-blur-md">
-        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="font-mono font-bold text-sm tracking-tighter flex items-center gap-2">
-                <span class="w-2 h-2 bg-brand-400 rounded-full animate-pulse"></span>
-                <span class="text-gray-300">USER:</span> <span class="text-white">QUAN_BNA</span>
+    <nav class="fixed w-full z-50 transition-all duration-300 top-0" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-bold font-mono tracking-tighter hover:text-sky-400 transition-colors">
+                    &lt;QuanBNA /&gt;
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">About</a>
+                    <a href="#experience" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Experience</a>
+                    <a href="#skills" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Skills</a>
+                    <a href="#contact" class="px-5 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-medium transition-all hover:scale-105 active:scale-95 text-sky-400">
+                        Contact
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
             </div>
-            <div class="flex items-center gap-6 text-xs font-mono text-gray-400">
-                <a href="mailto:quan.bna@hotmail.com" class="hover:text-white transition-colors">STATUS: ONLINE</a>
-                <span class="text-gray-700">|</span>
-                <span class="text-brand-400">SYS_READY</span>
+        </div>
+        
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/5 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#about" class="block px-3 py-3 text-base font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-md">About</a>
+                <a href="#experience" class="block px-3 py-3 text-base font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-md">Experience</a>
+                <a href="#skills" class="block px-3 py-3 text-base font-medium text-slate-300 hover:text-white hover:bg-white/5 rounded-md">Skills</a>
+                <a href="#contact" class="block px-3 py-3 text-base font-medium text-sky-400 hover:bg-white/5 rounded-md">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="relative z-10 pt-32 pb-20 px-6 max-w-5xl mx-auto">
-
-        <!-- Hero Section -->
-        <section class="min-h-[70vh] flex flex-col justify-center mb-24">
-            <div class="gsap-hero opacity-0 translate-y-4">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/20 bg-brand-500/5 text-brand-400 text-xs font-mono mb-6">
-                    <i class="fa-solid fa-terminal text-[10px]"></i>
-                    <span>Cloud Architect & System Orchestrator</span>
-                </div>
-            </div>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
             
-            <h1 class="gsap-hero opacity-0 translate-y-4 text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
-                <span class="text-gradient">Bui Nguyen Anh Quan</span>
-            </h1>
-            
-            <p class="gsap-hero opacity-0 translate-y-4 text-xl md:text-2xl text-gray-400 font-light max-w-2xl mb-8 leading-relaxed">
-                Stabilizing Chaos in the Cloud. <br>
-                <span class="text-white font-mono text-base mt-2 block">System Administrator</span>
-            </p>
-
-            <div class="gsap-hero opacity-0 translate-y-4 flex flex-wrap gap-4">
-                <a href="#contact" class="group relative px-6 py-3 bg-white text-black font-medium text-sm rounded transition-all hover:bg-gray-200 overflow-hidden">
-                    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent translate-x-[-100%] group-hover:animate-[shimmer_1s_infinite]"></div>
-                    <span>Initiate Contact</span>
-                </a>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section class="mb-32">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                <div class="glass-card p-8 rounded-xl gsap-fade">
-                    <h3 class="font-mono text-brand-400 text-sm mb-4">/// WHO_AM_I</h3>
-                    <p class="text-gray-300 leading-relaxed mb-6">
-                        Top 0.01% Infrastructure aesthetic. Experienced with heavy-duty systems at Bizfly Cloud & FPT.
-                    </p>
-                    <p class="text-white text-lg font-medium italic border-l-2 border-brand-500 pl-4 py-2 bg-white/5">
-                        "I make servers purr like kittens."
-                    </p>
-                    <div class="mt-8 flex gap-4 text-sm font-mono text-gray-500">
-                        <div>
-                            <span class="block text-white text-xl font-bold">2+</span>
-                            Years Exp
-                        </div>
-                        <div class="separator"></div>
-                        <div>
-                            <span class="block text-white text-xl font-bold">100%</span>
-                            Uptime Goal
-                        </div>
-                    </div>
+            <!-- Hero Content -->
+            <div class="order-2 lg:order-1 space-y-6 opacity-0 animate-fade-in-up">
+                <div class="inline-flex items-center px-3 py-1 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-mono font-medium mb-2">
+                    <span class="w-2 h-2 rounded-full bg-sky-400 mr-2 animate-pulse"></span>
+                    Available for work
                 </div>
+                <h1 class="text-5xl lg:text-7xl font-bold tracking-tight">
+                    Hello, I'm <br>
+                    <span class="text-gradient">Quan Bui</span>
+                </h1>
+                <p class="text-xl text-slate-400 max-w-lg leading-relaxed">
+                    System Administrator & Cloud Engineer specializing in AWS, Kubernetes, and Automation. Optimizing systems for high performance.
+                </p>
                 
-                <div class="flex flex-col justify-center space-y-6 pt-4 gsap-fade delay-100">
-                    <h2 class="text-3xl font-bold text-white">I touch production on Fridays.</h2>
-                    <p class="text-gray-400">
-                        My expertise lies in orchestrating complex cloud environments where failure is not an option. From bare metal Linux data centers to serverless AWS architectures, I build resilient systems that scale.
-                    </p>
-                    <div class="flex gap-2">
-                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-gray-300">Solution Architect Associate</span>
-                        <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs font-mono text-gray-300">Network Admin</span>
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#contact" class="px-8 py-3.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-medium transition-all shadow-lg shadow-sky-500/20 hover:shadow-sky-500/40 hover:-translate-y-1">
+                        Contact Me
+                    </a>
+                    <a href="https://linkedin.com/in/quanbna" target="_blank" class="px-8 py-3.5 rounded-lg glass glass-hover text-slate-200 font-medium transition-all flex items-center gap-2">
+                        <i class="fa-brands fa-linkedin"></i> LinkedIn
+                    </a>
+                </div>
+            </div>
+
+            <!-- Terminal Simulation -->
+            <div class="order-1 lg:order-2 opacity-0 animate-fade-in-up delay-200">
+                <div class="relative rounded-xl bg-[#0F172A] border border-slate-700 shadow-2xl shadow-sky-900/20 overflow-hidden transform transition-transform hover:scale-[1.01] duration-500">
+                    <!-- Window Header -->
+                    <div class="bg-slate-800/80 px-4 py-3 flex items-center gap-2 border-b border-slate-700">
+                        <div class="flex gap-1.5">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="flex-1 text-center text-xs text-slate-400 font-mono">quanbna@server:~</div>
+                    </div>
+                    <!-- Terminal Content -->
+                    <div class="p-6 font-mono text-sm md:text-base leading-relaxed h-[320px] overflow-y-auto custom-scrollbar">
+                        <div class="space-y-2">
+                            <p class="text-slate-300">
+                                <span class="text-green-400">➜</span>
+                                <span class="text-sky-400">~</span>
+                                <span class="text-slate-100"> ./whoami.sh</span>
+                            </p>
+                            <p class="text-slate-400 pl-4">
+                                <span class="text-yellow-400">Name:</span> Bui Nguyen Anh Quan<br>
+                                <span class="text-yellow-400">Role:</span> System Administrator<br>
+                                <span class="text-yellow-400">Location:</span> Hanoi, Vietnam
+                            </p>
+
+                            <p class="text-slate-300 mt-4">
+                                <span class="text-green-400">➜</span>
+                                <span class="text-sky-400">~</span>
+                                <span class="text-slate-100"> cat skills.json</span>
+                            </p>
+                            <p class="text-slate-400 pl-4">
+                                {<br>
+                                &nbsp;&nbsp;"Cloud": ["AWS", "Bizfly Cloud"],<br>
+                                &nbsp;&nbsp;"Container": ["Docker", "Kubernetes"],<br>
+                                &nbsp;&nbsp;"IAC": ["Ansible", "Terraform"],<br>
+                                &nbsp;&nbsp;"Lang": ["Python", "Go", "Bash"]<br>
+                                }
+                            </p>
+
+                            <p class="text-slate-300 mt-4">
+                                <span class="text-green-400">➜</span>
+                                <span class="text-sky-400">~</span>
+                                <span class="text-slate-100 animate-cursor">_</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+            <span class="text-xs font-mono uppercase tracking-widest text-slate-500">Scroll</span>
+            <i class="fa-solid fa-chevron-down text-sky-400"></i>
+        </div>
+    </section>
 
-        <!-- Experience Section -->
-        <section class="mb-32">
-            <h2 class="text-2xl font-bold mb-12 flex items-center gap-3 gsap-fade">
-                <i class="fa-solid fa-layer-group text-brand-400 text-sm"></i>
-                <span class="text-gradient">Execution History</span>
+    <!-- Experience Section -->
+    <section id="experience" class="section-padding relative">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
+                <span class="border-b-4 border-sky-500 pb-1">Work Experience</span>
             </h2>
 
-            <div class="relative pl-8 space-y-12">
-                <!-- Vertical Line -->
-                <div class="absolute left-0 top-2 bottom-2 w-px bg-gradient-to-b from-brand-500 via-brand-500/20 to-transparent"></div>
+            <div class="space-y-12 relative before:content-[''] before:absolute before:left-0 md:before:left-1/2 before:top-0 before:h-full before:w-0.5 before:bg-slate-700 before:-translate-x-1/2 hidden md:block"></div>
+            
+            <!-- Mobile Timeline Line -->
+            <div class="space-y-12 relative border-l-2 border-slate-700 ml-3 pl-8 md:border-l-0 md:ml-0 md:pl-0">
 
                 <!-- Job 1 -->
-                <div class="relative group gsap-fade">
-                    <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-black border-2 border-brand-500 shadow-[0_0_10px_rgba(14,165,233,0.5)] group-hover:scale-125 transition-transform"></div>
-                    <div class="glass-card p-6 rounded-lg hover:border-brand-500/30">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h3 class="text-xl font-bold text-white">Bizfly Cloud</h3>
-                            <span class="font-mono text-xs text-brand-400">May 2024 - Present</span>
-                        </div>
-                        <div class="text-sm font-medium text-gray-400 mb-4">System Administrator</div>
-                        <ul class="space-y-2 text-sm text-gray-300 list-disc list-inside marker:text-brand-500">
-                            <li>Key member running Bizfly Cloud CDN project.</li>
-                            <li>Managing CI/CD pipelines & Infrastructure Automation (Ansible, Python, Go).</li>
-                            <li>Orchestrating Containerization with Docker & Kubernetes.</li>
-                            <li>Optimizing High-Throughput systems & security standards.</li>
+                <div class="relative md:flex items-center justify-between group">
+                    <!-- Left (Date) -->
+                    <div class="md:w-5/12 md:text-right order-1 mb-2 md:mb-0">
+                        <h3 class="text-xl font-bold text-sky-400">Bizfly Cloud</h3>
+                        <p class="text-sm font-mono text-slate-400">May 2024 - Present</p>
+                        <p class="text-lg font-semibold text-white mt-1">System Administrator</p>
+                    </div>
+                    <!-- Center (Dot) -->
+                    <div class="absolute -left-[41px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 rounded-full border-4 border-[#020617] bg-sky-500 z-10 group-hover:scale-125 transition-transform"></div>
+                    <!-- Right (Desc) -->
+                    <div class="md:w-5/12 order-2 glass p-6 rounded-xl hover:bg-white/10 transition-colors">
+                        <ul class="list-disc list-inside space-y-2 text-slate-300 text-sm marker:text-sky-500">
+                            <li>Key member running Bizfly Cloud CDN project and internal projects.</li>
+                            <li>Managed CI/CD, Containerization (K8s, Docker), and Infrastructure Automation (Ansible, Python).</li>
+                            <li>Optimized high-throughput systems and complex monitoring (VictoriaMetrics, Grafana).</li>
+                            <li>Implemented robust security standards and developed custom tools.</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- Job 2 -->
-                <div class="relative group gsap-fade">
-                    <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-black border-2 border-gray-600 group-hover:border-brand-400 transition-colors"></div>
-                    <div class="glass-card p-6 rounded-lg">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h3 class="text-xl font-bold text-white">FPT Software</h3>
-                            <span class="font-mono text-xs text-gray-500">Dec 2023 - May 2024</span>
-                        </div>
-                        <div class="text-sm font-medium text-gray-400 mb-4">Fresher Cloud Engineer</div>
-                        <p class="text-sm text-gray-300">
-                            Hands-on experience with Amazon Web Services (AWS), specifically EC2 and CloudWatch. Operational support for e-commerce infrastructure.
-                        </p>
+                <div class="relative md:flex items-center justify-between group">
+                    <!-- Left (Desc) -->
+                    <div class="md:w-5/12 order-1 md:order-2 glass p-6 rounded-xl hover:bg-white/10 transition-colors mb-2 md:mb-0">
+                        <ul class="list-disc list-inside space-y-2 text-slate-300 text-sm marker:text-indigo-500">
+                            <li>Gained hands-on experience with AWS Services (EC2, CloudWatch).</li>
+                            <li>Contributed to operational support for an e-commerce customer's AWS infrastructure.</li>
+                            <li>Performed basic monitoring and troubleshooting.</li>
+                        </ul>
+                    </div>
+                    <!-- Center (Dot) -->
+                    <div class="absolute -left-[41px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 rounded-full border-4 border-[#020617] bg-indigo-500 z-10 group-hover:scale-125 transition-transform"></div>
+                    <!-- Right (Date) -->
+                    <div class="md:w-5/12 md:text-left order-2 md:order-1">
+                        <h3 class="text-xl font-bold text-indigo-400">FPT Software</h3>
+                        <p class="text-sm font-mono text-slate-400">Dec 2023 - May 2024</p>
+                        <p class="text-lg font-semibold text-white mt-1">Fresher Cloud Engineer</p>
                     </div>
                 </div>
 
                 <!-- Job 3 -->
-                <div class="relative group gsap-fade">
-                    <div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-black border-2 border-gray-600 group-hover:border-brand-400 transition-colors"></div>
-                    <div class="glass-card p-6 rounded-lg">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h3 class="text-xl font-bold text-white">CMC Telecom</h3>
-                            <span class="font-mono text-xs text-gray-500">Feb 2023 - Aug 2023</span>
-                        </div>
-                        <div class="text-sm font-medium text-gray-400 mb-4">Fresher System Administrator</div>
-                        <p class="text-sm text-gray-300">
-                            Comprehensive training on Linux server deployment. Data center management and technical support ensuring continuous operations.
-                        </p>
+                <div class="relative md:flex items-center justify-between group">
+                    <!-- Left (Date) -->
+                    <div class="md:w-5/12 md:text-right order-1 mb-2 md:mb-0">
+                        <h3 class="text-xl font-bold text-teal-400">CMC Telecom</h3>
+                        <p class="text-sm font-mono text-slate-400">Feb 2023 - Aug 2023</p>
+                        <p class="text-lg font-semibold text-white mt-1">Fresher System Administrator</p>
                     </div>
+                    <!-- Center (Dot) -->
+                    <div class="absolute -left-[41px] md:left-1/2 md:-translate-x-1/2 w-5 h-5 rounded-full border-4 border-[#020617] bg-teal-500 z-10 group-hover:scale-125 transition-transform"></div>
+                    <!-- Right (Desc) -->
+                    <div class="md:w-5/12 order-2 glass p-6 rounded-xl hover:bg-white/10 transition-colors">
+                        <ul class="list-disc list-inside space-y-2 text-slate-300 text-sm marker:text-teal-500">
+                            <li>Comprehensive training on Linux server deployment and administration.</li>
+                            <li>Provided technical support and contributed to server management in Data Centers.</li>
+                            <li>Ensured continuous operations for customers.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section-padding bg-slate-900/50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center">Tech Stack & Skills</h2>
+            <p class="text-slate-400 text-center mb-12 max-w-2xl mx-auto">Technologies I use to build and operate large-scale systems.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Cloud & Container -->
+                <div class="glass p-6 rounded-xl hover:-translate-y-2 transition-transform duration-300 border-t-4 border-sky-500">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-cloud text-2xl text-sky-400"></i>
+                        <h3 class="text-xl font-bold">Cloud & DevOps</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">AWS (EC2, CloudWatch)</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">Bizfly Cloud</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">Docker</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">Kubernetes</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">GitLab CI</span>
+                    </div>
+                </div>
+
+                <!-- Systems & Automation -->
+                <div class="glass p-6 rounded-xl hover:-translate-y-2 transition-transform duration-300 border-t-4 border-indigo-500">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-server text-2xl text-indigo-400"></i>
+                        <h3 class="text-xl font-bold">Systems & Auto</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">Linux (Ubuntu/CentOS)</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">Ansible</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">Nginx/Apache</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">HAproxy</span>
+                    </div>
+                </div>
+
+                <!-- Coding & Monitoring -->
+                <div class="glass p-6 rounded-xl hover:-translate-y-2 transition-transform duration-300 border-t-4 border-emerald-500">
+                    <div class="flex items-center gap-3 mb-4">
+                        <i class="fa-solid fa-code text-2xl text-emerald-400"></i>
+                        <h3 class="text-xl font-bold">Code & Monitor</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Python/Go/Bash</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Victoria Metrics</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Grafana</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">MySQL/Redis</span>
+                        <span class="px-3 py-1 text-xs font-mono rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">RabbitMQ/Kafka</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Certs -->
+    <section class="section-padding">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+            <!-- Education -->
+            <div>
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap text-sky-400"></i> Education
+                </h3>
+                <div class="glass p-6 rounded-xl">
+                    <h4 class="text-xl font-bold">Hanoi Vocational College of Technology</h4>
+                    <p class="text-slate-400 mt-1">Bachelor of Network Administration</p>
+                    <p class="text-sm font-mono text-sky-400 mt-2">2020 - 2023 | GPA: 3.5/4</p>
                 </div>
             </div>
-        </section>
 
-        <!-- Tech Stack -->
-        <section class="mb-32">
-            <h2 class="text-2xl font-bold mb-8 flex items-center gap-3 gsap-fade">
-                <i class="fa-solid fa-microchip text-brand-400 text-sm"></i>
-                <span class="text-gradient">Technology Arsenal</span>
-            </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Column 1 -->
-                <div class="space-y-4 gsap-fade">
-                    <h4 class="font-mono text-xs text-gray-500 uppercase tracking-widest border-b border-white/10 pb-2">Core Infrastructure</h4>
-                    <div class="glass-card p-4 rounded flex items-center gap-3">
-                        <i class="fa-brands fa-docker text-blue-500 text-xl"></i>
-                        <span class="font-mono text-sm">Docker</span>
-                    </div>
-                    <div class="glass-card p-4 rounded flex items-center gap-3">
-                        <i class="fa-solid fa-dharmachakra text-blue-400 text-xl"></i>
-                        <span class="font-mono text-sm">Kubernetes</span>
-                    </div>
-                    <div class="glass-card p-4 rounded flex items-center gap-3">
-                        <i class="fa-brands fa-aws text-orange-400 text-xl"></i>
-                        <span class="font-mono text-sm">AWS</span>
-                    </div>
-                </div>
-
-                <!-- Column 2 -->
-                <div class="space-y-4 gsap-fade delay-100">
-                    <h4 class="font-mono text-xs text-gray-500 uppercase tracking-widest border-b border-white/10 pb-2">Automation & Code</h4>
-                    <div class="glass-card p-4 rounded flex items-center gap-3">
-                        <i class="fa-solid fa-robot text-red-500 text-xl"></i>
-                        <span class="font-mono text-sm">Ansible</span>
-                    </div>
-                    <div class="glass-card p-4 rounded flex items-center gap-3">
-                        <i class="fa-brands fa-gitlab text-orange-600 text-xl"></i>
-                        <span class="font-mono text-sm">GitLab CI</span>
-                    </div>
-                    <div class="glass-card p-4 rounded flex items-center gap-3">
-                        <i class="fa-brands fa-python text-yellow-300 text-xl"></i>
-                        <span class="font-mono text-sm">Python / Go</span>
-                    </div>
-                </div>
-
-                <!-- Column 3 -->
-                <div class="space-y-4 gsap-fade delay-200">
-                    <h4 class="font-mono text-xs text-gray-500 uppercase tracking-widest border-b border-white/10 pb-2">Observability</h4>
-                    <div class="glass-card p-4 rounded flex items-center gap-3">
-                        <i class="fa-solid fa-chart-line text-orange-500 text-xl"></i>
-                        <span class="font-mono text-sm">Grafana</span>
-                    </div>
-                    <div class="glass-card p-4 rounded flex items-center gap-3">
-                        <i class="fa-solid fa-fire text-red-400 text-xl"></i>
-                        <span class="font-mono text-sm">Prometheus / VM</span>
-                    </div>
-                    <div class="glass-card p-4 rounded flex items-center gap-3">
-                        <i class="fa-solid fa-magnifying-glass-chart text-green-500 text-xl"></i>
-                        <span class="font-mono text-sm">Splunk</span>
-                    </div>
+            <!-- Certs -->
+            <div>
+                <h3 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-certificate text-yellow-400"></i> Certifications
+                </h3>
+                <div class="glass p-6 rounded-xl border border-yellow-500/20 relative overflow-hidden group">
+                    <div class="absolute -right-6 -top-6 w-24 h-24 bg-yellow-500/10 rounded-full group-hover:bg-yellow-500/20 transition-colors"></div>
+                    <h4 class="text-xl font-bold">AWS Certified Solutions Architect</h4>
+                    <p class="text-slate-400 mt-1">Associate Level</p>
+                    <div class="mt-4 inline-block px-3 py-1 bg-yellow-500/10 text-yellow-500 text-xs font-bold rounded border border-yellow-500/20">VERIFIED</div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Footer / Contact -->
-        <footer id="contact" class="border-t border-white/10 pt-12 pb-6">
-            <div class="flex flex-col md:flex-row justify-between items-end gap-6">
-                <div>
-                    <h2 class="text-3xl font-bold text-white mb-2">Ready to deploy?</h2>
-                    <p class="text-gray-400 mb-6">Let's discuss architecture.</p>
-                    <a href="mailto:quan.bna@hotmail.com" class="text-brand-400 font-mono text-lg hover:text-brand-300 transition-colors flex items-center gap-2">
-                        quan.bna@hotmail.com <i class="fa-solid fa-arrow-right -rotate-45"></i>
-                    </a>
-                </div>
-                <div class="flex gap-4">
-                    <a href="https://linkedin.com/in/quanbna" class="text-gray-400 hover:text-white transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
-                </div>
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-sky-900/20 to-transparent pointer-events-none"></div>
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to collaborate?</h2>
+            <p class="text-slate-400 mb-10 text-lg">I'm always looking for new opportunities to apply my Cloud & DevOps skills to challenging projects.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-4 mb-12">
+                <a href="mailto:quan.bna@hotmail.com" class="group flex items-center justify-center gap-3 bg-white text-slate-900 px-8 py-4 rounded-xl font-bold text-lg hover:bg-sky-50 transition-colors">
+                    <i class="fa-solid fa-envelope group-hover:scale-110 transition-transform"></i>
+                    Send Email
+                </a>
+                <a href="tel:0915310297" class="group flex items-center justify-center gap-3 glass text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition-colors">
+                    <i class="fa-solid fa-phone group-hover:scale-110 transition-transform"></i>
+                    0915 310 297
+                </a>
             </div>
-            <div class="mt-12 text-center text-xs text-gray-700 font-mono">
-                <span class="text-green-500">●</span> SYSTEM_NORMAL // © 2025 BUI NGUYEN ANH QUAN
-            </div>
-        </footer>
 
-    </main>
+            <div class="flex justify-center gap-8 text-2xl text-slate-400">
+                <a href="https://linkedin.com/in/quanbna" class="hover:text-white hover:-translate-y-1 transition-all"><i class="fa-brands fa-linkedin"></i></a>
+                <!-- GitHub link removed -->
+                <a href="#" class="hover:text-white hover:-translate-y-1 transition-all"><i class="fa-solid fa-globe"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
+        <p>&copy; 2025 Bui Nguyen Anh Quan. All rights reserved.</p>
+        <p class="mt-2 text-xs">Built with HTML5 & Tailwind CSS</p>
+    </footer>
 
     <!-- Scripts -->
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
     <script>
-        // --- THREE.JS BACKGROUND ---
-        const canvas = document.getElementById('bg-canvas');
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-        // Particles
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = window.innerWidth < 768 ? 60 : 130; // Optimize for mobile
-        
-        const posArray = new Float32Array(particlesCount * 3);
-        const velArray = new Float32Array(particlesCount * 3); // Velocity
-
-        for(let i = 0; i < particlesCount * 3; i++) {
-            // Spread particles
-            posArray[i] = (Math.random() - 0.5) * 25; 
-            // Random velocity
-            velArray[i] = (Math.random() - 0.5) * 0.02; 
-        }
-
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-        const material = new THREE.PointsMaterial({
-            size: 0.05,
-            color: 0x38bdf8, // Tailwind Brand Blue
-            transparent: true,
-            opacity: 0.8,
-        });
-
-        const particlesMesh = new THREE.Points(particlesGeometry, material);
-        scene.add(particlesMesh);
-
-        // Lines Geometry (to be updated every frame)
-        const linesMaterial = new THREE.LineBasicMaterial({
-            color: 0x38bdf8,
-            transparent: true,
-            opacity: 0.15
-        });
-        const linesGeometry = new THREE.BufferGeometry();
-        const linesMesh = new THREE.LineSegments(linesGeometry, linesMaterial);
-        scene.add(linesMesh);
-
-        camera.position.z = 5;
-
-        // Mouse interaction
-        let mouseX = 0;
-        let mouseY = 0;
-        
-        document.addEventListener('mousemove', (event) => {
-            mouseX = event.clientX / window.innerWidth - 0.5;
-            mouseY = event.clientY / window.innerHeight - 0.5;
-        });
-
-        // Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-
-            const positions = particlesGeometry.attributes.position.array;
-            
-            // Move particles
-            for(let i = 0; i < particlesCount; i++) {
-                const i3 = i * 3;
-                
-                positions[i3] += velArray[i3];
-                positions[i3 + 1] += velArray[i3 + 1];
-                positions[i3 + 2] += velArray[i3 + 2];
-
-                // Boundary check (if out of bounds, wrap around)
-                if(positions[i3] > 12.5) positions[i3] = -12.5;
-                if(positions[i3] < -12.5) positions[i3] = 12.5;
-                if(positions[i3+1] > 12.5) positions[i3+1] = -12.5;
-                if(positions[i3+1] < -12.5) positions[i3+1] = 12.5;
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('bg-slate-900/80', 'backdrop-blur-md', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-slate-900/80', 'backdrop-blur-md', 'shadow-lg');
             }
-            particlesGeometry.attributes.position.needsUpdate = true;
+        });
 
-            // Connect particles
-            const linePositions = [];
-            const connectDistance = 3.5;
+        // Mobile Menu
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
 
-            for(let i = 0; i < particlesCount; i++) {
-                for(let j = i + 1; j < particlesCount; j++) {
-                    const dx = positions[i * 3] - positions[j * 3];
-                    const dy = positions[i * 3 + 1] - positions[j * 3 + 1];
-                    const dz = positions[i * 3 + 2] - positions[j * 3 + 2];
-                    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
 
-                    if(dist < connectDistance) {
-                        linePositions.push(
-                            positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2],
-                            positions[j * 3], positions[j * 3 + 1], positions[j * 3 + 2]
-                        );
-                    }
+        // Intersection Observer for animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                    entry.target.classList.remove('opacity-0');
+                    observer.unobserve(entry.target);
                 }
-            }
-            
-            linesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+            });
+        }, observerOptions);
 
-            // Gentle rotation based on mouse
-            scene.rotation.y += 0.001;
-            scene.rotation.x += 0.0005;
-            
-            // Mouse parallax
-            particlesMesh.rotation.y = mouseX * 0.2;
-            particlesMesh.rotation.x = mouseY * 0.2;
-            linesMesh.rotation.y = mouseX * 0.2;
-            linesMesh.rotation.x = mouseY * 0.2;
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // Resize handler
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+        document.querySelectorAll('section > div').forEach(section => {
+            section.classList.add('opacity-0'); // Initial state
+            observer.observe(section);
         });
-
-
-        // --- GSAP ANIMATIONS ---
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Hero Stagger
-        gsap.to(".gsap-hero", {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power3.out",
-            delay: 0.2
-        });
-
-        // Scroll Fade Ins
-        gsap.utils.toArray('.gsap-fade').forEach(element => {
-            gsap.fromTo(element, 
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: element,
-                        start: "top 85%",
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            );
-        });
-
     </script>
 </body>
 </html>
